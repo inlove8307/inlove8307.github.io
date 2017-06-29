@@ -12,12 +12,18 @@
   <![endif]-->
   <style>
     html,body{margin:0;padding:0;width:100%;height:100%}
-    h1{position:absolute;top:0;left:0;width:100%;height:100%;line-height:100%;text-align:center}
+    h1{text-align:center}
+    div{text-align:center}
+    button{padding:10px}
   </style>
 </head>
 
 <body onload="init()">
   <h1>SoundJS</h1>
+  <div>
+    <button type="button" onClick="handlePlay()">PLAY</button>
+    <button type="button" onClick="handleStop()">STOP</button>
+  </div>
 
   <script>
   function init() {
@@ -35,6 +41,14 @@
 
   function handleLoad(event) {
     createjs.Sound.play(event.src);
+  }
+
+  function handlePlay(event) {
+    createjs.Sound.play('BGM');
+  }
+
+  function handleStop(event) {
+    createjs.Sound.stop('BGM');
   }
   </script>
 </body>
