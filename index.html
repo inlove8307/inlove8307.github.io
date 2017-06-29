@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <title>SoundJS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--<link rel="stylesheet" href="css/styles.css?v=1.0">-->
-  <script src="https://code.createjs.com/soundjs-0.6.2.min.js"></script>
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <script src="lib/soundjs-0.6.2.min.js"></script>
   <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
   <![endif]-->
@@ -25,31 +25,6 @@
     <button type="button" onClick="handleStop()">STOP</button>
   </div>
 
-  <script>
-  function init() {
-    if (!createjs.Sound.initializeDefaultPlugins()) {return;}
-
-    var audioPath = "assets/audio/";
-    var sounds = [
-      {id:"BGM", src:"everyday_emart.mp3"}
-    ];
-
-    createjs.Sound.alternateExtensions = ["mp3"];
-    createjs.Sound.on("fileload", handleLoad);
-    createjs.Sound.registerSounds(sounds, audioPath);
-  }
-
-  function handleLoad(event) {
-    createjs.Sound.play(event.src);
-  }
-
-  function handlePlay(event) {
-    createjs.Sound.play('BGM');
-  }
-
-  function handleStop(event) {
-    createjs.Sound.stop('BGM');
-  }
-  </script>
+  <script src="js/script.js?v=1.0"></script>
 </body>
 </html>
