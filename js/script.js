@@ -26,7 +26,7 @@ this.myNameSpace = this.myNameSpace || {};
 
       if (!createjs.Sound.initializeDefaultPlugins()) {return;}
 
-      var audioPath = "../assets/audio/";
+      var audioPath = "assets/audio/";
       var sounds = [
         {id:"Music", src:"everyday_emart.mp3"}
       ];
