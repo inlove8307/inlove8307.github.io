@@ -12,7 +12,7 @@ function init() {
 }
 
 function handleLoad(event) {
-  createjs.Sound.play(event.src);
+  createjs.Sound.play(event.src, {delay: 0, loop: 0});
 }
 
 function handlePlay(event) {
