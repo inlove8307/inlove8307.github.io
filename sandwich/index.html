@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <!-- infomation -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, user-scalable=no">
+        <title>이벤트</title>
+
+        <!-- import stylesheet -->
+        <link rel="stylesheet" href="css/styles.css" type="text/css">
+
+        <!-- import library -->
+        <script type="text/javascript" src="lib/jquery.min.js"></script>
+        <script src="https://code.createjs.com/soundjs-0.6.2.min.js"></script>
+        <script src="https://code.createjs.com/preloadjs-0.6.2.min.js"></script>
+    </head>
+    <body>
+
+<div class="game-wrap">
+    <img src="assets/images/bg_wrap.jpg">
+    <div class="game-inner">
+        <div class="timer-wrap">
+            <img src="assets/images/bg_timer.png">
+            <div class="timer-inner">
+                <span class="timer-bar">&nbsp;</span>
+                <span class="timer-ico">&nbsp;</span>
+            </div>
+        </div>
+        <span class="ctlr-close">
+            <button type="button" data-action="close">
+                <img src="assets/images/ico_close.png">
+            </button>
+        </span>
+        <div class="recipe-wrap">
+            <div class="recipe-inner">
+                <span class="recipe-title">
+                    <img src="assets/images/txt_recipe_v2.png">
+                </span>
+                <div class="recipe-list-wrap">
+                    <img src="assets/images/bg_recipe_v2.png">
+                    <div class="recipe-list"></div>
+                </div>
+                <span class="score-title">
+                    <img src="assets/images/txt_score.png">
+                </span>
+                <span class="score-text">0</span>
+            </div>
+        </div>
+        <div class="stack-wait"></div>
+        <div class="stack-next"></div>
+        <div class="stack-wrap">
+            <div class="stack-inner">
+                <div class="stack-list"></div>
+            </div>
+        </div>
+        <div class="ctlr-wrap">
+            <img src="assets/images/bg_button.png">
+            <span class="ctlr-change">
+                <button type="button" data-action="change">
+                    <img src="assets/images/btn_change_01.png">
+                </button>
+            </span>
+            <span class="ctlr-insert">
+                <button type="button" data-action="insert">
+                    <img src="assets/images/btn_insert_01.png">
+                </button>
+            </span>
+        </div>
+        <div class="layer-wrap">
+            <div class="layer-inner">
+                <div class="layer-loading">
+                    <span class="layer-logo">
+                        <img src="assets/images/ico_logo.gif">
+                    </span>
+                </div>
+                <div class="layer-start">
+                    <span class="ctlr-start">
+                        <button type="button" data-action="start">
+                            <img src="assets/images/btn_start.png">
+                        </button>
+                        <span class="layer-text"></span>
+                    </span>
+                </div>
+                <div class="layer-error">
+                    <p class="layer-title">
+                        <img src="assets/images/img_error.png">
+                    </p>
+                </div>
+                <div class="layer-result">
+                    <p class="layer-title">
+                        <img src="assets/images/img_result.png">
+                    </p>
+                    <p class="layer-message">0</p>
+                    <span class="ctlr-confirm">
+                        <button type="button" data-action="confirm">
+                            <img src="assets/images/btn_result.png">
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!-- import script -->
+        <script type="text/javascript" src="js/script.js"></script>
+    </body>
+</html>
