@@ -1,30 +1,34 @@
 (function() {
   // the application
-  var MyApp = function() {
-    this.init();
-  }
+  var SountJS = function() {
+    this.src = null;
+    this.soundInstance = null;
+    this.loadProxy = null;
+  };
 
-  MyApp.prototype = {
+  SountJS.prototype = {
     init: function() {
-      console.log('mayapp init');
+      console.log('init()');
       if (!createjs.Sound.initializeDefaultPlugins()) {return;}
 
-      var audioPath = "assets/audio/";
-      var sounds = [
-        {id:"Music", src:"everyday_emart.mp3"}
-      ];
+      var assetsPath = "assets/audio/";
+      this.src = assetsPath + 'everyday_emart.mp3';
 
+      this.loadProxy = createjs.proxy(this.handleLoad, this);
       createjs.Sound.alternateExtensions = ["mp3"];
-      var loadProxy = createjs.proxy(this.handleLoad, this);
-      createjs.Sound.addEventListener("fileload", loadProxy);
-      createjs.Sound.registerSounds(sounds, audioPath);
+      createjs.Sound.addEventListener("fileload", this.loadProxy);
+      createjs.Sound.registerSound(this.src);
+
+      return this;
     },
 
     handleLoad: function(event) {
-      console.log('handle load');
-      createjs.Sound.play(event.src);
+      console.log('handleLoad()');
+      this.soundInstance = createjs.Sound.play(event.src, {loop: 999});
+      createjs.Sound.removeEventListener("fileload", this.loadProxy);
     }
   };
 
-  var sound = new MyApp();
+  var sound = new SountJS();
+  sound.init();  
 }());
