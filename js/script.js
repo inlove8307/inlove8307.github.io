@@ -1,34 +1,16 @@
 (function() {
-  // the application
-  var SountJS = function() {
-    this.src = null;
-    this.soundInstance = null;
-    this.loadProxy = null;
-  };
-
-  SountJS.prototype = {
-    init: function() {
-      console.log('init()');
-      if (!createjs.Sound.initializeDefaultPlugins()) {return;}
-
-      var assetsPath = "assets/audio/";
-      this.src = assetsPath + 'everyday_emart.mp3';
-
-      this.loadProxy = createjs.proxy(this.handleLoad, this);
-      createjs.Sound.alternateExtensions = ["mp3"];
-      createjs.Sound.addEventListener("fileload", this.loadProxy);
-      createjs.Sound.registerSound(this.src);
-
-      return this;
-    },
-
-    handleLoad: function(event) {
-      console.log('handleLoad()');
-      this.soundInstance = createjs.Sound.play(event.src, {loop: 999});
-      createjs.Sound.removeEventListener("fileload", this.loadProxy);
-    }
-  };
-
-  var sound = new SountJS();
-  sound.init();  
+  var queue = new createjs.LoadQueue();
+  createjs.Sound.alternateExtensions = ['mp3'];
+  queue.installPlugin(createjs.Sound);
+  queue.addEventListener('fileload', handleFileLoad);
+  queue.addEventListener('complete', handleComplete);
+  queue.loadManifest([
+    {id: 'BGM', src: 'assets/audio/everyday_emart.mp3'}
+  ]);
+  function handleFileLoad(event){
+    createjs.Sound.play(event.item.id, {loop: 999});
+  }
+  function handleComplete(){
+    console.log('handleComplete');
+  }
 }());
