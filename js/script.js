@@ -1,29 +1,12 @@
-var display;
-
-function init() {
-  display = document.getElementById("status");
-  display.addEventListener("click", handleClick, false);
-  display.innerHTML = "Touch to Start";
-}
-
-function handleClick(event) {
-  display.removeEventListener("click", handleClick, false);
-  var myApp = new myNameSpace.MyApp();
-}
-
-this.myNameSpace = this.myNameSpace || {};
 (function() {
   // the application
-  function MyApp() {
+  var MyApp = function() {
     this.init();
   }
 
   MyApp.prototype = {
-    displayMessage:null,
-
     init: function() {
-      this.displayMessage = document.getElementById("status");
-
+      console.log('mayapp init');
       if (!createjs.Sound.initializeDefaultPlugins()) {return;}
 
       var audioPath = "assets/audio/";
@@ -31,7 +14,6 @@ this.myNameSpace = this.myNameSpace || {};
         {id:"Music", src:"everyday_emart.mp3"}
       ];
 
-      this.displayMessage.innerHTML = "loading audio";
       createjs.Sound.alternateExtensions = ["mp3"];
       var loadProxy = createjs.proxy(this.handleLoad, this);
       createjs.Sound.addEventListener("fileload", loadProxy);
@@ -39,10 +21,10 @@ this.myNameSpace = this.myNameSpace || {};
     },
 
     handleLoad: function(event) {
+      console.log('handle load');
       createjs.Sound.play(event.src);
-      this.displayMessage.innerHTML = "Playing " + event.src;
     }
   };
 
-  myNameSpace.MyApp = MyApp;
+  var sound = new MyApp();
 }());
