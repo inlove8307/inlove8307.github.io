@@ -28,8 +28,7 @@ this.myNameSpace = this.myNameSpace || {};
 
       var audioPath = "../assets/audio/";
       var sounds = [
-        {id:"Music", src:"M-GameBG.ogg"},
-        {id:"Thunder", src:"Thunder1.ogg"}
+        {id:"Music", src:"everyday_emart.mp3"}
       ];
 
       this.displayMessage.innerHTML = "loading audio";
