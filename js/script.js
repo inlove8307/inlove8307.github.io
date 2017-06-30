@@ -8,7 +8,7 @@
     {id: 'BGM', src: 'assets/audio/everyday_emart.mp3'}
   ]);
   function handleFileLoad(event){
-    createjs.Sound.play(event.item.id, {loop: 999});
+    //createjs.Sound.play(event.item.id, {loop: 999});
   }
   function handleComplete(){
     console.log('handleComplete');
