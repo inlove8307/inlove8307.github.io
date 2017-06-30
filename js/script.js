@@ -1,18 +1,38 @@
+var display;
+
+function init() {
+  display = document.getElementById("status");
+  display.addEventListener("click", handleClick, false);
+  display.innerHTML = "Touch to Start";
+}
+
+function handleClick(event) {
+  display.removeEventListener("click", handleClick, false);
+  var myApp = new myNameSpace.MyApp();
+}
+
+this.myNameSpace = this.myNameSpace || {};
 (function() {
-// the application
+  // the application
   function MyApp() {
     this.init();
   }
 
   MyApp.prototype = {
+    displayMessage:null,
+
     init: function() {
+      this.displayMessage = document.getElementById("status");
+
       if (!createjs.Sound.initializeDefaultPlugins()) {return;}
 
-      var audioPath = "assets/audio/";
+      var audioPath = "../assets/audio/";
       var sounds = [
-        {id:"Music", src:"everyday_emart.mp3"},
+        {id:"Music", src:"M-GameBG.ogg"},
+        {id:"Thunder", src:"Thunder1.ogg"}
       ];
 
+      this.displayMessage.innerHTML = "loading audio";
       createjs.Sound.alternateExtensions = ["mp3"];
       var loadProxy = createjs.proxy(this.handleLoad, this);
       createjs.Sound.addEventListener("fileload", loadProxy);
@@ -20,9 +40,10 @@
     },
 
     handleLoad: function(event) {
-      createjs.Sound.play(event.src, {loop: 999});
+      createjs.Sound.play(event.src);
+      this.displayMessage.innerHTML = "Playing " + event.src;
     }
   };
 
-  var bgm = new MyApp();
+  myNameSpace.MyApp = MyApp;
 }());
