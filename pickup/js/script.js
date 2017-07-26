@@ -683,6 +683,16 @@ this.Game = this.Game || {};
 
     var play = new Game.Play('C03');
 
+    var console = (function(oldCons){
+        return {
+            log: function(text){
+                oldCons.log(text);
+                var el = document.getElementsByClassName('game-message')[0];
+                el.innerHTML += '<p>' + text + '</p>';
+            }
+        }
+    }(window.console));
+
     // $('.game-loop').on('touchstart', play.loop);
     // $('.game-stop').on('touchstart', play.stop);
 
