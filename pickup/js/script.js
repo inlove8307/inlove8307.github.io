@@ -693,6 +693,8 @@ this.Game = this.Game || {};
         }
     }(window.console));
 
+    window.console = console;
+
     // $('.game-loop').on('touchstart', play.loop);
     // $('.game-stop').on('touchstart', play.stop);
 
