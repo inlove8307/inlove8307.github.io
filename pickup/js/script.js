@@ -74,21 +74,32 @@ this.Game = this.Game || {};
     "use strict";
 
     // CONSTRUCTOR
-    var Score = function(){
-        this.init();
+    var Score = function(score){
+        this.init(score);
     };
 
     // PROTOTYPE
     var p = Score.prototype;
 
     // PROPERTIES
+    p.score;
 
     // FUNCTIONS
-    p.init = function(){};
-    p.setScore = function(){};
-    p.getScore = function(){};
-    p.addScore = function(){};
-    p.delScore = function(){};
+    p.init = function(score){
+        this.score = score;
+    };
+    p.setScore = function(score){
+        this.score = score;
+    };
+    p.getScore = function(){
+        return this.score;
+    };
+    p.addScore = function(score){
+        this.score += score;
+    };
+    p.delScore = function(score){
+        this.score -= score;
+    };
 
     Game.Score = Score;
 })(window, document, jQuery);
@@ -250,6 +261,8 @@ this.Game = this.Game || {};
     p.handlerCanplaythrough = function(event){
         // Fires when the browser can play through the audio/video without stopping for buffering
         console.log('event : handlerCanplaythrough');
+
+        if (this.target.autoplay) this.target.play();
     };
     p.handlerDurationchange = function(event){
         // Fires when the duration of the audio/video is changed
@@ -272,8 +285,6 @@ this.Game = this.Game || {};
         console.log('event : handlerLoadeddata');
 
         this.loaded = true;
-
-        if (this.target.autoplay) this.target.play();
     };
     p.handlerLoadedmetadata = function(event){
         // Fires when the browser has loaded meta data for the audio/video
@@ -358,41 +369,33 @@ this.Game = this.Game || {};
         'src': 'https://emartapp.emart.com/upload/regs/sound/everyday_emart.mp3',
         'type': 'audio/mpeg',
         'range': { 'start': 50, 'end': 55 },
-        'props': { 'autoplay': true, 'loop': true }
+        'props': { 'loop': true }
     });
 
-    var elBody = document.getElementsByTagName('body'),
+    var elConsole = document.getElementsByClassName('game-console-button-wrap')[0],
     elButtonOnPlay = document.createElement('button'),
-    elButtonOnPause = document.createElement('button'),
-    elButtonOnStop = document.createElement('button');
+    elButtonOnPause = document.createElement('button');
 
     elButtonOnPlay.innerText = 'PLAY';
     elButtonOnPlay.setAttribute('type', 'button');
+    elButtonOnPlay.setAttribute('class', 'game-audio-play');
     elButtonOnPlay.addEventListener('touchstart', function(event){
         console.log('event : touchstart', event.target);
 
         audio.play();
     });
 
-    elButtonOnPause.innerText = 'PAUSE';
+    elButtonOnPause.innerText = 'STOP';
     elButtonOnPause.setAttribute('type', 'button');
+    elButtonOnPause.setAttribute('class', 'game-audio-pause');
     elButtonOnPause.addEventListener('touchstart', function(event){
         console.log('event : touchstart', event.target);
 
         audio.pause();
     });
 
-    elButtonOnStop.innerText = 'STOP';
-    elButtonOnStop.setAttribute('type', 'button');
-    elButtonOnStop.addEventListener('touchstart', function(event){
-        console.log('event : touchstart', event.target);
-
-        audio.stop();
-    });
-
-    elBody[0].appendChild(elButtonOnPlay);
-    elBody[0].appendChild(elButtonOnPause);
-    elBody[0].appendChild(elButtonOnStop);
+    elConsole.appendChild(elButtonOnPause);
+    elConsole.appendChild(elButtonOnPlay);
 })(window, document, jQuery);
 
 // CLASS ITEM
@@ -513,25 +516,41 @@ this.Game = this.Game || {};
     "use strict";
 
     // CONSTRUCTOR
-    var Play = function(code){
-        this.init(code);
+    var Play = function(config){
+        this.init(config);
     };
 
     // PROTOTYPE
     var p = Play.prototype;
 
     // PROPERTIES
+    p.config = null;
     p.item = null;
-    p.code = 'C00';
-    p.clone = 3;
-    p.ratio = 0.5;
-    p.percent = 80;
+    p.score = null;
+    p.sound = null;
+    p.effect = null;
 
     // FUNCTIONS
-    p.init = function(code){
-        this.code = code;
-        this.item = new Game.Item(this.code, this.clone);
+    p.init = function(config){
+        this.config = config;
+
+        this.item = new Game.Item(this.config.code, this.config.clone);
         this.createItem(this.item.getItems());
+
+        this.score = new Game.Score(this.config.score);
+        this.createScore(this.score.getScore());
+
+        this.sound = new Game.Audio({
+            'src': 'https://emartapp.emart.com/upload/regs/sound/everyday_emart.mp3',
+            'type': 'audio/mpeg',
+            'props': { 'loop': true }
+        });
+        this.effect = new Game.Audio({
+            'src': 'https://emartapp.emart.com/upload/regs/sound/everyday_emart.mp3',
+            'type': 'audio/mpeg',
+            'range': { 'start': 50, 'end': 50.5 }
+        });
+
         this.addEventListener();
     };
     p.createItem = function(items){
@@ -551,6 +570,9 @@ this.Game = this.Game || {};
             });
             $elList.append($elItem);
         }
+    };
+    p.createScore = function(score){
+
     };
     p.eventHandlerStart = function(evnet){
         if (this.item.count > 1) {
@@ -578,7 +600,7 @@ this.Game = this.Game || {};
 
         items.animate({ 'left': '-=' + items.outerWidth() }, {
             'easing': 'linear',
-            'duration': 500,
+            'duration': me.config.speed,
             'complete': function(){
                 if (this === items[0]) {
                     last = first;
@@ -614,9 +636,9 @@ this.Game = this.Game || {};
                     }
                 });
 
-                if (!check.success) return;
+                //if (!check.success) return;
 
-                console.log(check);
+                console.log(check.success, check.code, check.match);
             }
         });
     };
@@ -626,7 +648,7 @@ this.Game = this.Game || {};
         result = {};
         result.success = false;
 
-        ratio = this.ratio;
+        ratio = this.config.ratio;
 
         pick = $elPick.offset();
         pick.right = pick.left + $elPick.outerWidth();
@@ -660,11 +682,11 @@ this.Game = this.Game || {};
         });
 
         if (result.code && result.code.split(0, 1)[0] === 'L') {
-            result.success = result.match >= this.percent;
+            result.success = result.match >= this.config.range;
         }
 
         if (result.code && result.code.split(0, 1)[0] === 'C') {
-            result.success = result.code === this.code && result.match >= this.percent;
+            result.success = result.code === this.config.code && result.match >= this.config.range;
         }
 
         return result;
@@ -681,115 +703,77 @@ this.Game = this.Game || {};
 (function(window, document, $, undefined){
     "use strict";
 
-    var play = new Game.Play('C03');
+    var play = new Game.Play({
+        'code': 'C03', // 선택 캐릭터
+        'clone': 3, // 선택 캐릭터 중복 출현 빈도
+        'speed': 300, // 캐릭터 슬라이드 속도
+        'ratio': 0.5, // 캐릭터 영역 내부 체크 비율 (0.0 ~ 1.0)
+        'range': 80, // 픽업 시 성공 영역 비율 (0~100)
+        'logo': 3, // 로고 출현 카운트
+        'score': 0 // 누적 점수
+    });
 
-    var console = (function(oldCons){
+    var counter = 0;
+
+    var console = (function(oldConsole){
+        var elConsole, elMessage, elButton;
+
+        elConsole = document.getElementsByClassName('game-console-message')[0];
+        elButton = document.getElementsByClassName('game-console-button')[0];
+
         return {
             log: function(text){
-                oldCons.log(text);
-                var el = document.getElementsByClassName('game-message')[0];
-                el.innerHTML += '<p>' + text + '</p>';
+                oldConsole.log(text);
+
+                elMessage = document.createElement('p');
+                elMessage.setAttribute('class', 'log');
+                elMessage.innerText = text;
+                elConsole.appendChild(elMessage);
+                elConsole.scrollTop = elConsole.scrollHeight;
+                elButton.innerText = 'CONSOLE [' + (counter++) + ']';
+            },
+            info: function(text){
+                oldConsole.info(text);
+
+                elMessage = document.createElement('p');
+                elMessage.setAttribute('class', 'info');
+                elMessage.innerText = text;
+                elConsole.appendChild(elMessage);
+                elConsole.scrollTop = elConsole.scrollHeight;
+            },
+            warn: function(text){
+                oldConsole.warn(text);
+
+                elMessage = document.createElement('p');
+                elMessage.setAttribute('class', 'warn');
+                elMessage.innerText = text;
+                elConsole.appendChild(elMessage);
+                elConsole.scrollTop = elConsole.scrollHeight;
+            },
+            error: function(text){
+                oldConsole.error(text);
+
+                elMessage = document.createElement('p');
+                elMessage.setAttribute('class', 'error');
+                elMessage.innerText = text;
+                elConsole.appendChild(elMessage);
+                elConsole.scrollTop = elConsole.scrollHeight;
             }
-        }
+        };
     }(window.console));
 
     window.console = console;
 
-    // $('.game-loop').on('touchstart', play.loop);
-    // $('.game-stop').on('touchstart', play.stop);
+    document.getElementsByClassName('game-console-button')[0].addEventListener('touchstart', function(event){
+        var elConsole = document.getElementsByClassName('game-console-message')[0];
 
-    // $('.game-wrap').on('touchstart', 'button', function(event){
-    //     var me = this;
-    //     var type = $(this).data('action');
-    //     var list = $('.game-list');
-    //     var items = list.children();
-    //     var pick = $('.game-pick');
-    //     var temp = parseInt(pick.css('top'));
-    //     var offset = {};
+        if (!elConsole.style.display || elConsole.style.display === 'none') {
+            elConsole.style.display = 'block';
+        }
+        else {
+            elConsole.style.display = 'none';
+        }
 
-
-    //     if (type === 'play') {
-    //         function loop($list, $first, $last){
-    //             var list, items, first, last, temp;
-
-    //             list = $list;
-    //             items = list.children();
-    //             first = $first || items.first();
-    //             last = $last || items.last();
-    //             temp = parseInt(last.css('left'));
-
-    //             items.animate({ 'left': '-=' + items.outerWidth() }, {
-    //                 'easing': 'linear',
-    //                 'duration': 500,
-    //                 'complete': function(){
-    //                     if (this === items[0]) {
-    //                         last = first;
-    //                         first = first.next();
-
-    //                         list.append(last);
-    //                         last.css('left', temp);
-
-    //                         loop($(this).parent(), first, last);
-    //                     };
-    //                 }
-    //             });
-    //         };
-
-    //         loop(list);
-
-    //         $(this).hide().siblings().show();
-    //     }
-
-    //     if (type === 'stop') {
-    //         items.stop(true);
-
-    //         if (pick.is(':animated')) return;
-
-    //         pick.animate({ 'top': 50 }, {
-    //             'easing': 'linear',
-    //             'duration': 500,
-    //             'complete': function(){
-    //                 $(this).prepend($(this).children().last());
-    //                 $(this).animate({ 'top': temp }, {
-    //                     'easing': 'linear',
-    //                     'duration': 500,
-    //                     'complete': function(){
-    //                         $(me).hide().siblings().show();
-    //                     }
-    //                 });
-    //             }
-    //         });
-
-    //         $.each(items, function(){
-    //             var index = $(this).data('index');
-    //             var temp = {};
-    //             var percent = 0.5;
-    //             var width = $(this).outerWidth();
-    //             var widthPercent = width * percent;
-    //             var addWidth = widthPercent / 2;
-
-    //             temp.left = pick.offset().left;
-    //             temp.right = temp.left + pick.outerWidth();
-
-    //             offset[index] = $(this).offset();
-    //             offset[index].right = offset[index].left + width;
-
-    //             if (temp.left > offset[index].left && temp.right < offset[index].right) {
-    //                 if (temp.left < offset[index].left + addWidth) {
-    //                     console.log((temp.right - (offset[index].left + addWidth)) / widthPercent * 100 + '%');
-    //                 }
-
-    //                 if (temp.left > offset[index].left + addWidth) {
-    //                     console.log(((offset[index].right - addWidth) - temp.left) / widthPercent * 100 + '%');
-    //                 }
-
-    //                 if (temp.left == offset[index].left + addWidth) {
-    //                     console.log('are you crazy??');
-    //                 }
-    //             };
-    //         });
-    //     }
-
-    //     event.preventDefault();
-    // });
+        elConsole.scrollTop = elConsole.scrollHeight;
+    });
 })(window, document, jQuery);

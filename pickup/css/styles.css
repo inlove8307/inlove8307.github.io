@@ -101,6 +101,7 @@ form {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
 .game-button{
     position:relative;
     text-align:center;
+    height:40px;
 }
 .game-start{
     position:absolute;
@@ -125,12 +126,78 @@ form {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
     background-color:#EEE;
     font-weight:bold;
 }
-
-.game-message{
-    height:300px;
-    overflow-y:scroll;
+/* CONSOLE */
+.game-console{
+    position:fixed;
+    left:0;
+    bottom:0;
+    width:100%;
+    border-top:1px solid #999;
+    background-color:#AAA;
 }
-.game-message p {
+.game-console-button-wrap{
+    overflow:hidden;
+}
+.game-console-button{
+    float:left;
     margin:0;
-    padding:0;
+    padding:3px 10px;
+    border:1px solid #333;
+    border-top-left-radius:3px;
+    border-top-right-radius:3px;
+    background-color:#444;
+    vertical-align:top;
+    font-weight:bold;
+    color:#CCC;
+}
+.game-console-message{
+    display:none;
+    overflow-x:hidden;
+    overflow-y:scroll;
+    height:200px;
+    border-top:1px solid #333;
+    background-color:#444;
+}
+.game-console-message p{
+    margin:0;
+    padding:3px;
+    border-top:1px solid #333;
+    font-size:12px;
+    line-height:14px;
+    color:#FFF;
+}
+.game-console-message p:first-child{border-top:0;}
+.game-console-message .log{}
+.game-console-message .info{}
+.game-console-message .warn{}
+.game-console-message .error{}
+.game-audio-play{
+    float:right;
+    top:0;
+    left:0;
+    margin:0 1px 0 0;
+    padding:3px;
+    border-top:1px solid #666;
+    border-right:1px solid #FFF;
+    border-bottom:0;
+    border-left:1px solid #666;
+    border-radius:3px;
+    background-color:#FFF;
+    vertical-align:top;
+    color:#444;
+}
+.game-audio-pause{
+    float:right;
+    top:0;
+    left:0;
+    margin:0 1px 0 0;
+    padding:3px;
+    border-top:1px solid #666;
+    border-right:1px solid #FFF;
+    border-bottom:0;
+    border-left:1px solid #666;
+    border-radius:3px;
+    background-color:#FFF;
+    vertical-align:top;
+    color:#444;
 }
