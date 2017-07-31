@@ -713,10 +713,8 @@ this.Game = this.Game || {};
         'score': 0 // 누적 점수
     });
 
-    var counter = 0;
-
     var console = (function(oldConsole){
-        var elConsole, elMessage, elButton;
+        var elConsole, elMessage, elButton, counter = 0;
 
         elConsole = document.getElementsByClassName('game-console-message')[0];
         elButton = document.getElementsByClassName('game-console-button')[0];
@@ -764,16 +762,47 @@ this.Game = this.Game || {};
 
     window.console = console;
 
-    document.getElementsByClassName('game-console-button')[0].addEventListener('touchstart', function(event){
-        var elConsole = document.getElementsByClassName('game-console-message')[0];
+    document.getElementsByClassName('game-console')[0].addEventListener('touchstart', function(event){
+        var elOutput, elConsole, elElement;
 
-        if (!elConsole.style.display || elConsole.style.display === 'none') {
-            elConsole.style.display = 'block';
-        }
-        else {
-            elConsole.style.display = 'none';
-        }
+        elOutput = document.getElementsByClassName('game-console-output')[0];
+        elConsole = document.getElementsByClassName('game-console-message')[0];
+        elElement = document.getElementsByClassName('game-console-element')[0];
 
-        elConsole.scrollTop = elConsole.scrollHeight;
+        switch(event.target.getAttribute('data-type')){
+            case 'console':
+                elConsole.style.display = 'block';
+                elElement.style.display = 'none';
+                break;
+            case 'element':
+                elConsole.style.display = 'none';
+                elElement.style.display = 'block';
+                elElement.innerHTML = '';
+                elElement.innerHTML = '<pre>' + ('<html>\n' + document.getElementsByTagName('html')[0].innerHTML + '\n</html>').replace(/[<]/g, '&lt;') + '</pre>';
+                break;
+            case 'hide':
+                elOutput.style.display = 'block';
+                event.target.setAttribute('data-type', 'show');
+                event.target.innerText = '▼';
+                break;
+            case 'show':
+                elOutput.style.display = 'none';
+                event.target.setAttribute('data-type', 'hide');
+                event.target.innerText = '▲';
+            break;
+            default: break;
+        }
     });
+    // document.getElementsByClassName('game-console-button')[0].addEventListener('touchstart', function(event){
+    //     var elConsole = document.getElementsByClassName('game-console-message')[0];
+
+    //     if (!elConsole.style.display || elConsole.style.display === 'none') {
+    //         elConsole.style.display = 'block';
+    //     }
+    //     else {
+    //         elConsole.style.display = 'none';
+    //     }
+
+    //     elConsole.scrollTop = elConsole.scrollHeight;
+    // });
 })(window, document, jQuery);
