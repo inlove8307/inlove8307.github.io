@@ -783,12 +783,12 @@ this.Game = this.Game || {};
             case 'hide':
                 elOutput.style.display = 'block';
                 event.target.setAttribute('data-type', 'show');
-                event.target.innerText = '▼';
+                event.target.innerText = 'HIDE';
                 break;
             case 'show':
                 elOutput.style.display = 'none';
                 event.target.setAttribute('data-type', 'hide');
-                event.target.innerText = '▲';
+                event.target.innerText = 'SHOW';
             break;
             default: break;
         }
