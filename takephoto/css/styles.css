@@ -1,4 +1,5 @@
 html,body{
+    overflow:hidden;
     margin:0;
     padding:0;
     height:100%;
@@ -9,7 +10,21 @@ html,body{
 form {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
 .new_gnb_navi{display:none;}
 */
-
+.game-load{
+    overflow:hidden;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:#FFF;
+    z-index:9999;
+}
+.game-load-inner {
+    position:absolute;
+    top:30%;
+    left:25%;
+}
 .game-wrap{
     overflow:hidden;
 }

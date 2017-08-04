@@ -15,6 +15,7 @@ this.Game = this.Game || {};
 
     // DATA
     p.data = {
+        'game-load-inner': {'width': 400, 'height': 400 },
         'game-inner': { 'width': 800, 'height': 1265 },
         'game-list': { 'width': 4500, 'height': 296, 'top': 176, 'left': 0 },
         'game-item-popcorn-muzi': { 'width': 250, 'height': 300 },
@@ -396,18 +397,18 @@ this.Game = this.Game || {};
 
         if (check.indexOf(code) < 0) return result;
 
-        result.message = '[실패] 이전에 카메라에 담은 캐릭터 또는 로고 입니다';
+        result.message = '[실패] 이미 카메라에 담은 캐릭터 또는 로고 입니다';
 
         if (this.config.success.indexOf(code) >= 0) return result;
 
-        result.message = '[성공] 어쭈?';
         result.success = true;
+        result.message = '[성공] 어쭈?';
 
         this.config.success.push(code);
 
         return result;
     };
-    p.eventHandlerPlay = function(evnet){
+    p.eventHandlerPlay = function(event){
         if (this.dev) {
             this.createItem(this.item.getItems());
             this.createStatus(this.item.getStatus(this.config.code));
@@ -424,9 +425,15 @@ this.Game = this.Game || {};
 
         if (this.dev) this.view.getItem('game-button-play').style.display = 'inline-block';
     };
+    p.eventHandlerLoad = function(event){
+        document.getElementsByTagName('html')[0].style.overflow = 'auto';
+        document.getElementsByTagName('body')[0].style.overflow = 'auto';
+        document.getElementsByClassName('game-load')[0].style.display = 'none';
+    };
     p.addEventListener = function(){
         this.view.getItem('game-button-play').addEventListener('touchstart', this.eventHandlerPlay.bind(this));
         this.view.getItem('game-button-stop').addEventListener('touchstart', this.eventHandlerStop.bind(this));
+        window.addEventListener('load', this.eventHandlerLoad.bind(this));
     };
 
     Game.Play = Play;
