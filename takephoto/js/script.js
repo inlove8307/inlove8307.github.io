@@ -300,7 +300,7 @@ this.Game = this.Game || {};
     p.init = function(origin){
         this.setOrigin(origin);
         this.setRatio(origin);
-        this.addEventListener(window, 'resize', 'eventHandlerResize');
+        // this.addEventListener(window, 'resize', 'eventHandlerResize');
     };
     p.setOrigin = function(origin){
         this.origin = origin;
