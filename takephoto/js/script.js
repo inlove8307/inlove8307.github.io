@@ -426,8 +426,7 @@ this.Game = this.Game || {};
         if (this.dev) this.view.getItem('game-button-play').style.display = 'inline-block';
     };
     p.eventHandlerLoad = function(event){
-        document.getElementsByTagName('html')[0].style.overflow = 'auto';
-        document.getElementsByTagName('body')[0].style.overflow = 'auto';
+        document.getElementsByClassName('game-wrap')[0].style.display = 'block';
         document.getElementsByClassName('game-load')[0].style.display = 'none';
     };
     p.addEventListener = function(){
