@@ -426,8 +426,8 @@ this.Game = this.Game || {};
         if (this.dev) this.view.getItem('game-button-play').style.display = 'inline-block';
     };
     p.eventHandlerLoad = function(event){
-        document.getElementsByClassName('game-wrap')[0].style.display = 'block';
-        document.getElementsByClassName('game-load')[0].style.display = 'none';
+        $('.game-wrap').fadeIn();
+        $('.game-load').fadeOut();
     };
     p.addEventListener = function(){
         this.view.getItem('game-button-play').addEventListener('touchstart', this.eventHandlerPlay.bind(this));
