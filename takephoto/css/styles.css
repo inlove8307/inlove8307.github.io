@@ -25,7 +25,6 @@ form {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
 }
 .game-wrap{
     overflow:hidden;
-    display:none;
 }
 .game-wrap *{
     box-sizing: border-box;
