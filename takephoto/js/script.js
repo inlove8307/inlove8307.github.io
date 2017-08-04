@@ -260,6 +260,8 @@ this.Game = this.Game || {};
     p.view = null;
     p.item = null;
     p.effect = null;
+    p.loaded = false;
+    p.interval = null;
     p.dev = false;
 
     // FUNCTIONS
@@ -278,6 +280,8 @@ this.Game = this.Game || {};
         });
 
         this.addEventListener();
+
+        this.setInterval();
 
         this.dev = true;
     };
@@ -426,12 +430,21 @@ this.Game = this.Game || {};
         if (this.dev) this.view.getItem('game-button-play').style.display = 'inline-block';
     };
     p.eventHandlerLoad = function(event){
-        document.getElementsByClassName('game-load')[0].style.display = none;
-        window.removeEventListener('scroll', this.eventHandlerScroll);
+        this.loaded = true;
     };
     p.eventHandlerScroll = function(event){
         event.preventDefault();
         event.stopPropagation();
+    };
+    p.eventHandlerInterval = function(){
+        if (this.loaded) {
+            document.getElementsByClassName('game-load')[0].style.display = none;
+            window.removeEventListener('scroll', this.eventHandlerScroll);
+            clearInterval(this.interval);
+        }
+    };
+    p.setInterval = function(){
+        this.interval = setInterval(this.eventHandlerInterval.bind(this), 3000);
     };
     p.addEventListener = function(){
         this.view.getItem('game-button-play').addEventListener('touchstart', this.eventHandlerPlay.bind(this));
