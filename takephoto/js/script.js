@@ -244,7 +244,7 @@ this.Game = this.Game || {};
     // DATA
     p.data = {
         'game-inner': { 'width': 800, 'height': 1265 },
-        'game-list': { 'width': 0, 'height': 296, 'top': 176, 'left': 0 },
+        'game-list': { 'width': 4500, 'height': 296, 'top': 176, 'left': 0 },
         'game-item-popcorn-muzi': { 'width': 250, 'height': 300 },
         'game-item-popcorn-neo': { 'width': 250, 'height': 300 },
         'game-item-popcorn-frodo': { 'width': 250, 'height': 300 },
@@ -668,7 +668,7 @@ this.Game = this.Game || {};
     var play = new Game.Play({
         'status': false, // 이벤트 참여 여부 (set response data)
         'code': 'P03', // 선택 캐릭터 코드 (set response data)
-        'clone': 3, // 선택 캐릭터 중복 출현 빈도
+        'clone': 1, // 선택 캐릭터 중복 출현 빈도
         'speed': 250, // 캐릭터 슬라이드 속도
         'ratio': 0.3, // 캐릭터 영역 내부 체크 비율 (0.0 ~ 1.0)
         'success': [] // 성공한 아이템 코드 (set response data)
