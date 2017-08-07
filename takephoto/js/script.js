@@ -15,7 +15,6 @@ this.Game = this.Game || {};
 
     // DATA
     p.data = {
-        'game-load-inner': {'width': 400, 'height': 400 },
         'game-inner': { 'width': 800, 'height': 1265 },
         'game-list': { 'width': 4500, 'height': 296, 'top': 176, 'left': 0 },
         'game-item-popcorn-muzi': { 'width': 250, 'height': 300 },
@@ -61,7 +60,13 @@ this.Game = this.Game || {};
         'game-bubble-01': { 'width': 273, 'height': 97, 'top': 515, 'left': 267 },
         'game-bubble-02': { 'width': 209, 'height': 396, 'top': 869, 'left': 561 },
         'game-button-play': { 'width': 498, 'height': 188, 'top': 973, 'left': 151 },
-        'game-button-stop': { 'width': 498, 'height': 188, 'top': 973, 'left': 151 }
+        'game-button-stop': { 'width': 498, 'height': 188, 'top': 973, 'left': 151 },
+        'game-load': { 'width': 800, 'height': 2781, 'top': 0, 'left': 0 },
+        'game-load-logo': {'width': 400, 'height': 400, 'top': 400, 'left': 200 },
+        'game-layer': { 'width': 800, 'height': 2781, 'top': 0, 'left': 0 },
+        'game-layer-success': { 'width': 776, 'height': 514, 'top': 700, 'left': 12 },
+        'game-layer-fail': { 'width': 776, 'height': 514, 'top': 700, 'left': 12 },
+        'game-button-close': { 'width': 349, 'height': 90, 'top': 1002, 'left': 224 }
     };
 
     // PROPERTIES
@@ -257,11 +262,11 @@ this.Game = this.Game || {};
 
     // PROPERTIES
     p.config = null;
+    p.loaded = false;
+    p.interval = null;
     p.view = null;
     p.item = null;
     p.effect = null;
-    p.loaded = false;
-    p.interval = null;
     p.dev = false;
 
     // FUNCTIONS
@@ -280,8 +285,7 @@ this.Game = this.Game || {};
         });
 
         this.addEventListener();
-
-        // this.setInterval();
+        this.setInterval();
 
         this.dev = true;
     };
@@ -358,7 +362,13 @@ this.Game = this.Game || {};
         });
 
         if (isTake.success) {
+            this.view.getItem('game-layer').style.display = 'block';
+            this.view.getItem('game-layer-success').style.display = 'block';
             this.createStatus(this.item.getStatus(this.config.code));
+        }
+        else {
+            this.view.getItem('game-layer').style.display = 'block';
+            this.view.getItem('game-layer-fail').style.display = 'block';
         }
     };
     p.getSelectCode = function($list, $focus){
@@ -412,6 +422,9 @@ this.Game = this.Game || {};
 
         return result;
     };
+    p.setInterval = function(){
+        this.interval = setInterval(this.eventHandlerInterval.bind(this), 1000);
+    };
     p.eventHandlerPlay = function(event){
         if (this.dev) {
             this.createItem(this.item.getItems());
@@ -429,28 +442,25 @@ this.Game = this.Game || {};
 
         if (this.dev) this.view.getItem('game-button-play').style.display = 'inline-block';
     };
-    p.eventHandlerLoad = function(event){
-        this.loaded = true;
-    };
-    p.eventHandlerScroll = function(event){
-        event.preventDefault();
-        event.stopPropagation();
+    p.eventHandlerClose = function(){
+        this.view.getItem('game-layer').style.display = 'none';
+        this.view.getItem('game-layer-success').style.display = 'none';
+        this.view.getItem('game-layer-fail').style.display = 'none';
     };
     p.eventHandlerInterval = function(){
         if (this.loaded) {
-            document.getElementsByClassName('game-load')[0].style.display = none;
-            window.removeEventListener('scroll', this.eventHandlerScroll);
+            $(this.view.getItem('game-load')).fadeOut();
             clearInterval(this.interval);
         }
     };
-    p.setInterval = function(){
-        this.interval = setInterval(this.eventHandlerInterval.bind(this), 3000);
+    p.eventHandlerLoad = function(event){
+        this.loaded = true;
     };
     p.addEventListener = function(){
         this.view.getItem('game-button-play').addEventListener('touchstart', this.eventHandlerPlay.bind(this));
         this.view.getItem('game-button-stop').addEventListener('touchstart', this.eventHandlerStop.bind(this));
-        // window.addEventListener('load', this.eventHandlerLoad.bind(this));
-        // window.addEventListener('scroll', this.eventHandlerScroll.bind(this));
+        this.view.getItem('game-button-close').addEventListener('touchstart', this.eventHandlerClose.bind(this));
+        window.addEventListener('load', this.eventHandlerLoad.bind(this));
     };
 
     Game.Play = Play;
@@ -464,7 +474,7 @@ this.Game = this.Game || {};
         'status': false, // 이벤트 참여 여부 (set response data)
         'code': 'P03', // 선택 캐릭터 코드 (set response data)
         'clone': 1, // 선택 캐릭터 중복 출현 빈도
-        'speed': 250, // 캐릭터 슬라이드 속도
+        'speed': 300, // 캐릭터 슬라이드 속도
         'ratio': 0.3, // 캐릭터 영역 내부 체크 비율 (0.0 ~ 1.0)
         'success': [] // 성공한 아이템 코드 (set response data)
     });
