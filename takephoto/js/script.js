@@ -356,10 +356,12 @@ this.Game = this.Game || {};
         $list.stop(true);
 
         $effect.fadeIn(200, function(){
-            $(this).fadeOut(100, function(){
-                me.showLayerPopup($list, $focus);
-            });
+            $(this).fadeOut(100);
         });
+
+        setTimeout(function(){
+            me.showLayerPopup($list, $focus);
+        }, 1000);
     };
     p.showLayerPopup = function($list, $focus){
         var isSuccess;
