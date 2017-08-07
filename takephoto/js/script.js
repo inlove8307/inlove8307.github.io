@@ -361,7 +361,7 @@ this.Game = this.Game || {};
 
         setTimeout(function(){
             me.showLayerPopup($list, $focus);
-        }, 1000);
+        }, 500);
     };
     p.showLayerPopup = function($list, $focus){
         var isSuccess;
