@@ -351,17 +351,22 @@ this.Game = this.Game || {};
         });
     };
     p.animateTake = function($list, $effect, $focus){
-        var isTake;
-
-        isTake = this.checkSuccess(this.getSelectCode($list, $focus));
+        var me = this;
 
         $list.stop(true);
 
         $effect.fadeIn(200, function(){
-            $(this).fadeOut(100);
+            $(this).fadeOut(100, function(){
+                me.showLayerPopup($list, $focus);
+            });
         });
+    };
+    p.showLayerPopup = function($list, $focus){
+        var isSuccess;
 
-        if (isTake.success) {
+        isSuccess = this.checkSuccess(this.getSelectCode($list, $focus));
+
+        if (isSuccess) {
             this.view.getItem('game-layer').style.display = 'block';
             this.view.getItem('game-layer-success').style.display = 'block';
             this.createStatus(this.item.getStatus(this.config.code));
@@ -398,32 +403,23 @@ this.Game = this.Game || {};
         return result;
     };
     p.checkSuccess = function(code){
-        var result = {}, check;
+        var check;
 
         check = [this.config.code, 'L00', 'L01', 'L02'];
 
-        result.success = false;
-        result.message = '[실패] 초점이 맞지 않습니다';
-
-        if (!code) return result;
-
-        result.message = '[실패] 선택한 캐릭터가 아닙니다';
-
-        if (check.indexOf(code) < 0) return result;
-
-        result.message = '[실패] 이미 카메라에 담은 캐릭터 또는 로고 입니다';
-
-        if (this.config.success.indexOf(code) >= 0) return result;
-
-        result.success = true;
-        result.message = '[성공] 어쭈?';
+        // 초점이 맞지 않았을 경우
+        if (!code) return false;
+        // 선택한 캐릭터 또는 로고가 아닌 경우
+        if (check.indexOf(code) < 0) return false;
+        // 이미 성공한 캐릭터 또는 로고일 경우
+        if (this.config.success.indexOf(code) >= 0) return false;
 
         this.config.success.push(code);
 
-        return result;
+        return true;
     };
     p.setInterval = function(){
-        this.interval = setInterval(this.eventHandlerInterval.bind(this), 1000);
+        this.interval = setInterval(this.eventHandlerInterval.bind(this), 3000);
     };
     p.eventHandlerPlay = function(event){
         if (this.dev) {
@@ -479,85 +475,85 @@ this.Game = this.Game || {};
         'success': [] // 성공한 아이템 코드 (set response data)
     });
 
-    var console = (function(oldConsole){
-        var elConsole, elMessage, elButton, counter = 0;
+    // var console = (function(oldConsole){
+    //     var elConsole, elMessage, elButton, counter = 0;
 
-        elConsole = document.getElementsByClassName('game-console-message')[0];
-        elButton = document.getElementsByClassName('game-console-button')[0];
+    //     elConsole = document.getElementsByClassName('game-console-message')[0];
+    //     elButton = document.getElementsByClassName('game-console-button')[0];
 
-        return {
-            log: function(text){
-                oldConsole.log(text);
+    //     return {
+    //         log: function(text){
+    //             oldConsole.log(text);
 
-                elMessage = document.createElement('p');
-                elMessage.setAttribute('class', 'log');
-                elMessage.innerText = text;
-                elConsole.appendChild(elMessage);
-                elConsole.scrollTop = elConsole.scrollHeight;
-                elButton.innerText = 'CONSOLE [' + (counter++) + ']';
-            },
-            info: function(text){
-                oldConsole.info(text);
+    //             elMessage = document.createElement('p');
+    //             elMessage.setAttribute('class', 'log');
+    //             elMessage.innerText = text;
+    //             elConsole.appendChild(elMessage);
+    //             elConsole.scrollTop = elConsole.scrollHeight;
+    //             elButton.innerText = 'CONSOLE [' + (counter++) + ']';
+    //         },
+    //         info: function(text){
+    //             oldConsole.info(text);
 
-                elMessage = document.createElement('p');
-                elMessage.setAttribute('class', 'info');
-                elMessage.innerText = text;
-                elConsole.appendChild(elMessage);
-                elConsole.scrollTop = elConsole.scrollHeight;
-            },
-            warn: function(text){
-                oldConsole.warn(text);
+    //             elMessage = document.createElement('p');
+    //             elMessage.setAttribute('class', 'info');
+    //             elMessage.innerText = text;
+    //             elConsole.appendChild(elMessage);
+    //             elConsole.scrollTop = elConsole.scrollHeight;
+    //         },
+    //         warn: function(text){
+    //             oldConsole.warn(text);
 
-                elMessage = document.createElement('p');
-                elMessage.setAttribute('class', 'warn');
-                elMessage.innerText = text;
-                elConsole.appendChild(elMessage);
-                elConsole.scrollTop = elConsole.scrollHeight;
-            },
-            error: function(text){
-                oldConsole.error(text);
+    //             elMessage = document.createElement('p');
+    //             elMessage.setAttribute('class', 'warn');
+    //             elMessage.innerText = text;
+    //             elConsole.appendChild(elMessage);
+    //             elConsole.scrollTop = elConsole.scrollHeight;
+    //         },
+    //         error: function(text){
+    //             oldConsole.error(text);
 
-                elMessage = document.createElement('p');
-                elMessage.setAttribute('class', 'error');
-                elMessage.innerText = text;
-                elConsole.appendChild(elMessage);
-                elConsole.scrollTop = elConsole.scrollHeight;
-            }
-        };
-    }(window.console));
+    //             elMessage = document.createElement('p');
+    //             elMessage.setAttribute('class', 'error');
+    //             elMessage.innerText = text;
+    //             elConsole.appendChild(elMessage);
+    //             elConsole.scrollTop = elConsole.scrollHeight;
+    //         }
+    //     };
+    // }(window.console));
 
-    window.console = console;
+    // window.console = console;
 
-    document.getElementsByClassName('game-console')[0].addEventListener('touchstart', function(event){
-        var elOutput, elConsole, elElement;
+    // document.getElementsByClassName('game-console')[0].addEventListener('touchstart', function(event){
+    //     var elOutput, elConsole, elElement;
 
-        elOutput = document.getElementsByClassName('game-console-output')[0];
-        elConsole = document.getElementsByClassName('game-console-message')[0];
-        elElement = document.getElementsByClassName('game-console-element')[0];
+    //     elOutput = document.getElementsByClassName('game-console-output')[0];
+    //     elConsole = document.getElementsByClassName('game-console-message')[0];
+    //     elElement = document.getElementsByClassName('game-console-element')[0];
 
-        switch(event.target.getAttribute('data-type')){
-            case 'console':
-                elConsole.scrollTop = elConsole.scrollHeight;
-                elConsole.style.display = 'block';
-                elElement.style.display = 'none';
-                break;
-            case 'element':
-                elConsole.style.display = 'none';
-                elElement.style.display = 'block';
-                elElement.innerHTML = '';
-                elElement.innerHTML = '<pre>' + ('<html>\n' + document.getElementsByTagName('html')[0].innerHTML + '\n</html>').replace(/[<]/g, '&lt;') + '</pre>';
-                break;
-            case 'hide':
-                elOutput.style.display = 'block';
-                event.target.setAttribute('data-type', 'show');
-                event.target.innerText = 'HIDE';
-                break;
-            case 'show':
-                elOutput.style.display = 'none';
-                event.target.setAttribute('data-type', 'hide');
-                event.target.innerText = 'SHOW';
-            break;
-            default: break;
-        }
-    });
+    //     switch(event.target.getAttribute('data-type')){
+    //         case 'console':
+    //             elConsole.scrollTop = elConsole.scrollHeight;
+    //             elConsole.style.display = 'block';
+    //             elElement.style.display = 'none';
+    //             break;
+    //         case 'element':
+    //             elConsole.style.display = 'none';
+    //             elElement.style.display = 'block';
+    //             elElement.innerHTML = '';
+    //             elElement.innerHTML = '<pre>' + ('<html>\n' + document.getElementsByTagName('html')[0].innerHTML + '\n</html>').replace(/[<]/g, '&lt;') + '</pre>';
+    //             break;
+    //         case 'hide':
+    //             elOutput.style.display = 'block';
+    //             event.target.setAttribute('data-type', 'show');
+    //             event.target.innerText = 'HIDE';
+    //             break;
+    //         case 'show':
+    //             elOutput.style.display = 'none';
+    //             event.target.setAttribute('data-type', 'hide');
+    //             event.target.innerText = 'SHOW';
+    //         break;
+    //         default: break;
+    //     }
+    // });
 })(window, document, jQuery);
