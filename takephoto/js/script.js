@@ -281,7 +281,7 @@ this.Game = this.Game || {};
 
         this.addEventListener();
 
-        this.setInterval();
+        // this.setInterval();
 
         this.dev = true;
     };
@@ -449,8 +449,8 @@ this.Game = this.Game || {};
     p.addEventListener = function(){
         this.view.getItem('game-button-play').addEventListener('touchstart', this.eventHandlerPlay.bind(this));
         this.view.getItem('game-button-stop').addEventListener('touchstart', this.eventHandlerStop.bind(this));
-        window.addEventListener('load', this.eventHandlerLoad.bind(this));
-        window.addEventListener('scroll', this.eventHandlerScroll.bind(this));
+        // window.addEventListener('load', this.eventHandlerLoad.bind(this));
+        // window.addEventListener('scroll', this.eventHandlerScroll.bind(this));
     };
 
     Game.Play = Play;
