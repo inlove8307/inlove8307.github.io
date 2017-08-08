@@ -79,7 +79,7 @@ this.Game = this.Game || {};
     // FUNCTIONS
     p.init = function(origin){
         this.setOrigin(origin);
-        this.setDevice(window.outerWidth);
+        this.setDevice(window.innerWidth);
 
         this.addEventListener(window, 'resize', 'eventHandlerResize');
     };
