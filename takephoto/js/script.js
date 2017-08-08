@@ -66,19 +66,28 @@ this.Game = this.Game || {};
         'game-layer': { 'width': 800, 'height': 2781, 'top': 0, 'left': 0 },
         'game-layer-success': { 'width': 776, 'height': 514, 'top': 700, 'left': 12 },
         'game-layer-fail': { 'width': 776, 'height': 514, 'top': 700, 'left': 12 },
-        'game-button-close': { 'width': 349, 'height': 90, 'top': 1002, 'left': 224 }
+        'game-button-success-close': { 'width': 349, 'height': 90, 'top': 300, 'left': 224 },
+        'game-button-fail-close': { 'width': 349, 'height': 90, 'top': 300, 'left': 224 }
     };
 
     // PROPERTIES
     p.origin = null;
+    p.device = null;
     p.ratio = null;
     p.items = {};
 
     // FUNCTIONS
     p.init = function(origin){
         this.setOrigin(origin);
+        this.setDevice(window.outerWidth);
         this.setRatio(origin);
-        // this.addEventListener(window, 'resize', 'eventHandlerResize');
+        this.addEventListener(window, 'resize', 'eventHandlerResize');
+    };
+    p.setDevice = function(width){
+        this.device = width;
+    };
+    p.getDevice = function(){
+        return this.device;
     };
     p.setOrigin = function(origin){
         this.origin = origin;
@@ -87,7 +96,7 @@ this.Game = this.Game || {};
         return this.origin;
     };
     p.setRatio = function(origin){
-        this.ratio = window.innerWidth / origin;
+        this.ratio = this.getDevice() / origin;
     };
     p.getRatio = function(){
         return this.ratio;
@@ -131,6 +140,9 @@ this.Game = this.Game || {};
         this.setItem(className, elements[0]);
     };
     p.eventHandlerResize = function(event){
+        if (this.getDevice() === event.target.outerWidth) return;
+
+        this.setDevice(event.target.outerWidth);
         this.setRatio(this.getOrigin());
         this.setResizeAll(this.getData());
     };
@@ -156,26 +168,26 @@ this.Game = this.Game || {};
     // DATA
     p.data = [
         // 팝콘
-        { 'code': 'P00', 'item-class': 'game-item-popcorn-ryan', 'status-class': 'game-status-popcorn-ryan' }, // 라이언
-        { 'code': 'P01', 'item-class': 'game-item-popcorn-muzi', 'status-class': 'game-status-popcorn-muzi' }, // 무지
-        { 'code': 'P02', 'item-class': 'game-item-popcorn-con', 'status-class': 'game-status-popcorn-con' }, // 콘
-        { 'code': 'P03', 'item-class': 'game-item-popcorn-neo', 'status-class': 'game-status-popcorn-neo' }, // 네오
-        { 'code': 'P04', 'item-class': 'game-item-popcorn-frodo', 'status-class': 'game-status-popcorn-frodo' }, // 프로도
-        { 'code': 'P05', 'item-class': 'game-item-popcorn-jayg', 'status-class': 'game-status-popcorn-jayg' }, // 제이지
-        { 'code': 'P06', 'item-class': 'game-item-popcorn-apeach', 'status-class': 'game-status-popcorn-apeach' }, // 어피치
-        { 'code': 'P07', 'item-class': 'game-item-popcorn-tube', 'status-class': 'game-status-popcorn-tube' }, // 튜브
+        { 'code': 'C01', 'item-class': 'game-item-popcorn-ryan', 'status-class': 'game-status-popcorn-ryan' }, // 라이언
+        { 'code': 'C02', 'item-class': 'game-item-popcorn-muzi', 'status-class': 'game-status-popcorn-muzi' }, // 무지
+        { 'code': 'C03', 'item-class': 'game-item-popcorn-con', 'status-class': 'game-status-popcorn-con' }, // 콘
+        { 'code': 'C04', 'item-class': 'game-item-popcorn-neo', 'status-class': 'game-status-popcorn-neo' }, // 네오
+        { 'code': 'C05', 'item-class': 'game-item-popcorn-frodo', 'status-class': 'game-status-popcorn-frodo' }, // 프로도
+        { 'code': 'C06', 'item-class': 'game-item-popcorn-jayg', 'status-class': 'game-status-popcorn-jayg' }, // 제이지
+        { 'code': 'C07', 'item-class': 'game-item-popcorn-apeach', 'status-class': 'game-status-popcorn-apeach' }, // 어피치
+        { 'code': 'C08', 'item-class': 'game-item-popcorn-tube', 'status-class': 'game-status-popcorn-tube' }, // 튜브
         // 사천성
-        { 'code': 'M00', 'item-class': 'game-item-puzzle-ryan', 'status-class': 'game-status-puzzle-ryan' }, // 라이언
-        { 'code': 'M01', 'item-class': 'game-item-puzzle-muzi', 'status-class': 'game-status-puzzle-muzi' }, // 무지
-        { 'code': 'M02', 'item-class': 'game-item-puzzle-neo', 'status-class': 'game-status-puzzle-neo' }, // 네오
-        { 'code': 'M03', 'item-class': 'game-item-puzzle-frodo', 'status-class': 'game-status-puzzle-frodo' }, // 프로도
-        { 'code': 'M04', 'item-class': 'game-item-puzzle-jayg', 'status-class': 'game-status-puzzle-jayg' }, // 제이지
-        { 'code': 'M05', 'item-class': 'game-item-puzzle-apeach', 'status-class': 'game-status-puzzle-apeach' }, // 어피치
-        { 'code': 'M06', 'item-class': 'game-item-puzzle-tube', 'status-class': 'game-status-puzzle-tube' }, // 튜브
+        { 'code': 'C09', 'item-class': 'game-item-puzzle-ryan', 'status-class': 'game-status-puzzle-ryan' }, // 라이언
+        { 'code': 'C10', 'item-class': 'game-item-puzzle-muzi', 'status-class': 'game-status-puzzle-muzi' }, // 무지
+        { 'code': 'C11', 'item-class': 'game-item-puzzle-neo', 'status-class': 'game-status-puzzle-neo' }, // 네오
+        { 'code': 'C12', 'item-class': 'game-item-puzzle-frodo', 'status-class': 'game-status-puzzle-frodo' }, // 프로도
+        { 'code': 'C13', 'item-class': 'game-item-puzzle-jayg', 'status-class': 'game-status-puzzle-jayg' }, // 제이지
+        { 'code': 'C14', 'item-class': 'game-item-puzzle-apeach', 'status-class': 'game-status-puzzle-apeach' }, // 어피치
+        { 'code': 'C15', 'item-class': 'game-item-puzzle-tube', 'status-class': 'game-status-puzzle-tube' }, // 튜브
         // 로고
-        { 'code': 'L00', 'item-class': 'game-item-logo-emart', 'status-class': 'game-status-logo-emart' }, // 이마트
-        { 'code': 'L01', 'item-class': 'game-item-logo-popcorn', 'status-class': 'game-status-logo-popcorn' }, // 팝콘
-        { 'code': 'L02', 'item-class': 'game-item-logo-puzzle', 'status-class': 'game-status-logo-puzzle' } // 사천성
+        { 'code': 'LE', 'item-class': 'game-item-logo-emart', 'status-class': 'game-status-logo-emart' }, // 이마트
+        { 'code': 'LP', 'item-class': 'game-item-logo-popcorn', 'status-class': 'game-status-logo-popcorn' }, // 팝콘
+        { 'code': 'LM', 'item-class': 'game-item-logo-puzzle', 'status-class': 'game-status-logo-puzzle' } // 사천성
     ];
 
     // PROPERTIES
@@ -285,7 +297,7 @@ this.Game = this.Game || {};
         });
 
         this.addEventListener();
-        this.setInterval();
+        this.setIntervalLoad();
 
         this.dev = true;
     };
@@ -356,12 +368,12 @@ this.Game = this.Game || {};
         $list.stop(true);
 
         $effect.fadeIn(200, function(){
-            $(this).fadeOut(100);
+            $(this).fadeOut(100, function(){
+                setTimeout(function(){
+                    me.showLayerPopup($list, $focus);
+                }, 1000);
+            });
         });
-
-        setTimeout(function(){
-            me.showLayerPopup($list, $focus);
-        }, 500);
     };
     p.showLayerPopup = function($list, $focus){
         var isSuccess;
@@ -407,7 +419,7 @@ this.Game = this.Game || {};
     p.checkSuccess = function(code){
         var check;
 
-        check = [this.config.code, 'L00', 'L01', 'L02'];
+        check = [this.config.code, 'LE', 'LP', 'LM'];
 
         // 초점이 맞지 않았을 경우
         if (!code) return false;
@@ -420,7 +432,7 @@ this.Game = this.Game || {};
 
         return true;
     };
-    p.setInterval = function(){
+    p.setIntervalLoad = function(){
         this.interval = setInterval(this.eventHandlerInterval.bind(this), 3000);
     };
     p.eventHandlerPlay = function(event){
@@ -448,6 +460,7 @@ this.Game = this.Game || {};
     p.eventHandlerInterval = function(){
         if (this.loaded) {
             $(this.view.getItem('game-load')).fadeOut();
+            document.getElementsByClassName('game-preload')[0].remove();
             clearInterval(this.interval);
         }
     };
@@ -457,7 +470,8 @@ this.Game = this.Game || {};
     p.addEventListener = function(){
         this.view.getItem('game-button-play').addEventListener('touchstart', this.eventHandlerPlay.bind(this));
         this.view.getItem('game-button-stop').addEventListener('touchstart', this.eventHandlerStop.bind(this));
-        this.view.getItem('game-button-close').addEventListener('touchstart', this.eventHandlerClose.bind(this));
+        this.view.getItem('game-button-success-close').addEventListener('touchstart', this.eventHandlerClose.bind(this));
+        this.view.getItem('game-button-fail-close').addEventListener('touchstart', this.eventHandlerClose.bind(this));
         window.addEventListener('load', this.eventHandlerLoad.bind(this));
     };
 
@@ -469,8 +483,8 @@ this.Game = this.Game || {};
     "use strict";
 
     var play = new Game.Play({
-        'status': false, // 이벤트 참여 여부 (set response data)
-        'code': 'P03', // 선택 캐릭터 코드 (set response data)
+        'isToday': false, // 이벤트 참여 여부 (set response data)
+        'code': 'C07', // 선택 캐릭터 코드 (set response data)
         'clone': 1, // 선택 캐릭터 중복 출현 빈도
         'speed': 300, // 캐릭터 슬라이드 속도
         'ratio': 0.3, // 캐릭터 영역 내부 체크 비율 (0.0 ~ 1.0)
