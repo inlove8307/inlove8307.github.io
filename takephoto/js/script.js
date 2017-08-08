@@ -144,7 +144,7 @@ this.Game = this.Game || {};
     p.eventHandlerResize = function(event){
         if (this.getDevice() === event.target.outerWidth) return;
 
-        this.setDevice(event.target.outerWidth);
+        this.setDevice(event.target.innerWidth);
         this.setRatio(this.getOrigin());
         this.setResizeAll(this.getData());
     };
