@@ -80,11 +80,13 @@ this.Game = this.Game || {};
     p.init = function(origin){
         this.setOrigin(origin);
         this.setDevice(window.outerWidth);
-        this.setRatio(origin);
+
         this.addEventListener(window, 'resize', 'eventHandlerResize');
     };
     p.setDevice = function(width){
         this.device = width;
+
+        this.setRatio(this.getOrigin());
     };
     p.getDevice = function(){
         return this.device;
