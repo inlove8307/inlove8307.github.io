@@ -110,6 +110,7 @@ form {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
     padding:0;
     border:0;
     background-color:transparent;
+    background-size:100%;
     font-size:0;
     line-height:0;
     text-indent:-9999px;
@@ -118,14 +119,12 @@ form {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
     background-image:url('../assets/images/takephoto_btn_play.png');
     background-repeat:no-repeat;
     background-position:0 0;
-    background-size:100%;
     z-index:20;
 }
 .game-button-stop{
     background-image:url('../assets/images/takephoto_btn_stop.png');
     background-repeat:no-repeat;
     background-position:0 0;
-    background-size:100%;
     z-index:10;
 }
 .game-info{
@@ -190,10 +189,35 @@ form {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
     background-position:0 0;
     background-size:100%;
 }
-.game-select-popcorn{}
-.game-select-puzzle{}
-.game-select-popcorn{}
-.game-select-puzzl{}
+.game-select-popcorn{
+    position:absolute;
+    background-image:url('../assets/images/takephoto_ico_select_tab_popcorn.png');
+    background-repeat:no-repeat;
+    background-position:0 0;
+    background-size:100%;
+}
+.game-select-puzzle{
+    position:absolute;
+    background-image:url('../assets/images/takephoto_ico_select_tab_puzzle.png');
+    background-repeat:no-repeat;
+    background-position:0 0;
+    background-size:100%;
+}
+.game-select-popcorn.on{background-image:url('../assets/images/takephoto_ico_select_tab_popcorn_on.png');}
+.game-select-puzzle.on{background-image:url('../assets/images/takephoto_ico_select_tab_puzzle_on.png');}
+.game-select-list-popcorn{
+    display:none;
+    position:absolute;
+}
+.game-select-list-puzzle{
+    display:none;
+    position:absolute;
+}
+.game-select-list-popcorn.on{display:block;}
+.game-select-list-puzzle.on{display:block;}
+.game-button-select{
+    background-image:url('../assets/images/takephoto_btn_select.png');
+}
 /* ITEM LIST CHARACTER */
 .game-item-popcorn-muzi{background-image:url('../assets/images/takephoto_ico_item_popcorn_muzi.png');}
 .game-item-popcorn-neo{background-image:url('../assets/images/takephoto_ico_item_popcorn_neo.png');}
