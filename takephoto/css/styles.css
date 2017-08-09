@@ -158,7 +158,7 @@ form {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
     background-position:0 0;
     z-index:9999;
 }
-.game-layer-success{
+.game-success{
     display:none;
     position:absolute;
     background-image:url('../assets/images/takephoto_img_layer_success.png');
@@ -166,7 +166,7 @@ form {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
     background-position:0 0;
     background-size:100%;
 }
-.game-layer-fail{
+.game-fail{
     display:none;
     position:absolute;
     background-image:url('../assets/images/takephoto_img_layer_fail.png');
@@ -182,6 +182,18 @@ form {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
     background-position:0 0;
     background-size:100%;
 }
+.game-select{
+    display:none;
+    position:absolute;
+    background-image:url('../assets/images/takephoto_img_layer_select.png');
+    background-repeat:no-repeat;
+    background-position:0 0;
+    background-size:100%;
+}
+.game-select-popcorn{}
+.game-select-puzzle{}
+.game-select-popcorn{}
+.game-select-puzzl{}
 /* ITEM LIST CHARACTER */
 .game-item-popcorn-muzi{background-image:url('../assets/images/takephoto_ico_item_popcorn_muzi.png');}
 .game-item-popcorn-neo{background-image:url('../assets/images/takephoto_ico_item_popcorn_neo.png');}
@@ -239,9 +251,41 @@ form {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
 .game-status-logo-emart.on{background-image:url('../assets/images/takephoto_ico_status_logo_emart_on.png');}
 .game-status-logo-popcorn.on{background-image:url('../assets/images/takephoto_ico_status_logo_popcorn_on.png');}
 .game-status-logo-puzzle.on{background-image:url('../assets/images/takephoto_ico_status_logo_puzzle_on.png');}
+/* SELECT CHARACTER */
+.game-select-popcorn-muzi{background-image:url('../assets/images/takephoto_ico_select_popcorn_muzi.png');}
+.game-select-popcorn-neo{background-image:url('../assets/images/takephoto_ico_select_popcorn_neo.png');}
+.game-select-popcorn-frodo{background-image:url('../assets/images/takephoto_ico_select_popcorn_frodo.png');}
+.game-select-popcorn-jayg{background-image:url('../assets/images/takephoto_ico_select_popcorn_jayg.png');}
+.game-select-popcorn-ryan{background-image:url('../assets/images/takephoto_ico_select_popcorn_ryan.png');}
+.game-select-popcorn-con{background-image:url('../assets/images/takephoto_ico_select_popcorn_con.png');}
+.game-select-popcorn-apeach{background-image:url('../assets/images/takephoto_ico_select_popcorn_apeach.png');}
+.game-select-popcorn-tube{background-image:url('../assets/images/takephoto_ico_select_popcorn_tube.png');}
+.game-select-puzzle-muzi{background-image:url('../assets/images/takephoto_ico_select_puzzle_muzi.png');}
+.game-select-puzzle-neo{background-image:url('../assets/images/takephoto_ico_select_puzzle_neo.png');}
+.game-select-puzzle-frodo{background-image:url('../assets/images/takephoto_ico_select_puzzle_frodo.png');}
+.game-select-puzzle-jayg{background-image:url('../assets/images/takephoto_ico_select_puzzle_jayg.png');}
+.game-select-puzzle-ryan{background-image:url('../assets/images/takephoto_ico_select_puzzle_ryan.png');}
+.game-select-puzzle-apeach{background-image:url('../assets/images/takephoto_ico_select_puzzle_apeach.png');}
+.game-select-puzzle-tube{background-image:url('../assets/images/takephoto_ico_select_puzzle_tube.png');}
+/* SELECT CHARACTER ON */
+.game-select-popcorn-muzi.on{background-image:url('../assets/images/takephoto_ico_select_popcorn_muzi_on.png');}
+.game-select-popcorn-neo.on{background-image:url('../assets/images/takephoto_ico_select_popcorn_neo_on.png');}
+.game-select-popcorn-frodo.on{background-image:url('../assets/images/takephoto_ico_select_popcorn_frodo_on.png');}
+.game-select-popcorn-jayg.on{background-image:url('../assets/images/takephoto_ico_select_popcorn_jayg_on.png');}
+.game-select-popcorn-ryan.on{background-image:url('../assets/images/takephoto_ico_select_popcorn_ryan_on.png');}
+.game-select-popcorn-con.on{background-image:url('../assets/images/takephoto_ico_select_popcorn_con_on.png');}
+.game-select-popcorn-apeach.on{background-image:url('../assets/images/takephoto_ico_select_popcorn_apeach_on.png');}
+.game-select-popcorn-tube.on{background-image:url('../assets/images/takephoto_ico_select_popcorn_tube_on.png');}
+.game-select-puzzle-muzi.on{background-image:url('../assets/images/takephoto_ico_select_puzzle_muzi_on.png');}
+.game-select-puzzle-neo.on{background-image:url('../assets/images/takephoto_ico_select_puzzle_neo_on.png');}
+.game-select-puzzle-frodo.on{background-image:url('../assets/images/takephoto_ico_select_puzzle_frodo_on.png');}
+.game-select-puzzle-jayg.on{background-image:url('../assets/images/takephoto_ico_select_puzzle_jayg_on.png');}
+.game-select-puzzle-ryan.on{background-image:url('../assets/images/takephoto_ico_select_puzzle_ryan_on.png');}
+.game-select-puzzle-apeach.on{background-image:url('../assets/images/takephoto_ico_select_puzzle_apeach_on.png');}
+.game-select-puzzle-tube.on{background-image:url('../assets/images/takephoto_ico_select_puzzle_tube_on.png');}
 
 /* CONSOLE */
- .game-console{
+/* .game-console{
     position:fixed;
     left:0;
     bottom:0;
@@ -344,4 +388,4 @@ form {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
     vertical-align:top;
     font-size:12px;
     color:#444;
-} 
+} */

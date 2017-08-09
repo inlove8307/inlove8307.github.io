@@ -64,8 +64,8 @@ this.Game = this.Game || {};
         'game-load': { 'width': 800, 'height': 2781, 'top': 0, 'left': 0 },
         'game-load-logo': {'width': 400, 'height': 400, 'top': 400, 'left': 200 },
         'game-layer': { 'width': 800, 'height': 2781, 'top': 0, 'left': 0 },
-        'game-layer-success': { 'width': 776, 'height': 514, 'top': 700, 'left': 12 },
-        'game-layer-fail': { 'width': 776, 'height': 514, 'top': 700, 'left': 12 },
+        'game-success': { 'width': 776, 'height': 514, 'top': 700, 'left': 12 },
+        'game-fail': { 'width': 776, 'height': 514, 'top': 700, 'left': 12 },
         'game-button-success-close': { 'width': 349, 'height': 90, 'top': 300, 'left': 224 },
         'game-button-fail-close': { 'width': 349, 'height': 90, 'top': 300, 'left': 224 }
     };
@@ -80,13 +80,11 @@ this.Game = this.Game || {};
     p.init = function(origin){
         this.setOrigin(origin);
         this.setDevice(window.innerWidth);
-
+        this.setRatio(origin);
         this.addEventListener(window, 'resize', 'eventHandlerResize');
     };
     p.setDevice = function(width){
         this.device = width;
-
-        this.setRatio(this.getOrigin());
     };
     p.getDevice = function(){
         return this.device;
@@ -142,7 +140,7 @@ this.Game = this.Game || {};
         this.setItem(className, elements[0]);
     };
     p.eventHandlerResize = function(event){
-        if (this.getDevice() === event.target.outerWidth) return;
+        if (this.getDevice() === event.target.innerWidth) return;
 
         this.setDevice(event.target.innerWidth);
         this.setRatio(this.getOrigin());
@@ -384,12 +382,12 @@ this.Game = this.Game || {};
 
         if (isSuccess) {
             this.view.getItem('game-layer').style.display = 'block';
-            this.view.getItem('game-layer-success').style.display = 'block';
+            this.view.getItem('game-success').style.display = 'block';
             this.createStatus(this.item.getStatus(this.config.code));
         }
         else {
             this.view.getItem('game-layer').style.display = 'block';
-            this.view.getItem('game-layer-fail').style.display = 'block';
+            this.view.getItem('game-fail').style.display = 'block';
         }
     };
     p.getSelectCode = function($list, $focus){
@@ -456,13 +454,12 @@ this.Game = this.Game || {};
     };
     p.eventHandlerClose = function(){
         this.view.getItem('game-layer').style.display = 'none';
-        this.view.getItem('game-layer-success').style.display = 'none';
-        this.view.getItem('game-layer-fail').style.display = 'none';
+        this.view.getItem('game-success').style.display = 'none';
+        this.view.getItem('game-fail').style.display = 'none';
     };
     p.eventHandlerInterval = function(){
         if (this.loaded) {
             $(this.view.getItem('game-load')).fadeOut();
-            document.getElementsByClassName('game-preload')[0].remove();
             clearInterval(this.interval);
         }
     };
@@ -493,85 +490,85 @@ this.Game = this.Game || {};
         'success': [] // 성공한 아이템 코드 (set response data)
     });
 
-    var console = (function(oldConsole){
-        var elConsole, elMessage, elButton, counter = 0;
+    // var console = (function(oldConsole){
+    //     var elConsole, elMessage, elButton, counter = 0;
 
-        elConsole = document.getElementsByClassName('game-console-message')[0];
-        elButton = document.getElementsByClassName('game-console-button')[0];
+    //     elConsole = document.getElementsByClassName('game-console-message')[0];
+    //     elButton = document.getElementsByClassName('game-console-button')[0];
 
-        return {
-            log: function(text){
-                oldConsole.log(text);
+    //     return {
+    //         log: function(text){
+    //             oldConsole.log(text);
 
-                elMessage = document.createElement('p');
-                elMessage.setAttribute('class', 'log');
-                elMessage.innerText = text;
-                elConsole.appendChild(elMessage);
-                elConsole.scrollTop = elConsole.scrollHeight;
-                elButton.innerText = 'CONSOLE [' + (counter++) + ']';
-            },
-            info: function(text){
-                oldConsole.info(text);
+    //             elMessage = document.createElement('p');
+    //             elMessage.setAttribute('class', 'log');
+    //             elMessage.innerText = text;
+    //             elConsole.appendChild(elMessage);
+    //             elConsole.scrollTop = elConsole.scrollHeight;
+    //             elButton.innerText = 'CONSOLE [' + (counter++) + ']';
+    //         },
+    //         info: function(text){
+    //             oldConsole.info(text);
 
-                elMessage = document.createElement('p');
-                elMessage.setAttribute('class', 'info');
-                elMessage.innerText = text;
-                elConsole.appendChild(elMessage);
-                elConsole.scrollTop = elConsole.scrollHeight;
-            },
-            warn: function(text){
-                oldConsole.warn(text);
+    //             elMessage = document.createElement('p');
+    //             elMessage.setAttribute('class', 'info');
+    //             elMessage.innerText = text;
+    //             elConsole.appendChild(elMessage);
+    //             elConsole.scrollTop = elConsole.scrollHeight;
+    //         },
+    //         warn: function(text){
+    //             oldConsole.warn(text);
 
-                elMessage = document.createElement('p');
-                elMessage.setAttribute('class', 'warn');
-                elMessage.innerText = text;
-                elConsole.appendChild(elMessage);
-                elConsole.scrollTop = elConsole.scrollHeight;
-            },
-            error: function(text){
-                oldConsole.error(text);
+    //             elMessage = document.createElement('p');
+    //             elMessage.setAttribute('class', 'warn');
+    //             elMessage.innerText = text;
+    //             elConsole.appendChild(elMessage);
+    //             elConsole.scrollTop = elConsole.scrollHeight;
+    //         },
+    //         error: function(text){
+    //             oldConsole.error(text);
 
-                elMessage = document.createElement('p');
-                elMessage.setAttribute('class', 'error');
-                elMessage.innerText = text;
-                elConsole.appendChild(elMessage);
-                elConsole.scrollTop = elConsole.scrollHeight;
-            }
-        };
-    }(window.console));
+    //             elMessage = document.createElement('p');
+    //             elMessage.setAttribute('class', 'error');
+    //             elMessage.innerText = text;
+    //             elConsole.appendChild(elMessage);
+    //             elConsole.scrollTop = elConsole.scrollHeight;
+    //         }
+    //     };
+    // }(window.console));
 
-    window.console = console;
+    // window.console = console;
 
-    document.getElementsByClassName('game-console')[0].addEventListener('touchstart', function(event){
-        var elOutput, elConsole, elElement;
+    // document.getElementsByClassName('game-console')[0].addEventListener('touchstart', function(event){
+    //     var elOutput, elConsole, elElement;
 
-        elOutput = document.getElementsByClassName('game-console-output')[0];
-        elConsole = document.getElementsByClassName('game-console-message')[0];
-        elElement = document.getElementsByClassName('game-console-element')[0];
+    //     elOutput = document.getElementsByClassName('game-console-output')[0];
+    //     elConsole = document.getElementsByClassName('game-console-message')[0];
+    //     elElement = document.getElementsByClassName('game-console-element')[0];
 
-        switch(event.target.getAttribute('data-type')){
-            case 'console':
-                elConsole.scrollTop = elConsole.scrollHeight;
-                elConsole.style.display = 'block';
-                elElement.style.display = 'none';
-                break;
-            case 'element':
-                elConsole.style.display = 'none';
-                elElement.style.display = 'block';
-                elElement.innerHTML = '';
-                elElement.innerHTML = '<pre>' + ('<html>\n' + document.getElementsByTagName('html')[0].innerHTML + '\n</html>').replace(/[<]/g, '&lt;') + '</pre>';
-                break;
-            case 'hide':
-                elOutput.style.display = 'block';
-                event.target.setAttribute('data-type', 'show');
-                event.target.innerText = 'HIDE';
-                break;
-            case 'show':
-                elOutput.style.display = 'none';
-                event.target.setAttribute('data-type', 'hide');
-                event.target.innerText = 'SHOW';
-            break;
-            default: break;
-        }
-    });
+    //     switch(event.target.getAttribute('data-type')){
+    //         case 'console':
+    //             elConsole.scrollTop = elConsole.scrollHeight;
+    //             elConsole.style.display = 'block';
+    //             elElement.style.display = 'none';
+    //             break;
+    //         case 'element':
+    //             elConsole.style.display = 'none';
+    //             elElement.style.display = 'block';
+    //             elElement.innerHTML = '';
+    //             elElement.innerHTML = '<pre>' + ('<html>\n' + document.getElementsByTagName('html')[0].innerHTML + '\n</html>').replace(/[<]/g, '&lt;') + '</pre>';
+    //             break;
+    //         case 'hide':
+    //             elOutput.style.display = 'block';
+    //             event.target.setAttribute('data-type', 'show');
+    //             event.target.innerText = 'HIDE';
+    //             break;
+    //         case 'show':
+    //             elOutput.style.display = 'none';
+    //             event.target.setAttribute('data-type', 'hide');
+    //             event.target.innerText = 'SHOW';
+    //         break;
+    //         default: break;
+    //     }
+    // });
 })(window, document, jQuery);

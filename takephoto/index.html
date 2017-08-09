@@ -17,52 +17,6 @@
     </head>
     <body>
         <div class="game-wrap">
-            <!-- 히든 이미지 로딩 -->
-            <div class="game-preload">
-                <span class="game-button-play"></span>
-                <span class="game-button-stop"></span>
-                <span class="game-layer"></span>
-                <span class="game-layer-success"></span>
-                <span class="game-layer-fail"></span>
-                <span class="game-button-success-close"></span>
-                <span class="game-button-fail-close"></span>
-                <span class="game-status-popcorn-muzi"></span>
-                <span class="game-status-popcorn-neo"></span>
-                <span class="game-status-popcorn-frodo"></span>
-                <span class="game-status-popcorn-jayg"></span>
-                <span class="game-status-popcorn-ryan"></span>
-                <span class="game-status-popcorn-con"></span>
-                <span class="game-status-popcorn-apeach"></span>
-                <span class="game-status-popcorn-tube"></span>
-                <span class="game-status-puzzle-muzi"></span>
-                <span class="game-status-puzzle-neo"></span>
-                <span class="game-status-puzzle-frodo"></span>
-                <span class="game-status-puzzle-jayg"></span>
-                <span class="game-status-puzzle-ryan"></span>
-                <span class="game-status-puzzle-apeach"></span>
-                <span class="game-status-puzzle-tube"></span>
-                <span class="game-status-logo-emart"></span>
-                <span class="game-status-logo-popcorn"></span>
-                <span class="game-status-logo-puzzle"></span>
-                <span class="game-status-popcorn-muzi on"></span>
-                <span class="game-status-popcorn-neo on"></span>
-                <span class="game-status-popcorn-frodo on"></span>
-                <span class="game-status-popcorn-jayg on"></span>
-                <span class="game-status-popcorn-ryan on"></span>
-                <span class="game-status-popcorn-con on"></span>
-                <span class="game-status-popcorn-apeach on"></span>
-                <span class="game-status-popcorn-tube on"></span>
-                <span class="game-status-puzzle-muzi on"></span>
-                <span class="game-status-puzzle-neo on"></span>
-                <span class="game-status-puzzle-frodo on"></span>
-                <span class="game-status-puzzle-jayg on"></span>
-                <span class="game-status-puzzle-ryan on"></span>
-                <span class="game-status-puzzle-apeach on"></span>
-                <span class="game-status-puzzle-tube on"></span>
-                <span class="game-status-logo-emart on"></span>
-                <span class="game-status-logo-popcorn on"></span>
-                <span class="game-status-logo-puzzle on"></span>
-            </div>
             <!-- 상단 -->
             <div class="game-title">
                 <img src="assets/images/takephoto_img_title.jpg" alt="">
@@ -76,8 +30,8 @@
                     <div class="game-focus"></div>
                     <div class="game-bubble-01"></div>
                     <div class="game-bubble-02"></div>
-                    <button type="button" class="game-button-play">시작</button>
-                    <button type="button" class="game-button-stop">찰칵</button>
+                    <button type="button" class="game-button-play"></button>
+                    <button type="button" class="game-button-stop"></button>
                 </div>
             </div>
             <!-- 하단 -->
@@ -93,26 +47,47 @@
             <!-- 레이어 -->
             <div class="game-layer">
                 <!-- 선택 -->
-                <div class="game-layer-select">
+                <div class="game-select">
+                    <button type="button" class="game-select-popcorn"></button>
+                    <button type="button" class="game-select-puzzle"></button>
+                    <div class="game-select-list-popcorn">
+                        <button type="button" class="game-select-popcorn-muzi"></button>
+                        <button type="button" class="game-select-popcorn-neo"></button>
+                        <button type="button" class="game-select-popcorn-frodo"></button>
+                        <button type="button" class="game-select-popcorn-jayg"></button>
+                        <button type="button" class="game-select-popcorn-ryan"></button>
+                        <button type="button" class="game-select-popcorn-con"></button>
+                        <button type="button" class="game-select-popcorn-apeach"></button>
+                        <button type="button" class="game-select-popcorn-tube"></button>
+                    </div>
+                    <div class="game-select-list-puzzle">
+                        <button type="button" class="game-select-puzzle-muzi"></button>
+                        <button type="button" class="game-select-puzzle-neo"></button>
+                        <button type="button" class="game-select-puzzle-frodo"></button>
+                        <button type="button" class="game-select-puzzle-jayg"></button>
+                        <button type="button" class="game-select-puzzle-ryan"></button>
+                        <button type="button" class="game-select-puzzle-apeach"></button>
+                        <button type="button" class="game-select-puzzle-tube"></button>
+                    </div>
                     <button type="button" class="game-button-select"></button>
                 </div>
                 <!-- 성공 -->
-                <div class="game-layer-success">
+                <div class="game-success">
                     <button type="button" class="game-button-success-close"></button>
                 </div>
                 <!-- 실패 -->
-                <div class="game-layer-fail">
+                <div class="game-fail">
                     <button type="button" class="game-button-fail-close"></button>
                 </div>
                 <!-- 클리어 -->
-                <div class="game-layer-clear">
+                <div class="game-clear">
                     <button type="button" class="game-button-clear"></button>
                 </div>
             </div>
         </div>
 
         <!-- mobile console -->
-         <div class="game-console">
+        <!-- <div class="game-console">
             <div class="game-console-button-wrap">
                 <button class="game-console-button" data-type="console">CONSOLE</button>
                 <button class="game-console-button" data-type="element">ELEMENT</button>
@@ -122,7 +97,7 @@
                 <div class="game-console-message"></div>
                 <div class="game-console-element"></div>
             </dia>
-        </div> 
+        </div> -->
 
         <!-- import script -->
         <script type="text/javascript" src="js/script.js"></script>
