@@ -115,13 +115,29 @@ form {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
     line-height:0;
     text-indent:-9999px;
 }
+.game-button-clear{
+    display:none;
+    background-image:url('../assets/images/takephoto_btn_all_clear.png');
+    background-repeat:no-repeat;
+    background-position:0 0;
+    z-index:40;
+}
+.game-button-played{
+    display:none;
+    background-image:url('../assets/images/takephoto_btn_played.png');
+    background-repeat:no-repeat;
+    background-position:0 0;
+    z-index:30;
+}
 .game-button-play{
+    display:none;
     background-image:url('../assets/images/takephoto_btn_play.png');
     background-repeat:no-repeat;
     background-position:0 0;
     z-index:20;
 }
 .game-button-stop{
+    display:none;
     background-image:url('../assets/images/takephoto_btn_stop.png');
     background-repeat:no-repeat;
     background-position:0 0;
@@ -165,18 +181,28 @@ form {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
     background-position:0 0;
     background-size:100%;
 }
-.game-fail{
+.game-focusout{
     display:none;
     position:absolute;
-    background-image:url('../assets/images/takephoto_img_layer_fail.png');
+    background-image:url('../assets/images/takephoto_img_layer_fail_01.png');
+    background-repeat:no-repeat;
+    background-position:0 0;
+    background-size:100%;
+}
+.game-overlap{
+    display:none;
+    position:absolute;
+    background-image:url('../assets/images/takephoto_img_layer_fail_02.png');
     background-repeat:no-repeat;
     background-position:0 0;
     background-size:100%;
 }
 .game-button-success-close,
-.game-button-fail-close{
+.game-button-focusout-close,
+.game-button-overlap-close,
+.game-button-clear-close{
     position:absolute;
-    background-image:url('../assets/images/takephoto_btn_close.png');
+    background-image:url('../assets/images/takephoto_btn_clear.png');
     background-repeat:no-repeat;
     background-position:0 0;
     background-size:100%;
@@ -217,6 +243,143 @@ form {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
 .game-select-list-puzzle.on{display:block;}
 .game-button-select{
     background-image:url('../assets/images/takephoto_btn_select.png');
+}
+.game-clear{
+    display:none;
+    position:absolute;
+    background-image:url('../assets/images/takephoto_img_layer_clear.png');
+    background-repeat:no-repeat;
+    background-position:0 0;
+    background-size:100%;
+}
+.game-clear-gift-popcorn{
+    position:absolute;
+    background-image:url('../assets/images/takephoto_ico_clear_popcorn.png');
+    background-repeat:no-repeat;
+    background-position:0 0;
+    background-size:100%;
+}
+.game-clear-gift-puzzle{
+    position:absolute;
+    background-image:url('../assets/images/takephoto_ico_clear_puzzle.png');
+    background-repeat:no-repeat;
+    background-position:0 0;
+    background-size:100%;
+}
+.game-clear-gift-popcorn.on{background-image:url('../assets/images/takephoto_ico_clear_popcorn_on.png');}
+.game-clear-gift-puzzle.on{background-image:url('../assets/images/takephoto_ico_clear_puzzle_on.png');}
+/* GIFT SELECT POPUP */
+.frendspop-gift-select{
+    display:none;
+    position:absolute;
+    bottom:0;
+    left:1.5%;
+    width:97%;
+    height:auto;
+    font-size:0;
+    line-height:0;
+}
+.frendspop-gift-select-header{
+    position:relative;
+    width:100%;
+    height:auto;
+}
+.frendspop-gift-select-tab{
+    position:absolute;
+    top:47.64%;
+    left:10.43%;
+    width:78.35%;
+    height:45.1%;
+}
+.frendspop-gift-select-tab a{
+    position:absolute;
+    width:48.68%;
+    height:auto;
+}
+.frendspop-gift-select-tab a.clear:before{
+    content:'';
+    position:absolute;
+    top:24.36%;
+    left:4.39%;
+    width:23.98%;
+    height:41.17%;
+    background-image:url('../assets/images/gift_select/frendspop_ico_mission_clear.png');
+    background-repeat:no-repeat;
+    background-position:0 0;
+    background-size:100%;
+}
+.frendspop-gift-select-tab-item-01{top:0;left:0;}
+.frendspop-gift-select-tab-item-02{top:0;left:51.64%;}
+.frendspop-gift-select-tab-item-03{top:52.2%;left:0;}
+.frendspop-gift-select-tab-item-04{top:52.2%;left:51.64%;}
+.frendspop-gift-select-table{
+    position:relative;
+    padding:0 10.43%;
+    background-image:url('../assets/images/gift_select/frendspop_bg_popup.png');
+    background-repeat:repeat-y;
+    background-position:0 0;
+    background-size:100%;
+}
+.frendspop-gift-select-table-item{
+    display:none;
+    margin:0;
+    padding:0;
+    width:100%;
+    height:auto;
+}
+.frendspop-gift-select-table-item li{list-style:none;}
+.frendspop-gift-select-table-item-row{overflow:hidden;}
+.frendspop-gift-select-table-item-col-01{
+    float:left;
+    width:17.76%;
+    height:auto;
+}
+.frendspop-gift-select-table-item-col-02.type-a{
+    float:left;
+    width:41.28%;
+    height:auto;
+}
+.frendspop-gift-select-table-item-col-03.type-a{
+    float:left;
+    width:40.95%;
+    height:auto;
+}
+.frendspop-gift-select-table-item-col-02.type-b{
+    float:left;
+    width:50.49%;
+    height:auto;
+}
+.frendspop-gift-select-table-item-col-03.type-b{
+    float:left;
+    width:49.50%;
+    height:auto;
+}
+.frendspop-gift-select-table-item-col-02.type-c{
+    float:left;
+    width:100%;
+    height:auto;
+}
+.frendspop-gift-select-table-item-empty.type-a {
+    float:left;
+    width:82.23%;
+    height:auto;
+}
+.frendspop-gift-select-table-item-empty.type-b {
+    float:left;
+    width:100%;
+    height:auto;
+}
+.frendspop-gift-select-footer{
+    position:relative;
+    font-size:0;
+    line-height:0;
+}
+.frendspop-gift-select-button{
+    position:absolute;
+    top:20.24%;
+    left:27.19%;
+    width:44.97%;
+    height:auto;
 }
 /* ITEM LIST CHARACTER */
 .game-item-popcorn-muzi{background-image:url('../assets/images/takephoto_ico_item_popcorn_muzi.png');}

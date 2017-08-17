@@ -61,6 +61,8 @@ this.Game = this.Game || {};
         'game-bubble-02': { 'width': 209, 'height': 396, 'top': 869, 'left': 561 },
         'game-button-play': { 'width': 498, 'height': 188, 'top': 973, 'left': 151 },
         'game-button-stop': { 'width': 498, 'height': 188, 'top': 973, 'left': 151 },
+        'game-button-played': { 'width': 498, 'height': 188, 'top': 973, 'left': 151 },
+        'game-button-clear': { 'width': 498, 'height': 188, 'top': 973, 'left': 151 },
         'game-load': { 'width': 800, 'height': 2781, 'top': 0, 'left': 0 },
         'game-load-logo': {'width': 400, 'height': 400, 'top': 400, 'left': 200 },
         'game-layer': { 'width': 800, 'height': 2781, 'top': 0, 'left': 0 },
@@ -86,9 +88,17 @@ this.Game = this.Game || {};
         'game-select-puzzle-ryan': { 'width': 142, 'height': 254, 'top': 280, 'left': 310 },
         'game-button-select': { 'width': 349, 'height': 90, 'top': 1125, 'left': 212 },
         'game-success': { 'width': 776, 'height': 514, 'top': 700, 'left': 12 },
-        'game-fail': { 'width': 776, 'height': 514, 'top': 700, 'left': 12 },
-        'game-button-success-close': { 'width': 349, 'height': 90, 'top': 300, 'left': 224 },
-        'game-button-fail-close': { 'width': 349, 'height': 90, 'top': 300, 'left': 224 }
+        'game-focusout': { 'width': 776, 'height': 514, 'top': 700, 'left': 12 },
+        'game-overlap': { 'width': 776, 'height': 514, 'top': 700, 'left': 12 },
+        'game-clear': { 'width': 800, 'height': 1292, 'top': 400, 'left': 0 },
+        'game-clear-gift-popcorn': { 'width': 182, 'height': 350, 'top': 560, 'left': 151 },
+        'game-clear-gift-puzzle': { 'width': 182, 'height': 350, 'top': 560, 'left': 465 },
+        'game-button-success-close': { 'width': 349, 'height': 90, 'top': 300, 'left': 212 },
+        'game-button-focusout-close': { 'width': 349, 'height': 90, 'top': 300, 'left': 212 },
+        'game-button-overlap-close': { 'width': 349, 'height': 90, 'top': 300, 'left': 212 },
+        'game-button-clear-close': { 'width': 349, 'height': 90, 'top': 955, 'left': 224 },
+        'game-button-info': { 'width': 640, 'height': 125, 'top': 703, 'left': 80 },
+        'game-button-main': { 'width': 640, 'height': 125, 'top': 855, 'left': 80 }
     };
 
     // PROPERTIES
@@ -158,7 +168,7 @@ this.Game = this.Game || {};
             }
         }
 
-        this.setItem(className, elements[0]);
+        this.setItem(className, elements);
     };
     p.eventHandlerResize = function(event){
         if (this.getDevice() === event.target.innerWidth) return;
@@ -316,8 +326,24 @@ this.Game = this.Game || {};
 
         this.addEventListener();
         this.setIntervalLoad();
+        this.setButtonStatus();
 
         this.dev = true;
+    };
+    p.setButtonStatus = function(){
+        // 미션3 완료 여부가 true 인 경우
+        if (this.config.clear) this.view.getItem('game-button-clear')[0].style.display = 'block';
+        // 당일 참가 여부가 true 인 경우
+        if (this.config.played) this.view.getItem('game-button-played')[0].style.display = 'block';
+
+        if (this.config.clear || this.config.played) {
+            this.view.getItem('game-bubble-02')[0].style.display = 'none';
+            this.view.getItem('game-button-play')[0].style.display = 'none';
+            this.view.getItem('game-button-stop')[0].style.display = 'none';
+        }
+        else {
+            this.view.getItem('game-button-play')[0].style.display = 'block';
+        }
     };
     p.createAll = function(){
         this.item = new Game.Item(this.config.code, this.config.clone);
@@ -327,7 +353,7 @@ this.Game = this.Game || {};
     p.createItem = function(items){
         var list, item, style, i, length;
 
-        list = this.view.getItem('game-list');
+        list = this.view.getItem('game-list')[0];
 
         if (this.dev) $(list).empty();
 
@@ -347,7 +373,7 @@ this.Game = this.Game || {};
     p.createStatus = function(items){
         var list, item, width, i, length;
 
-        list = this.view.getItem('game-status');
+        list = this.view.getItem('game-status')[0];
 
         if (this.dev) $(list).empty();
 
@@ -397,25 +423,42 @@ this.Game = this.Game || {};
         });
     };
     p.showLayerSelect = function(){
-        $(this.view.getItem('game-layer')).fadeIn();
-        $(this.view.getItem('game-select')).fadeIn();
+        this.view.getItem('game-select')[0].style.display = 'block';
+        $(this.view.getItem('game-layer')[0]).fadeIn();
 
         this.select = 'C02';
     };
+    p.showLayerClear = function(){
+        this.view.getItem('game-clear')[0].style.display = 'block';
+        $(this.view.getItem('game-layer')[0]).fadeIn();
+    };
     p.showLayerPopup = function($list, $focus){
-        var isSuccess;
+        this.view.getItem('game-focusout')[0].style.display = 'none';
+        this.view.getItem('game-overlap')[0].style.display = 'none';
+        this.view.getItem('game-success')[0].style.display = 'none';
 
-        isSuccess = this.checkSuccess(this.getSelectCode($list, $focus));
+        switch(this.checkSuccess(this.getSelectCode($list, $focus))){
+            case 'focusout':
+                this.view.getItem('game-focusout')[0].style.display = 'block';
+                break;
+            case 'overlap':
+                this.view.getItem('game-overlap')[0].style.display = 'block';
+                break;
+            case 'success':
+                if (this.config.clear) {
+                    this.view.getItem('game-clear')[0].style.display = 'block';
+                }
+                else {
+                    this.view.getItem('game-success')[0].style.display = 'block';
+                }
+                this.createStatus(this.item.getStatus(this.config.code));
+                break;
+            default: break;
+        }
 
-        if (isSuccess) {
-            $(this.view.getItem('game-layer')).fadeIn();
-            $(this.view.getItem('game-success')).fadeIn();
-            this.createStatus(this.item.getStatus(this.config.code));
-        }
-        else {
-            $(this.view.getItem('game-layer')).fadeIn();
-            $(this.view.getItem('game-fail')).fadeIn();
-        }
+        $(this.view.getItem('game-layer')[0]).fadeIn();
+
+        if (!this.dev) this.setButtonStatus();
     };
     p.getSelectCode = function($list, $focus){
         var result, offset = {}, items;
@@ -445,13 +488,25 @@ this.Game = this.Game || {};
     };
     p.checkSuccess = function(code){
         // 초점이 맞지 않았을 경우
-        if (!code) return false;
+        if (!code) return 'focusout';
         // 선택한 캐릭터 또는 로고가 아닌 경우
-        if (this.config.success[code] === undefined) return false;
+        if (this.config.success[code] === undefined) return 'focusout';
         // 이미 성공한 캐릭터 또는 로고일 경우
-        if (this.config.success[code]) return false;
+        if (this.config.success[code]) return 'overlap';
 
         this.config.success[code] = true;
+        this.config.played = true;
+
+        if (this.checkClear()) this.config.clear = true;
+
+        return 'success';
+    };
+    p.checkClear = function(){
+        var key;
+
+        for (key in this.config.success) {
+            if (!this.config.success[key]) return false;
+        }
 
         return true;
     };
@@ -459,26 +514,26 @@ this.Game = this.Game || {};
         this.interval = setInterval(this.eventHandlerInterval.bind(this), 3000);
     };
     p.eventHandlerSelectPopcorn = function(event){
-        $(this.view.getItem('game-select-popcorn')).addClass('on');
-        $(this.view.getItem('game-select-list-popcorn')).addClass('on');
-        $(this.view.getItem('game-select-popcorn-muzi')).addClass('on');
+        $(this.view.getItem('game-select-popcorn')[0]).addClass('on');
+        $(this.view.getItem('game-select-list-popcorn')[0]).addClass('on');
+        $(this.view.getItem('game-select-popcorn-muzi')[0]).addClass('on');
 
         this.select = 'C02';
 
-        $(this.view.getItem('game-select-puzzle')).removeClass('on');
-        $(this.view.getItem('game-select-list-puzzle')).removeClass('on');
-        $(this.view.getItem('game-select-list-puzzle')).children().removeClass('on');
+        $(this.view.getItem('game-select-puzzle')[0]).removeClass('on');
+        $(this.view.getItem('game-select-list-puzzle')[0]).removeClass('on');
+        $(this.view.getItem('game-select-list-puzzle')[0]).children().removeClass('on');
     };
     p.eventHandlerSelectPuzzle = function(event){
-        $(this.view.getItem('game-select-puzzle')).addClass('on');
-        $(this.view.getItem('game-select-list-puzzle')).addClass('on');
-        $(this.view.getItem('game-select-puzzle-muzi')).addClass('on');
+        $(this.view.getItem('game-select-puzzle')[0]).addClass('on');
+        $(this.view.getItem('game-select-list-puzzle')[0]).addClass('on');
+        $(this.view.getItem('game-select-puzzle-muzi')[0]).addClass('on');
 
         this.select = 'C10';
 
-        $(this.view.getItem('game-select-popcorn')).removeClass('on');
-        $(this.view.getItem('game-select-list-popcorn')).removeClass('on');
-        $(this.view.getItem('game-select-list-popcorn')).children().removeClass('on');
+        $(this.view.getItem('game-select-popcorn')[0]).removeClass('on');
+        $(this.view.getItem('game-select-list-popcorn')[0]).removeClass('on');
+        $(this.view.getItem('game-select-list-popcorn')[0]).children().removeClass('on');
     };
     p.eventHandlerSelectCharacter = function(event){
         $(event.target).addClass('on').siblings().removeClass('on');
@@ -491,8 +546,8 @@ this.Game = this.Game || {};
 
         this.createAll();
 
-        $(this.view.getItem('game-layer')).fadeOut();
-        $(this.view.getItem('game-select')).fadeOut();
+        $(this.view.getItem('game-layer')[0]).fadeOut();
+        $(this.view.getItem('game-select')[0]).fadeOut();
     };
     p.eventHandlerPlay = function(event){
         if (this.dev) {
@@ -502,23 +557,41 @@ this.Game = this.Game || {};
 
         this.animateList($('.game-list'));
 
-        event.target.style.display = 'none';
+        this.view.getItem('game-button-play')[0].style.display = 'none';
+        this.view.getItem('game-button-stop')[0].style.display = 'block';
     };
     p.eventHandlerStop = function(event){
         this.effect.play();
 
         this.animateTake($('.game-list'), $('.game-effect'), $('.game-focus'));
 
-        if (this.dev) this.view.getItem('game-button-play').style.display = 'inline-block';
+        if (this.dev) this.view.getItem('game-button-play')[0].style.display = 'block';
     };
-    p.eventHandlerClose = function(){
-        $(this.view.getItem('game-layer')).fadeOut();
-        $(this.view.getItem('game-success')).fadeOut();
-        $(this.view.getItem('game-fail')).fadeOut();
+    p.eventHandlerClear = function(event){
+        $(this.view.getItem('game-layer')[0]).fadeOut();
+        $(this.view.getItem('game-clear')[0]).fadeOut();
+    };
+    p.eventHandlerGiftPopcorn = function(event){
+        $(this.view.getItem('game-clear-gift-popcorn')).addClass('on');
+        $(this.view.getItem('game-clear-gift-puzzle')).removeClass('on');
+
+        this.config.gift = 'P';
+    };
+    p.eventHandlerGiftPuzzle = function(event){
+        $(this.view.getItem('game-clear-gift-puzzle')).addClass('on');
+        $(this.view.getItem('game-clear-gift-popcorn')).removeClass('on');
+
+        this.config.gift = 'M';
+    };
+    p.eventHandlerClose = function(event){
+        $(this.view.getItem('game-layer')[0]).fadeOut();
+        $(this.view.getItem('game-success')[0]).fadeOut();
+        $(this.view.getItem('game-focusout')[0]).fadeOut();
+        $(this.view.getItem('game-overlap')[0]).fadeOut();
     };
     p.eventHandlerInterval = function(){
         if (this.loaded) {
-            $(this.view.getItem('game-load')).fadeOut();
+            $(this.view.getItem('game-load')[0]).fadeOut();
             clearInterval(this.interval);
 
             if (this.config.code) {
@@ -533,28 +606,32 @@ this.Game = this.Game || {};
         this.loaded = true;
     };
     p.addEventListener = function(){
-        this.view.getItem('game-button-play').addEventListener('touchstart', this.eventHandlerPlay.bind(this));
-        this.view.getItem('game-button-stop').addEventListener('touchstart', this.eventHandlerStop.bind(this));
-        this.view.getItem('game-button-success-close').addEventListener('touchstart', this.eventHandlerClose.bind(this));
-        this.view.getItem('game-button-fail-close').addEventListener('touchstart', this.eventHandlerClose.bind(this));
-        this.view.getItem('game-select-popcorn').addEventListener('touchstart', this.eventHandlerSelectPopcorn.bind(this));
-        this.view.getItem('game-select-puzzle').addEventListener('touchstart', this.eventHandlerSelectPuzzle.bind(this));
-        this.view.getItem('game-select-popcorn-muzi').addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
-        this.view.getItem('game-select-popcorn-neo').addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
-        this.view.getItem('game-select-popcorn-frodo').addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
-        this.view.getItem('game-select-popcorn-jayg').addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
-        this.view.getItem('game-select-popcorn-ryan').addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
-        this.view.getItem('game-select-popcorn-con').addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
-        this.view.getItem('game-select-popcorn-apeach').addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
-        this.view.getItem('game-select-popcorn-tube').addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
-        this.view.getItem('game-select-puzzle-muzi').addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
-        this.view.getItem('game-select-puzzle-neo').addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
-        this.view.getItem('game-select-puzzle-frodo').addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
-        this.view.getItem('game-select-puzzle-jayg').addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
-        this.view.getItem('game-select-puzzle-ryan').addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
-        this.view.getItem('game-select-puzzle-apeach').addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
-        this.view.getItem('game-select-puzzle-tube').addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
-        this.view.getItem('game-button-select').addEventListener('touchstart', this.eventHandlerSelectComplete.bind(this));
+        this.view.getItem('game-button-play')[0].addEventListener('touchstart', this.eventHandlerPlay.bind(this));
+        this.view.getItem('game-button-stop')[0].addEventListener('touchstart', this.eventHandlerStop.bind(this));
+        this.view.getItem('game-button-success-close')[0].addEventListener('touchstart', this.eventHandlerClose.bind(this));
+        this.view.getItem('game-button-focusout-close')[0].addEventListener('touchstart', this.eventHandlerClose.bind(this));
+        this.view.getItem('game-button-overlap-close')[0].addEventListener('touchstart', this.eventHandlerClose.bind(this));
+        this.view.getItem('game-select-popcorn')[0].addEventListener('touchstart', this.eventHandlerSelectPopcorn.bind(this));
+        this.view.getItem('game-select-puzzle')[0].addEventListener('touchstart', this.eventHandlerSelectPuzzle.bind(this));
+        this.view.getItem('game-select-popcorn-muzi')[0].addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
+        this.view.getItem('game-select-popcorn-neo')[0].addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
+        this.view.getItem('game-select-popcorn-frodo')[0].addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
+        this.view.getItem('game-select-popcorn-jayg')[0].addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
+        this.view.getItem('game-select-popcorn-ryan')[0].addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
+        this.view.getItem('game-select-popcorn-con')[0].addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
+        this.view.getItem('game-select-popcorn-apeach')[0].addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
+        this.view.getItem('game-select-popcorn-tube')[0].addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
+        this.view.getItem('game-select-puzzle-muzi')[0].addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
+        this.view.getItem('game-select-puzzle-neo')[0].addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
+        this.view.getItem('game-select-puzzle-frodo')[0].addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
+        this.view.getItem('game-select-puzzle-jayg')[0].addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
+        this.view.getItem('game-select-puzzle-ryan')[0].addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
+        this.view.getItem('game-select-puzzle-apeach')[0].addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
+        this.view.getItem('game-select-puzzle-tube')[0].addEventListener('touchstart', this.eventHandlerSelectCharacter.bind(this));
+        this.view.getItem('game-button-select')[0].addEventListener('touchstart', this.eventHandlerSelectComplete.bind(this));
+        this.view.getItem('game-clear-gift-popcorn')[0].addEventListener('touchstart', this.eventHandlerGiftPopcorn.bind(this));
+        this.view.getItem('game-clear-gift-puzzle')[0].addEventListener('touchstart', this.eventHandlerGiftPuzzle.bind(this));
+        this.view.getItem('game-button-clear-close')[0].addEventListener('touchstart', this.eventHandlerClear.bind(this));
         window.addEventListener('load', this.eventHandlerLoad.bind(this));
     };
 
@@ -567,6 +644,7 @@ this.Game = this.Game || {};
 
     var response, options;
 
+    // RESPONSE DATA
     response = {
         'inToday': 'N',
         'M3C': 'N',
@@ -576,10 +654,11 @@ this.Game = this.Game || {};
         'missionClear3': 'N'
     };
 
+    // DEFAULT OPTIONS
     options = {
         'code': false, // 선택 캐릭터 코드 (set response data)
-        'inToday': false, // 당일 미션 참가 여부 (set response data)
-        'missionClear3': false, // 미션 완료 여부 (set response data)
+        'played': false, // 당일 미션 참가 여부 (set response data)
+        'clear': false, // 미션 완료 여부 (set response data)
         'success': {
             'LE': false, // 이마트 로고 성공 여부 (set response data)
             'LP': false, // 프렌즈팝콘 로고 성공 여부 (set response data)
@@ -590,12 +669,13 @@ this.Game = this.Game || {};
         'ratio': 0.3 // 캐릭터 체크 비율 (0.0 ~ 1.0)
     };
 
+    // DATA > OPTIONS
     // 캐릭터 선택 여부 (code or 'N')
     if (response['M3C'] !== 'N') options['code'] = response['M3C'];
     // 당일 게임 참가 여부 ('Y' or 'N')
-    if (response['inToday'] === 'Y') options['inToday'] = true;
+    if (response['inToday'] === 'Y') options['played'] = true;
     // 미션 완료 여부 ('Y' or 'N')
-    if (response['missionClear3'] === 'Y') options['missionClear3'] = true;
+    if (response['missionClear3'] === 'Y') options['clear'] = true;
     // 캐릭터 선택한 경우 SUCCESS에 코드 추가
     if (options['code']) options.success[options['code']] = false;
     // 선택 캐릭터 성공 여부 ('Y' or 'N')
@@ -607,6 +687,7 @@ this.Game = this.Game || {};
     // 프렌즈사천성 로고 성공 여부
     if (response['LM'] === 'Y') options.success['LM'] = true;
 
+    // GAME START
     Game.today = new Game.Play(options);
 
     // var console = (function(oldConsole){
