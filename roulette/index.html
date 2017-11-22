@@ -48,7 +48,7 @@
     function doAjax(event){
       // ajax success
       code = getRandom(codes);
-      timeline.fromTo(target, 1.5, { rotation: keymap[code] }, { rotation: 360 * speed + keymap[code], ease: Power1.easeOut });
+      timeline.fromTo(target, 1, { rotation: keymap[code] }, { rotation: 360 * speed + keymap[code], ease: Power1.easeOut });
     }
 
     function getRandom(array){
@@ -61,7 +61,7 @@
       // action start
       timeline = new TimelineLite();
       timeline
-      .fromTo(target, 1.5, { rotation: 0 }, { rotation: 360 * speed * 2, ease: Power0.easeNone })
+      .fromTo(target, 1, { rotation: 0 }, { rotation: 360 * speed * 2, ease: Power0.easeNone })
       .eventCallback('onUpdate', function(){
         console.log(this.progress());
       })
@@ -69,7 +69,7 @@
         if (!code) timeline.restart();
       });
 
-      timeout = setTimeout(doAjax, 1500);
+      timeout = setTimeout(doAjax, 1000);
     }
 
     function setRotateSpeedUp(){
