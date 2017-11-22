@@ -10,8 +10,9 @@
   html, body{margin:0;padding:0;}
   .img-wrap{padding:5%;}
   .img-wrap img{width:100%;height:auto;}
-  .btn-wrap{overflow:hidden;padding:5%;}
-  .btn-wrap button{box-sizing:border-box;float:left;width:100%;}
+  .btn-wrap{overflow:hidden;padding:10% 5% 0;}
+  .btn-wrap button{box-sizing:border-box;float:left;margin-right:5%;padding:1%;width:30%;background:#eee;border:1px solid #777;}
+  .btn-wrap button:last-child{margin-right:0;}
   </style>
 </head>
 <body>
@@ -20,6 +21,8 @@
   </div>
   <div class="btn-wrap">
     <button class="play">PLAY</button>
+    <button class="plus">SPEED UP</button>
+    <button class="minus">SPEED DOWN</button>
   </div>
   <script>
   (function(window, document, undefined){
@@ -29,6 +32,8 @@
     var keymap = createKeymap(codes);
 
     var timeout = timeline = code = null;
+
+    var speed = 2;
 
     function createKeymap(array){
       var result = {}, i, length;
@@ -43,7 +48,7 @@
     function doAjax(event){
       // ajax success
       code = getRandom(codes);
-      timeline.fromTo(target, 1.5, { rotation: keymap[code] }, { rotation: 720 + keymap[code], ease: Power1.easeOut });
+      timeline.fromTo(target, 1.5, { rotation: keymap[code] }, { rotation: 360 * speed + keymap[code], ease: Power1.easeOut });
     }
 
     function getRandom(array){
@@ -56,7 +61,7 @@
       // action start
       timeline = new TimelineLite();
       timeline
-      .fromTo(target, 1.5, { rotation: 0 }, { rotation: 1440, ease: Power0.easeNone })
+      .fromTo(target, 1.5, { rotation: 0 }, { rotation: 360 * speed * 2, ease: Power0.easeNone })
       .eventCallback('onUpdate', function(){
         console.log(this.progress());
       })
@@ -67,7 +72,19 @@
       timeout = setTimeout(doAjax, 1500);
     }
 
+    function setRotateSpeedUp(){
+      speed++
+      console.log(speed);
+    }
+
+    function setRotateSpeedDown(){
+      speed--
+      console.log(speed);
+    }
+
     document.querySelector('.play').addEventListener('click', actionRoulette);
+    document.querySelector('.plus').addEventListener('click', setRotateSpeedUp);
+    document.querySelector('.minus').addEventListener('click', setRotateSpeedDown);
   }(window, document))
 </script>
 </body>
