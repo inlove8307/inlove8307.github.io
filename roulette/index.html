@@ -43,7 +43,7 @@
     function doAjax(event){
       // ajax success
       code = getRandom(codes);
-      timeline.fromTo(target, 1.5, { rotation: keymap[code] }, { rotation: 360 + keymap[code], ease: Power1.easeOut });
+      timeline.fromTo(target, 1.5, { rotation: keymap[code] }, { rotation: 720 + keymap[code], ease: Power1.easeOut });
     }
 
     function getRandom(array){
@@ -56,7 +56,7 @@
       // action start
       timeline = new TimelineLite();
       timeline
-      .fromTo(target, 1.5, { rotation: 0 }, { rotation: 720, ease: Power0.easeNone })
+      .fromTo(target, 1.5, { rotation: 0 }, { rotation: 1440, ease: Power0.easeNone })
       .eventCallback('onUpdate', function(){
         console.log(this.progress());
       })
