@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>EVENT</title>
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/howler.min.js"></script>
+</head>
+<body>
+    <div class="game-wrap">
+        <div class="user-wrap">
+            <span class="user-inner">
+                <span class="user-score">&nbsp;</span>
+            </span>
+        </div>
+        <div class="time-wrap">
+            <span class="time-inner">
+                <span class="time-line">&nbsp;</span>
+                <span class="time-text">&nbsp;</span>
+            </span>
+        </div>
+        <div class="list-wrap">
+            <span class="list-inner">
+                <span class="list-item C01" data-code="C01">육수</span>
+                <span class="list-item C02" data-code="C02">떡</span>
+                <span class="list-item C03" data-code="C03">만두</span>
+                <span class="list-item C04" data-code="C04">김</span>
+                <span class="list-item C05" data-code="C05">계란</span>
+                <span class="list-item C06" data-code="C06">고기</span>
+            </span>
+        </div>
+        <div class="view-wrap">
+            <span class="view-inner">
+                <span class="view-item C01">육수</span>
+                <span class="view-item C02">떡</span>
+                <span class="view-item C03">만두</span>
+                <span class="view-item C04">김</span>
+                <span class="view-item C05">계란</span>
+                <span class="view-item C06">고기</span>
+            </span>
+        </div>
+        <div class="ctlr-wrap">
+            <span class="ctlr-inner">
+                <button type="button" class="ctlr-item C01" data-code="C01">육수</button>
+                <button type="button" class="ctlr-item C02" data-code="C02">떡</button>
+                <button type="button" class="ctlr-item C03" data-code="C03">만두</button>
+                <button type="button" class="ctlr-item C04" data-code="C04">김</button>
+                <button type="button" class="ctlr-item C05" data-code="C05">계란</button>
+                <button type="button" class="ctlr-item C06" data-code="C06">고기</button>
+            </span>
+        </div>
+        <div class="layer-wrap">
+            <div class="layer-inner">
+                <div class="layer-item load">LOAD</div>
+                <div class="layer-item init">
+                    <span>INIT</span>
+                    <button type="button" class="start">START</button>
+                </div>
+                <div class="layer-item count">COUNT</div>
+                <div class="layer-item delay">DELAY</div>
+                <div class="layer-item close">
+                    <span>CLOSE</span>
+                    <button type="button" class="confirm">CONFIRM</button>
+                </div>
+            </div>
+            <div class="layer-modal">&nbsp;</div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
