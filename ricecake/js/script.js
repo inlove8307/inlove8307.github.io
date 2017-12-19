@@ -93,8 +93,6 @@ var Game = Game || {};
         if (this.event.reset) {
             this.event.reset();
         }
-
-        this.update();
     };
 
     Game.Time = Time;
@@ -369,27 +367,31 @@ var Game = Game || {};
     // TEST TIME
     var time = new Game.Time(options.time, function(time){
         // callback initialize
-        $('.time-line').width(time.toPercent());
-        $('.time-text').text(time.toFormat());
+        setTimeView(time.toPercent(), time.toFormat());
+    });
+
+    time.callback('reset', function(time){
+        setTimeView(time.toPercent(), time.toFormat());
     });
 
     time.callback('update', function(time){
-        $('.time-line').width(time.toPercent());
-        $('.time-text').text(time.toFormat());
+        setTimeView(time.toPercent(), time.toFormat());
     });
 
     time.callback('increase', function(time){
-        $('.time-line').width(time.toPercent());
-        $('.time-text').text(time.toFormat());
+        setTimeView(time.toPercent(), time.toFormat());
     });
 
     time.callback('complete', function(time){
-        $('.time-line').width(time.toPercent());
-        $('.time-text').text(time.toFormat());
-
+        setTimeView(time.toPercent(), time.toFormat());
         layerShow('close', true);
         audio.bgm.fade(0.2, 0, 500);
     });
+
+    function setTimeView(width, text){
+        $('.time-line').width(width);
+        $('.time-text').text(text);
+    };
 
     // TEST SCORE
     var score = new Game.Score(options.unit, function(score){
@@ -415,18 +417,12 @@ var Game = Game || {};
     });
 
     item.callback('reset', function(item){
-        var index = item.clone.length - item.code.length;
-
-        item.origin.eq(index).css('background-color', 'red')
-        .siblings().css('background-color', 'white');
+        // callback reset
     });
 
     item.callback('update', function(item){
-        var index = item.clone.length - item.code.length;
-
-        item.origin.eq(index).css('background-color', 'red')
-        .siblings().css('background-color', 'white');
-
+        var index = item.clone.length - item.code.length - 1;
+        item.origin.eq(index).remove();
         audio.effect.play();
     });
 
@@ -447,6 +443,7 @@ var Game = Game || {};
 
     // TEST PLAY
     var play = new Game.Play(options.count, function(play){
+        // callback initialize
         layerShow('load', true, 0);
         play.load(3000);
     });
@@ -458,6 +455,7 @@ var Game = Game || {};
     play.callback('reset', function(play){
         item.reset();
         score.reset();
+        time.reset();
 
         layerShow('count', true, 200);
     });
@@ -471,10 +469,9 @@ var Game = Game || {};
     });
 
     play.callback('complete', function(play){
-        time.reset();
         audio.bgm.volume(0.2);
         audio.bgm.play();
-
+        time.update();
         layerHide(0);
     });
 
