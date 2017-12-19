@@ -6,7 +6,7 @@ html, body{margin:0;padding:0;}
 
 .user-wrap{position:relative;width:100%;height:50px;border-bottom:1px solid #444;}
 .user-inner{display:block;position:absolute;top:0;left:0;width:100%;height:100%;}
-.user-score{display:block;position:absolute;top:0;left:0;width:100%;height:100%;text-align:center;font-size:18px;}
+.user-score{display:block;position:absolute;top:0;left:0;width:100%;height:100%;text-align:center;line-height:50px;font-size:18px;}
 
 .time-wrap{position:relative;width:100%;height:50px;border-bottom:1px solid #444;}
 .time-inner{display:block;position:absolute;top:0;left:0;width:100%;height:100%;}
