@@ -559,12 +559,12 @@ var Game = Game || {};
     });
 
     audio.update = new Howl({
-        src: ['assets/audio/effect_update.wav'],
+        src: ['assets/audio/effect_update.mp3'],
         volume: 1
     });
 
     audio.passby = new Howl({
-        src: ['assets/audio/effect_passby.wav'],
+        src: ['assets/audio/effect_passby.mp3'],
         volume: 1
     });
 
