@@ -50,7 +50,7 @@ html, body{margin:0;padding:0;}
 .layer-modal{display:block;position:absolute;top:0;left:0;width:100%;height:100%;background:#000;opacity:0.8;z-index:100;}
 .layer-item{display:none;position:absolute;top:50%;left:0;width:100%;height:auto;font-size:24px;text-align:center;color:#fff;z-index:110;}
 .layer-item.load{display:block;width:100%;height:100%;top:0;left:0;background:#fff;text-align:center;}
-.layer-item.load img{width:50%;height:auto;}
+.layer-item.load img{visibility:hidden;width:50%;height:auto;}
 .layer-item.init{}
 .layer-item.count{}
 .layer-item.count img{display:none;width:63.75%;height:auto;}

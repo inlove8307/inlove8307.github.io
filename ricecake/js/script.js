@@ -372,10 +372,6 @@ var Game = Game || {};
     time = new Game.Time(options.timelimit, function(time){
         // 타이머 생성 시 코드
         setTimeView(time.toPercent(), time.toNumber());
-
-        $('.time-text').css('line-height', function(){
-            return $(this).outerHeight() - 1 + 'px';
-        });
     });
 
     time.callback('reset', function(time){
@@ -444,13 +440,14 @@ var Game = Game || {};
         var index = item.clone.length - item.code.length - 1;
 
         item.origin.eq(index).remove();
-        audio.effect.play();
+        audio.update.play();
         score.increase(options.scoreunit);
         $('.view-item.' + code).show();
     });
 
     item.callback('passby', function(item){
         // 아이템 오답 시 코드
+        audio.passby.play();
         layerShow('delay', true, 200);
 
         setTimeout(function(){
@@ -482,11 +479,18 @@ var Game = Game || {};
     // @callback (function) : 이벤트 콜백 함수
     play = new Game.Play(3, function(play){
         // 게임 생성 시 코드
-        play.load(3000);
+        var setPaddingTop = function(event){
+            var $wrap = $('.layer-item.load'),
+            loadHeight = $wrap.outerHeight(),
+            logoHeight = $wrap.children().outerHeight();
 
-        $('.layer-item.load').css('padding-top', function(){
-            return $(this).outerHeight() / 2 - $(this).children().outerHeight() / 2;
-        });
+            $wrap.css('padding-top', loadHeight / 2 - logoHeight / 2);
+            $wrap.children().css('visibility', 'visible');
+        };
+
+        $('.layer-item.load img').ready(setPaddingTop).load(setPaddingTop);
+
+        play.load(3000);
     });
 
     play.callback('load', function(play){
@@ -498,6 +502,10 @@ var Game = Game || {};
             margin = (wrapHeight - thisTop) / 2 - thisHeight / 2;
 
             return thisTop + margin > thisTop ? margin : thisTop;
+        });
+
+        $('.time-text').css('line-height', function(){
+            return $(this).outerHeight() - 1 + 'px';
         });
 
         layerShow('init', true, 1000);
@@ -539,7 +547,7 @@ var Game = Game || {};
     // new Howl(options)
     // @options (Object) : src 옵션 필수
     audio.bgm = new Howl({
-        src: ['assets/audio/bgm.mp3'],
+        src: ['assets/audio/bgm_ricecake.mp3'],
         volume: 0.5,
         loop: true,
         onfade: function(){
@@ -550,8 +558,13 @@ var Game = Game || {};
         }
     });
 
-    audio.effect = new Howl({
-        src: ['assets/audio/effect.mp3'],
+    audio.update = new Howl({
+        src: ['assets/audio/effect_update.wav'],
+        volume: 1
+    });
+
+    audio.passby = new Howl({
+        src: ['assets/audio/effect_passby.wav'],
         volume: 1
     });
 
@@ -560,7 +573,7 @@ var Game = Game || {};
         'touchstart': function(event){
             // 아이템 버튼 터치시작 시 코드
             item.checkCode($(this).data('code'));
-            $(this).addClass('on');
+            $(this).addClass('on').siblings().removeClass('on');
         },
         'touchend': function(event){
             // 아이템 버튼 터치종료 시 코드
