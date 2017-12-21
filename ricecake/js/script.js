@@ -483,6 +483,10 @@ var Game = Game || {};
     play = new Game.Play(3, function(play){
         // 게임 생성 시 코드
         play.load(3000);
+
+        $('.layer-item.load').css('padding-top', function(){
+            return $(this).outerHeight() / 2 - $(this).children().outerHeight() / 2;
+        });
     });
 
     play.callback('load', function(play){
@@ -495,6 +499,7 @@ var Game = Game || {};
 
             return thisTop + margin > thisTop ? margin : thisTop;
         });
+
         layerShow('init', true, 1000);
     });
 
