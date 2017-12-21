@@ -10,6 +10,7 @@ var Game = Game || {};
         this.initialize(seconds, callback);
     };
 
+    // PROTOTYPE
     var p = Time.prototype;
 
     // PROPERTIES
@@ -220,13 +221,15 @@ var Game = Game || {};
         }
     };
     p.checkCode = function(code){
+        var shift;
+
         if (!code) return console.error('error: \'code\' is not defined.');
 
         if (this.code[0] === code) {
-            this.code.shift();
+            shift = this.code.shift();
 
             if (this.event.update) {
-                this.event.update();
+                this.event.update(shift);
             }
         }
         else {
@@ -236,8 +239,6 @@ var Game = Game || {};
         }
 
         if (this.code[0] === undefined) {
-            this.reset();
-
             if (this.event.complete) {
                 this.event.complete();
             }
@@ -312,7 +313,7 @@ var Game = Game || {};
         var play = this, interval;
 
         if (play.event.start) {
-            play.event.start();
+            play.event.start(play.clone);
         }
 
         interval = setInterval(function(){
@@ -320,7 +321,7 @@ var Game = Game || {};
 
             if (play.clone > -1) {
                 if (play.event.update) {
-                    play.event.update();
+                    play.event.update(play.clone);
                 }
             }
             else {
@@ -352,81 +353,104 @@ var Game = Game || {};
     Game.Play = Play;
 }(window, document, jQuery));
 
-// TEST
+// 게임 코드
 (function(window, document, $, undefined){
     "use strict";
 
-    // TEST OPTIONS
-    var options = {
-        count: 3,
-        unit: 1,
-        time: 30,
-        item: $('.list-item'),
-    };
+    // 변수 선언
+    var time, score, item, play, audio = {}, options = {};
 
-    // TEST TIME
-    var time = new Game.Time(options.time, function(time){
-        // callback initialize
-        setTimeView(time.toPercent(), time.toFormat());
+    // 기본 옵션값
+    options.timelimit = 60; // 플레이 시간
+    options.timeunit = 2; // 시간 증가 단위
+    options.scoreunit = 10; // 점수 증가 단위
+
+    // 타이머 생성
+    // new Game.Time(time, callback)
+    // @time (Number) : 플레이 타임
+    // @callback (function) : 이벤트 콜백 함수
+    time = new Game.Time(options.timelimit, function(time){
+        // 타이머 생성 시 코드
+        setTimeView(time.toPercent(), time.toNumber());
+
+        $('.time-text').css('line-height', function(){
+            return $(this).outerHeight() - 1 + 'px';
+        });
     });
 
     time.callback('reset', function(time){
-        setTimeView(time.toPercent(), time.toFormat());
+        // 타이머 리셋 시 코드
+        setTimeView(time.toPercent(), time.toNumber());
+        $('.time-text').css({
+            'background': '#fea201',
+            'border-color': '#fea201'
+        });
     });
 
     time.callback('update', function(time){
-        setTimeView(time.toPercent(), time.toFormat());
+        // 타이머 업데이트 시 코드
+        setTimeView(time.toPercent(), time.toNumber());
     });
 
     time.callback('increase', function(time){
-        setTimeView(time.toPercent(), time.toFormat());
+        // 타이머 값 증가 시 코드
+        setTimeView(time.toPercent(), time.toNumber());
     });
 
     time.callback('complete', function(time){
-        setTimeView(time.toPercent(), time.toFormat());
+        // 타이머 종료 시 코드
+        setTimeView(time.toPercent(), time.toNumber());
         layerShow('close', true);
-        audio.bgm.fade(0.2, 0, 500);
+        audio.bgm.fade(0.5, 0, 500);
+        $('.time-text').css({
+            'background': '#333133',
+            'border-color': '#333133'
+        });
     });
 
-    function setTimeView(width, text){
-        $('.time-line').width(width);
-        $('.time-text').text(text);
-    };
-
-    // TEST SCORE
-    var score = new Game.Score(options.unit, function(score){
-        // callback initialize
-        $('.user-score').text(score.toFormat());
+    // 스코어 생성
+    // new Game.Score(unit, callback)
+    // @unit (Number) : 점수 증가 단위
+    // @callback (function) : 이벤트 콜백 함수
+    score = new Game.Score(options.scoreunit, function(score){
+        // 스코어 생성 시 코드
+        $('.score-text').text(score.toFormat());
     });
 
     score.callback('reset', function(score){
-        $('.user-score').text(score.toFormat());
+        // 스코어 리셋 시 코드
+        $('.score-text').text(score.toFormat());
     });
 
     score.callback('increase', function(score){
-        $('.user-score').text(score.toFormat());
+        // 스코어 값 증가 시 코드
+        $('.score-text').text(score.toFormat());
     });
 
-    score.callback('decrease', function(score){
-        $('.user-score').text(score.toFormat());
-    });
-
-    // TEST ITEM
-    var item = new Game.Item(options.item, function(item){
-        // callback initialize
+    // 아이템 생성
+    // new Game.Item(item, callback)
+    // @item (jQuery Object) : 레시피 아이템
+    // @callback (function) : 이벤트 콜백 함수
+    item = new Game.Item($('.list-item'), function(item){
+        // 아이템 생성 시 코드
     });
 
     item.callback('reset', function(item){
-        // callback reset
+        // 아이템 리셋 시 코드
     });
 
-    item.callback('update', function(item){
+    item.callback('update', function(item, code){
+        // 아이템 정답 시 코드
         var index = item.clone.length - item.code.length - 1;
+
         item.origin.eq(index).remove();
         audio.effect.play();
+        score.increase(options.scoreunit);
+        $('.view-item.' + code).show();
     });
 
     item.callback('passby', function(item){
+        // 아이템 오답 시 코드
         layerShow('delay', true, 200);
 
         setTimeout(function(){
@@ -437,50 +461,81 @@ var Game = Game || {};
     });
 
     item.callback('complete', function(item){
-        score.increase();
-        time.increase();
+        // 아이템 사이클 완성 시 코드
+        score.increase(options.scoreunit * 10);
+        time.increase(options.timeunit);
+        layerShow(null, false, 0);
+
+        $('.view-item.C07').fadeIn(1000);
+
+        setTimeout(function(){
+            item.reset();
+            $('.view-item').hide();
+            $('.view-item.C00').show();
+            layerHide(0);
+        }, 1000);
     });
 
-    // TEST PLAY
-    var play = new Game.Play(options.count, function(play){
-        // callback initialize
-        layerShow('load', true, 0);
+    // 게임 생성
+    // new Game.Play(count, callback)
+    // @count (Number) : 게임 시작 시 카운트
+    // @callback (function) : 이벤트 콜백 함수
+    play = new Game.Play(3, function(play){
+        // 게임 생성 시 코드
         play.load(3000);
     });
 
     play.callback('load', function(play){
-        layerShow('init', true, 200);
+        // 리소스(bgm) 로드 되었을 시 코드
+        $('.ctlr-wrap').css('margin-top', function(){
+            var wrapHeight = $(this).parent().outerHeight(),
+            thisHeight = $(this).children().outerHeight(),
+            thisTop = $(this).offset().top,
+            margin = (wrapHeight - thisTop) / 2 - thisHeight / 2;
+
+            return thisTop + margin > thisTop ? margin : thisTop;
+        });
+        layerShow('init', true, 1000);
     });
 
     play.callback('reset', function(play){
+        // 게임 리셋 시 코드
         item.reset();
         score.reset();
         time.reset();
 
+        $('.view-item').hide();
+        $('.view-item.C00').show();
+
         layerShow('count', true, 200);
     });
 
-    play.callback('start', function(play){
-        $('.layer-item.count').text(play.clone);
+    play.callback('start', function(play, index){
+        // 게임 스타트 시 코드
+        $('.layer-item.count img').eq(index).show().siblings().hide();
+        layerShow('count', true, 0);
     });
 
-    play.callback('update', function(play){
-        $('.layer-item.count').text(play.clone);
+    play.callback('update', function(play, index){
+        // 게임 카운트 시 코드
+        $('.layer-item.count img').eq(index).show().siblings().hide();
     });
 
     play.callback('complete', function(play){
-        audio.bgm.volume(0.2);
+        // 게임 카운트 완료 시 코드
+        audio.bgm.volume(0.5);
         audio.bgm.play();
         time.update();
         layerHide(0);
     });
 
-    // TEST AUDIO
-    var audio = {};
-
+    // 라이브러리
+    // Howler.js (https://howlerjs.com/)
+    // new Howl(options)
+    // @options (Object) : src 옵션 필수
     audio.bgm = new Howl({
         src: ['assets/audio/bgm.mp3'],
-        volume: 0.2,
+        volume: 0.5,
         loop: true,
         onfade: function(){
             this.stop();
@@ -495,31 +550,64 @@ var Game = Game || {};
         volume: 1
     });
 
-    // TEST GAME
-    $('.ctlr-item').on('touchstart', function(event){
-        item.checkCode($(this).data('code'));
+    // 버튼 이벤트
+    $('.ctlr-item').on({
+        'touchstart': function(event){
+            // 아이템 버튼 터치시작 시 코드
+            item.checkCode($(this).data('code'));
+            $(this).addClass('on');
+        },
+        'touchend': function(event){
+            // 아이템 버튼 터치종료 시 코드
+            $(this).removeClass('on');
+        },
     });
 
-    $('.start').on('touchstart', function(event){
+    $('.layer-item.init').on('touchstart', function(event){
+        // 시작 버튼 터치 시 코드
         play.reset();
     });
 
-    $('.confirm').on('touchstart', function(event){
+    $('.layer-item.close').on('touchstart', function(event){
+        // 확인 버튼 클릭 시 코드
         layerShow('init', true, 200);
     });
 
+    // 공통 함수
+    function setTimeView(width, text){
+        $('.time-line-inner').width(width);
+        $('.time-text').text(text);
+    };
+
     function layerShow(target, modal, duration){
+        var $wrap = $('.layer-wrap'),
+        $item = $('.layer-item'),
+        $prev = $item.filter('.' + $wrap.data('item')),
+        $target = $item.filter('.' + target),
+        $modal = $('.layer-modal');
+
         duration = duration || 200;
 
         if (modal) {
-            $('.layer-modal').fadeIn(duration);
+            $modal.fadeIn(duration);
         }
         else {
-            $('.layer-modal').fadeOut(duration);
+            $modal.fadeOut(duration);
         }
 
-        $('.layer-item').filter('.' + target).fadeIn(duration).siblings().fadeOut(duration);
-        $('.layer-wrap').fadeIn(duration);
+        $wrap.fadeIn(duration);
+        $prev.fadeOut(duration);
+        $target.css({
+            'display': 'block',
+            'visibility': 'hidden',
+            'margin-top': - $target.outerHeight() / 2
+        });
+        $target.css({
+            'display': 'none',
+            'visibility': 'visible'
+        });
+        $target.fadeIn(duration);
+        $wrap.data('item', target);
     };
 
     function layerHide(duration){
