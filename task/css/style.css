@@ -209,11 +209,14 @@ header .menu i {
 #view .data-title .work {
 	color: #459C45;
 }
+#view .data-title .complete {
+  color: #7373FF;
+}
 #view .data-title .deploy {
 	color: #FF7373;
 }
-#view .data-title .complete {
-	color: #7373FF;
+#view .data-title .delay {
+	color: #885EAE;
 }
 #view .data-title .copy {
 	visibility: hidden;
@@ -347,6 +350,9 @@ header .menu i {
 #write .data-item-row label.complete {
 	color: #7373FF;
 }
+#write .data-item-row label.delay {
+	color: #885EAE;
+}
 #write .data-item-row label:first-child {
 	border-left: none;
 }
@@ -433,6 +439,10 @@ header .menu i {
 #list .data-item .complete {
 	font-weight: 600;
 	color: #7373FF;
+}
+#list .data-item .delay {
+	font-weight: 600;
+	color: #885EAE;
 }
 
 #data .wrap {
