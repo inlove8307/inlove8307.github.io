@@ -196,7 +196,7 @@
         work: false,
         deploy: false,
         complete: false,
-        delay: false
+        hold: false
       }
     },
     mixins: [mixins.tween],
@@ -210,7 +210,7 @@
           this.data.list[this.index].work = this.work;
           this.data.list[this.index].deploy = this.deploy;
           this.data.list[this.index].complete = this.complete;
-          this.data.list[this.index].delay = this.delay;
+          this.data.list[this.index].hold = this.hold;
         }
         else {
           this.data.list.push({
@@ -219,7 +219,7 @@
             work: this.work,
             deploy: this.deploy,
             complete: this.complete,
-            delay: this.delay,
+            hold: this.hold,
             id: new Date().getTime()
           });
         }
@@ -246,7 +246,7 @@
             this.work = this.item.list[this.index].work;
             this.deploy = this.item.list[this.index].deploy;
             this.complete = this.item.list[this.index].complete;
-            this.delay = this.item.list[this.index].delay;
+            this.hold = this.item.list[this.index].hold;
           }
         }
         else {
@@ -267,7 +267,7 @@
         }
         else {
           this.date = this.week = this.title = this.text = null;
-          this.work = this.deploy = this.complete = this.delay = false;
+          this.work = this.deploy = this.complete = this.hold = false;
         }
       }
     }

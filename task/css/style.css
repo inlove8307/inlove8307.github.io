@@ -215,7 +215,7 @@ header .menu i {
 #view .data-title .deploy {
 	color: #FF7373;
 }
-#view .data-title .delay {
+#view .data-title .hold {
 	color: #885EAE;
 }
 #view .data-title .copy {
@@ -350,7 +350,7 @@ header .menu i {
 #write .data-item-row label.complete {
 	color: #7373FF;
 }
-#write .data-item-row label.delay {
+#write .data-item-row label.hold {
 	color: #885EAE;
 }
 #write .data-item-row label:first-child {
@@ -440,7 +440,7 @@ header .menu i {
 	font-weight: 600;
 	color: #7373FF;
 }
-#list .data-item .delay {
+#list .data-item .hold {
 	font-weight: 600;
 	color: #885EAE;
 }
