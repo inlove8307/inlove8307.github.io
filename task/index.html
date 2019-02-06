@@ -92,10 +92,10 @@
                       <ul class="data-list">
                         <li class="data-item" v-for="(task, index) in date.list">
                           - {{ task.title }}
-                          <span class="work">{{ task.work ? '[작업]' : '' }}</span>
-                          <span class="deploy">{{ task.deploy ? '[반영]' : '' }}</span>
-                          <span class="complete">{{ task.complete ? '[완료]' : '' }}</span>
-                          <span class="hold">{{ task.hold ? '[보류]' : '' }}</span>
+                          <span class="work" v-show="task.work">[작업]</span>
+                          <span class="deploy" v-show="task.deploy">[반영]</span>
+                          <span class="complete" v-show="task.complete">[완료]</span>
+                          <span class="hold" v-show="task.hold">[보류]</span>
                         </li>
                       </ul>
                     </dd>
