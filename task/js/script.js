@@ -401,15 +401,7 @@
           interval;
 
         this.dexie['task']
-        .each(function(item){
-          _.map(item.list, function(item){
-            if (item.title.match(/\(추가반영\)/g)) {
-              item.title = item.title.replace(/\(추가반영\)/g, '');
-              item.deploy = true;
-            }
-          });
-          data.task.push(item);
-        })
+        .each(function(item){ data.task.push(item) })
         .then(function(){ check['task'] = true });
 
         this.dexie['memo']
