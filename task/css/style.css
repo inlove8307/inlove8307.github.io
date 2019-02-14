@@ -417,6 +417,7 @@ header .menu i {
   list-style: none;
 }
 #list .data-item {
+  overflow: hidden;
   box-sizing: border-box;
   margin-top: 5px;
   padding-left: 10px;
