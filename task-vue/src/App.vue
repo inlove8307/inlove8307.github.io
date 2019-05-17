@@ -1,21 +1,27 @@
 <template>
   <div id="app">
-    <nav id="nav">
-      <router-link to="/">Days</router-link>
-      <router-link to="/week">Week</router-link>
-      <router-link to="/memo">Memo</router-link>
-      <router-link to="/write">Write</router-link>
-      <router-link to="/data">Data</router-link>
-    </nav>
-    <section>
-      <router-view/>
-    </section>
+    <div id="nav">
+      <button @click="show = !show">MENU</button>
+      <nav v-show="show" @click="show = false">
+        <router-link to="/">DAYS</router-link>
+        <router-link to="/week">WEEK</router-link>
+        <router-link to="/memo">MEMO</router-link>
+        <router-link to="/write">WRITE</router-link>
+        <router-link to="/data">DATA</router-link>
+      </nav>
+    </div>
+    <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data(){
+    return {
+      show: false
+    }
+  }
 }
 </script>
 
@@ -38,39 +44,45 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  #nav {
-    background-color: #444;
-
-    &:after {
-      content: '';
-      display: block;
-      clear: both;
-    }
-
-    a {
-      overflow: hidden;
-      float: left;
-      box-sizing: border-box;
-      margin: 2px 0 2px 2px;
-      padding: 10px;
-      width: auto;
-      height: 40px;
-      border-top: 1px solid #666;
-      border-right: 1px solid #333;
-      border-bottom: 1px solid #222;
-      border-left: 1px solid #555;
-      border-radius: 5px;
-      font-size: 14px;
-      color: #fff;
-    }
+  button {
+    outline: none;
   }
 
-  section {
-    flex: 1;
-    margin: 10px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px 2px #dfdfdf;
-    background-color: #fff;
+
+
+  #nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    & > button {
+      float: left;
+      padding: 10px;
+      width: auto;
+      border: 0;
+      background-color: #444;
+      font-family: 'Dotum';
+      font-weight: 800;
+      font-size: 12px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    nav {
+      float: left;
+
+      a {
+        float: left;
+        padding: 10px 10px 10px 0;
+        width: auto;
+        background-color: #444;
+        font-family: 'Dotum';
+        font-weight: 800;
+        font-size: 12px;
+        color: #fff;
+      }
+    }
   }
 }
 </style>

@@ -20,16 +20,18 @@ export default {
   data(){
     return {
       tasks: [
-        { title: 'title0', text: 'text', key: 0 },
-        { title: 'title1', text: 'text', key: 1 },
-        { title: 'title2', text: 'text', key: 2 },
-        { title: 'title3', text: 'text', key: 3 },
-        { title: 'title4', text: 'text', key: 4 },
-        { title: 'title5', text: 'text', key: 5 },
-        { title: 'title6', text: 'text', key: 6 },
-        { title: 'title7', text: 'text', key: 7 },
-        { title: 'title8', text: 'text', key: 8 },
-        { title: 'title9', text: 'text', key: 9 }
+        { title: '업무명1', text: '내용1', key: 0 },
+        { title: '업무명2', text: '내용2', key: 1 },
+        // { title: '업무명3', text: '내용3', key: 2 },
+        // { title: '업무명1', text: '내용1', key: 3 },
+        // { title: '업무명2', text: '내용2', key: 4 },
+        // { title: '업무명3', text: '내용3', key: 5 },
+        // { title: '업무명1', text: '내용1', key: 6 },
+        // { title: '업무명2', text: '내용2', key: 7 },
+        // { title: '업무명3', text: '내용3', key: 8 },
+        // { title: '업무명1', text: '내용1', key: 9 },
+        // { title: '업무명2', text: '내용2', key: 10 },
+        // { title: '업무명3', text: '내용3', key: 11 }
       ]
     }
   },
@@ -43,23 +45,32 @@ export default {
 <style lang="scss" scoped>
   ol {
     & > li {
+      overflow: hidden;
       display: flex;
       flex-direction: row;
       margin: 10px;
-      border: 1px solid #dfdfdf;
+      border: 1px solid #ccc;
       border-radius: 5px;
-      box-shadow: 2px 2px 10px #efefef;
+      box-shadow: 1px 1px 5px #ddd;
+      background-color: #fff;
 
       & > button {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
-        padding: 5px 5px 0 5px;
+        padding: 10px;
         border: 0;
-        border-right: 1px solid #dfdfdf;
+        border-right: 1px solid #ccc;
         background-color: transparent;
+        font-family: 'Dotum';
+        font-weight: 800;
+        font-size: 12px;
         cursor: pointer;
+
+        &:hover {
+          background-color: #ffc;
+        }
       }
 
       ul {

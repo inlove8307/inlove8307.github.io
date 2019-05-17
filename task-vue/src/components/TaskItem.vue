@@ -1,8 +1,10 @@
 <template>
   <li>
-    <button @click="show = !show">{{ task.title }}</button>
-    <button>MODIFY</button>
-    <button>DELETE</button>
+    <div>
+      <button @click="show = !show">{{ task.title }}</button>
+      <button v-show="show">EDIT</button>
+      <button v-show="show">DEL</button>
+    </div>
     <pre v-show="show">{{ task.text }}</pre>
   </li>
 </template>
@@ -22,31 +24,42 @@ export default {
 
 <style lang="scss" scoped>
   li {
-    border-bottom: 1px solid #dfdfdf;
+    border-bottom: 1px solid #ccc;
     text-align: right;
 
-    button {
-      padding: 5px;
-      border: 0;
-      background-color: transparent;
-      vertical-align: top;
-      cursor: pointer;
-    }
+    div {
+      display: flex;
 
-    button:first-child {
-      float: left;
-      font-family: inherit;
-      font-size: 14px;
+      button {
+        padding: 10px;
+        border: 0;
+        border-left: 1px solid #ccc;
+        background-color: transparent;
+        vertical-align: top;
+        font-family: 'Dotum';
+        font-weight: 800;
+        font-size: 12px;
+        cursor: pointer;
+
+        &:first-child {
+          flex: 1;
+          border-left: 0;
+          text-align: left;
+        }
+
+        &:hover {
+          background-color: #ffc;
+        }
+      }
     }
 
     pre {
       margin: 0;
-      padding: 5px;
-      border-top: 1px solid #dfdfdf;
+      padding: 10px;
+      border-top: 1px dashed #ccc;
       background-color:#fff;
-      box-shadow: inset 1px 1px 5px #dfdfdf;
-      font-family: inherit;
-      font-size: 14px;
+      font-family: 'Dotum';
+      font-size: 12px;
       text-align: left;
     }
   }
