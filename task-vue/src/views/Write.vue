@@ -120,7 +120,7 @@
             padding: 10px;
             border-bottom: 1px dashed #ccc;
             text-align: left;
-            font-family: inherit;
+            font-family: 'Dotum';
             font-weight: 800;
             font-size: 12px;
             cursor: pointer;
@@ -132,8 +132,9 @@
             padding: 10px;
             border: 0;
             background-color: transparent;
-            font-family: inherit;
+            font-family: 'Dotum';
             font-size: 12px;
+            outline: none;
           }
         }
       }

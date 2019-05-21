@@ -57,7 +57,7 @@ export default {
       margin: 0;
       padding: 10px;
       border-top: 1px dashed #ccc;
-      background-color:#fff;
+      background-color:#efefef;
       font-family: 'Dotum';
       font-size: 12px;
       text-align: left;
