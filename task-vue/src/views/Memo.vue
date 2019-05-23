@@ -91,7 +91,7 @@ export default {
         padding: 10px;
         border: 0;
         background-color: transparent;
-        font-family: 'Dotum';
+        font-family: 'Malgun Gothic';
         font-weight: 800;
         font-size: 12px;
         color: #fff;
@@ -101,7 +101,7 @@ export default {
       span {
         display: inline-block;
         padding: 10px;
-        font-family: 'Dotum';
+        font-family: 'Malgun Gothic';
         font-weight: 800;
         font-size: 12px;
         color: #fff;
@@ -128,7 +128,7 @@ export default {
           border-bottom-left-radius: 3px;
           background-color: #444;
           box-shadow: inset 1px 1px 0 #555;
-          font-family: 'Dotum';
+          font-family: 'Malgun Gothic';
           font-weight: 800;
           font-size: 12px;
           color: #fff;
@@ -137,13 +137,13 @@ export default {
         select {
           float:left;
           margin-right:5px;
-          padding: 5px;
+          padding: 4px;
           border: 1px solid #333;
           border-top-right-radius: 3px;
           border-bottom-right-radius: 3px;
           background-color: #444;
           box-shadow: inset 1px 1px 0 #555;
-          font-family: 'Dotum';
+          font-family: 'Malgun Gothic';
           font-weight: 800;
           font-size: 12px;
           color: #fff;
@@ -159,7 +159,7 @@ export default {
           border-bottom-right-radius: 3px;
           background-color: #444;
           box-shadow: inset 1px 1px 4px #333;
-          font-family: 'Dotum';
+          font-family: 'Malgun Gothic';
           font-weight: 800;
           font-size: 12px;
           color: #fff;
@@ -195,7 +195,7 @@ export default {
               border-left: 1px dashed #ccc;
               background-color: transparent;
               text-align: left;
-              font-family: 'Dotum';
+              font-family: 'Malgun Gothic';
               font-weight: 800;
               font-size: 12px;
               cursor: pointer;
@@ -217,7 +217,7 @@ export default {
             padding: 10px;
             border-top: 1px dashed #ccc;
             background-color: #efefef;
-            font-family: 'Dotum';
+            font-family: 'Malgun Gothic';
             font-size: 12px;
           }
         }

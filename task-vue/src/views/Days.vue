@@ -8,9 +8,10 @@
     <article>
       <ol>
         <date-item
-          v-for="date in dates"
-          v-bind:date="date"
-          v-bind:key="date.key"
+          v-for="(item, key) in group"
+          v-bind:date="key"
+          v-bind:data="item"
+          v-bind:key="item.key"
         ></date-item>
       </ol>
     </article>
@@ -18,50 +19,69 @@
 </template>
 
 <script>
+import _ from 'lodash'
+import moment from 'moment'
 import DateItem from '../components/DateItem'
 
 export default {
   data(){
     return {
-      dates: [
-        { date: '2019.05.01 수요일', key: 0 },
-        { date: '2019.05.02 목요일', key: 1 },
-        { date: '2019.05.03 금요일', key: 2 },
-        { date: '2019.05.04 토요일', key: 3 },
-        { date: '2019.05.05 일요일', key: 4 },
-        { date: '2019.05.06 월요일', key: 5 },
-        { date: '2019.05.07 화요일', key: 6 },
-        { date: '2019.05.08 수요일', key: 7 },
-        { date: '2019.05.09 목요일', key: 8 },
-        { date: '2019.05.10 금요일', key: 9 },
-        { date: '2019.05.11 토요일', key: 10 },
-        { date: '2019.05.12 일요일', key: 11 },
-        { date: '2019.05.13 월요일', key: 12 },
-        { date: '2019.05.14 화요일', key: 13 },
-        { date: '2019.05.15 수요일', key: 14 },
-        { date: '2019.05.16 목요일', key: 15 },
-        { date: '2019.05.17 금요일', key: 16 },
-        { date: '2019.05.18 토요일', key: 17 },
-        { date: '2019.05.19 일요일', key: 18 },
-        { date: '2019.05.20 월요일', key: 19 },
-        { date: '2019.05.21 화요일', key: 20 },
-        { date: '2019.05.22 수요일', key: 21 },
-        { date: '2019.05.23 목요일', key: 22 },
-        { date: '2019.05.24 금요일', key: 23 },
-        { date: '2019.05.25 토요일', key: 24 },
-        { date: '2019.05.26 일요일', key: 25 },
-        { date: '2019.05.27 월요일', key: 26 },
-        { date: '2019.05.28 화요일', key: 27 },
-        { date: '2019.05.29 수요일', key: 28 },
-        { date: '2019.05.30 목요일', key: 29 },
-        { date: '2019.05.31 금요일', key: 30 }
-      ]
+      data: [
+        { "KEY": 1558484706196, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190501, "TITLE": "머니즐기기 룰렛TV 아이콘 추가 관련", "CONTS": "머니즐기기 룰렛TV 아이콘 추가 관련" },
+        { "KEY": 1558484706197, "INDEX": 1, "CODE": "C01", "TAG": null, "DATE": 20190501, "TITLE": "제휴사 신규가입 이벤트 팝업 (WEB버전)", "CONTS": "제휴사 신규가입 이벤트 팝업 (WEB버전)" },
+        { "KEY": 1558484706198, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190502, "TITLE": "말톡 대만결제 제휴배너&랜딩페이지", "CONTS": "말톡 대만결제 제휴배너&랜딩페이지" },
+        { "KEY": 1558484706199, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190503, "TITLE": "바코드결제_대만_가맹점추가 디자인/퍼블리싱 요청", "CONTS": "바코드결제_대만_가맹점추가 디자인/퍼블리싱 요청" },
+        { "KEY": 1558484706200, "INDEX": 1, "CODE": "C01", "TAG": null, "DATE": 20190503, "TITLE": "머니즐기기 룰렛TV 아이콘 추가 관련", "CONTS": "머니즐기기 룰렛TV 아이콘 추가 관련" },
+        { "KEY": 1558484706201, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190506, "TITLE": "제휴사 신규가입 이벤트 팝업 (WEB버전)", "CONTS": "제휴사 신규가입 이벤트 팝업 (WEB버전)" },
+        { "KEY": 1558484706202, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190509, "TITLE": "말톡 대만결제 제휴배너&랜딩페이지", "CONTS": "말톡 대만결제 제휴배너&랜딩페이지" },
+        { "KEY": 1558484706203, "INDEX": 1, "CODE": "C01", "TAG": null, "DATE": 20190509, "TITLE": "바코드결제_대만_가맹점추가 디자인/퍼블리싱 요청", "CONTS": "바코드결제_대만_가맹점추가 디자인/퍼블리싱 요청" },
+        { "KEY": 1558484706204, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190510, "TITLE": "머니즐기기 룰렛TV 아이콘 추가 관련", "CONTS": "머니즐기기 룰렛TV 아이콘 추가 관련" },
+        { "KEY": 1558484706205, "INDEX": 1, "CODE": "C01", "TAG": null, "DATE": 20190510, "TITLE": "제휴사 신규가입 이벤트 팝업 (WEB버전)", "CONTS": "제휴사 신규가입 이벤트 팝업 (WEB버전)" },
+        { "KEY": 1558484706206, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190513, "TITLE": "말톡 대만결제 제휴배너&랜딩페이지", "CONTS": "말톡 대만결제 제휴배너&랜딩페이지" },
+        { "KEY": 1558484706207, "INDEX": 1, "CODE": "C01", "TAG": null, "DATE": 20190513, "TITLE": "바코드결제_대만_가맹점추가 디자인/퍼블리싱 요청", "CONTS": "바코드결제_대만_가맹점추가 디자인/퍼블리싱 요청" },
+        { "KEY": 1558484706208, "INDEX": 2, "CODE": "C01", "TAG": null, "DATE": 20190513, "TITLE": "머니즐기기 룰렛TV 아이콘 추가 관련", "CONTS": "머니즐기기 룰렛TV 아이콘 추가 관련" },
+        { "KEY": 1558484706209, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190514, "TITLE": "제휴사 신규가입 이벤트 팝업 (WEB버전)", "CONTS": "제휴사 신규가입 이벤트 팝업 (WEB버전)" },
+        { "KEY": 1558484706210, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190515, "TITLE": "말톡 대만결제 제휴배너&랜딩페이지", "CONTS": "말톡 대만결제 제휴배너&랜딩페이지" },
+        { "KEY": 1558484706211, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190516, "TITLE": "바코드결제_대만_가맹점추가 디자인/퍼블리싱 요청", "CONTS": "바코드결제_대만_가맹점추가 디자인/퍼블리싱 요청" },
+        { "KEY": 1558484706212, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190517, "TITLE": "머니즐기기 룰렛TV 아이콘 추가 관련", "CONTS": "머니즐기기 룰렛TV 아이콘 추가 관련" },
+        { "KEY": 1558484706213, "INDEX": 1, "CODE": "C01", "TAG": null, "DATE": 20190517, "TITLE": "제휴사 신규가입 이벤트 팝업 (WEB버전)", "CONTS": "제휴사 신규가입 이벤트 팝업 (WEB버전)" },
+        { "KEY": 1558484706214, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190520, "TITLE": "말톡 대만결제 제휴배너&랜딩페이지", "CONTS": "말톡 대만결제 제휴배너&랜딩페이지" },
+        { "KEY": 1558484706215, "INDEX": 1, "CODE": "C01", "TAG": null, "DATE": 20190520, "TITLE": "바코드결제_대만_가맹점추가 디자인/퍼블리싱 요청", "CONTS": "바코드결제_대만_가맹점추가 디자인/퍼블리싱 요청" },
+        { "KEY": 1558484706216, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190521, "TITLE": "머니즐기기 룰렛TV 아이콘 추가 관련", "CONTS": "머니즐기기 룰렛TV 아이콘 추가 관련" },
+        { "KEY": 1558484706217, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190522, "TITLE": "제휴사 신규가입 이벤트 팝업 (WEB버전)", "CONTS": "제휴사 신규가입 이벤트 팝업 (WEB버전)" },
+        { "KEY": 1558484706218, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190523, "TITLE": "말톡 대만결제 제휴배너&랜딩페이지", "CONTS": "말톡 대만결제 제휴배너&랜딩페이지" },
+        { "KEY": 1558484706219, "INDEX": 1, "CODE": "C01", "TAG": null, "DATE": 20190523, "TITLE": "바코드결제_대만_가맹점추가 디자인/퍼블리싱 요청", "CONTS": "바코드결제_대만_가맹점추가 디자인/퍼블리싱 요청" },
+        { "KEY": 1558484706220, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190524, "TITLE": "머니즐기기 룰렛TV 아이콘 추가 관련", "CONTS": "머니즐기기 룰렛TV 아이콘 추가 관련" },
+        { "KEY": 1558484706221, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190527, "TITLE": "제휴사 신규가입 이벤트 팝업 (WEB버전)", "CONTS": "제휴사 신규가입 이벤트 팝업 (WEB버전)" },
+        { "KEY": 1558484706222, "INDEX": 1, "CODE": "C01", "TAG": null, "DATE": 20190527, "TITLE": "말톡 대만결제 제휴배너&랜딩페이지", "CONTS": "말톡 대만결제 제휴배너&랜딩페이지" },
+        { "KEY": 1558484706223, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190528, "TITLE": "바코드결제_대만_가맹점추가 디자인/퍼블리싱 요청", "CONTS": "바코드결제_대만_가맹점추가 디자인/퍼블리싱 요청" },
+        { "KEY": 1558484706224, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190529, "TITLE": "머니즐기기 룰렛TV 아이콘 추가 관련", "CONTS": "머니즐기기 룰렛TV 아이콘 추가 관련" },
+        { "KEY": 1558484706225, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190530, "TITLE": "제휴사 신규가입 이벤트 팝업 (WEB버전)", "CONTS": "제휴사 신규가입 이벤트 팝업 (WEB버전)" },
+        { "KEY": 1558484706226, "INDEX": 0, "CODE": "C01", "TAG": null, "DATE": 20190531, "TITLE": "말톡 대만결제 제휴배너&랜딩페이지", "CONTS": "말톡 대만결제 제휴배너&랜딩페이지" }
+      ],
+      group: null
     }
   },
   components: {
     DateItem
   },
-  created(){}
+  created(){
+    let year = 2019,
+      month = 5,
+      count = 0,
+      length = moment().endOf('month').format('DD') * 1,
+      object = {};
+
+    this.group = _.groupBy(this.data, 'DATE');
+
+    while(count < length){
+      let date = moment([year, month - 1, count + 1]).format('YYYYMMDD');
+      object[date] = this.group[date] || [];
+      count++;
+    }
+
+    this.group = object;
+  }
 }
 </script>
 
@@ -86,7 +106,7 @@ export default {
         padding: 10px;
         border: 0;
         background-color: transparent;
-        font-family: 'Dotum';
+        font-family: 'Malgun Gothic';
         font-weight: 800;
         font-size: 12px;
         color: #fff;
@@ -96,7 +116,7 @@ export default {
       span {
         display: inline-block;
         padding: 10px;
-        font-family: 'Dotum';
+        font-family: 'Malgun Gothic';
         font-weight: 800;
         font-size: 12px;
         color: #fff;

@@ -40,15 +40,11 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Malgun Gothic', 'Dotum';
 
   button {
     outline: none;
   }
-
-
 
   #nav {
     position: absolute;
@@ -62,7 +58,7 @@ body {
       width: auto;
       border: 0;
       background-color: #444;
-      font-family: 'Dotum';
+      font-family: 'Malgun Gothic', 'Dotum';
       font-weight: 800;
       font-size: 12px;
       color: #fff;
@@ -77,7 +73,7 @@ body {
         padding: 10px 10px 10px 0;
         width: auto;
         background-color: #444;
-        font-family: 'Dotum';
+        font-family: 'Malgun Gothic', 'Dotum';
         font-weight: 800;
         font-size: 12px;
         color: #fff;

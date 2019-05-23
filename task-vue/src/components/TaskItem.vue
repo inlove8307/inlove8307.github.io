@@ -1,18 +1,18 @@
 <template>
   <li>
     <div>
-      <button @click="show = !show">{{ task.title }}</button>
+      <button @click="show = !show">{{ data.TITLE }}</button>
       <button v-show="show">EDIT</button>
       <button v-show="show">DEL</button>
     </div>
-    <pre v-show="show">{{ task.text }}</pre>
+    <pre v-show="show">{{ data.CONTS }}</pre>
   </li>
 </template>
 
 <script>
 export default {
   name: 'TaskItem',
-  props: ['task'],
+  props: ['data'],
   data(){
     return {
       show: false
@@ -36,7 +36,7 @@ export default {
         border-left: 1px solid #ccc;
         background-color: transparent;
         vertical-align: top;
-        font-family: 'Dotum';
+        font-family: 'Malgun Gothic';
         font-weight: 800;
         font-size: 12px;
         cursor: pointer;
@@ -58,7 +58,7 @@ export default {
       padding: 10px;
       border-top: 1px dashed #ccc;
       background-color:#efefef;
-      font-family: 'Dotum';
+      font-family: 'Malgun Gothic';
       font-size: 12px;
       text-align: left;
     }

@@ -47,7 +47,7 @@
         padding: 10px;
         border: 0;
         background-color: transparent;
-        font-family: 'Dotum';
+        font-family: 'Malgun Gothic';
         font-weight: 800;
         font-size: 12px;
         color: #fff;
@@ -57,7 +57,7 @@
       span {
         display: inline-block;
         padding: 10px;
-        font-family: 'Dotum';
+        font-family: 'Malgun Gothic';
         font-weight: 800;
         font-size: 12px;
         color: #fff;
@@ -74,7 +74,7 @@
         padding: 10px;
         border: 0;
         background-color: transparent;
-        font-family: 'Dotum';
+        font-family: 'Malgun Gothic';
         font-weight: 800;
         font-size: 12px;
         color: #fff;
@@ -120,7 +120,7 @@
             padding: 10px;
             border-bottom: 1px dashed #ccc;
             text-align: left;
-            font-family: 'Dotum';
+            font-family: 'Malgun Gothic';
             font-weight: 800;
             font-size: 12px;
             cursor: pointer;
@@ -132,7 +132,7 @@
             padding: 10px;
             border: 0;
             background-color: transparent;
-            font-family: 'Dotum';
+            font-family: 'Malgun Gothic';
             font-size: 12px;
             outline: none;
           }

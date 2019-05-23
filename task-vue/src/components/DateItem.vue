@@ -1,42 +1,47 @@
 <template>
   <li>
-    <button>{{ date.date }}</button>
+    <button v-bind:class="{ weekend: weekend }">{{ text }}</button>
     <ul>
       <task-item
-        v-for="task in tasks"
-        v-bind:task="task"
-        v-bind:key="task.key"
+        v-for="item in data"
+        v-bind:data="item"
+        v-bind:key="item.KEY"
       ></task-item>
     </ul>
   </li>
 </template>
 
 <script>
+import _ from 'lodash'
+import moment from 'moment'
 import TaskItem from '../components/TaskItem'
 
 export default {
   name: 'DateItem',
-  props: ['date'],
+  props: ['date', 'data'],
   data(){
     return {
-      tasks: [
-        { title: '업무명1', text: '내용1', key: 0 },
-        { title: '업무명2', text: '내용2', key: 1 },
-        // { title: '업무명3', text: '내용3', key: 2 },
-        // { title: '업무명1', text: '내용1', key: 3 },
-        // { title: '업무명2', text: '내용2', key: 4 },
-        // { title: '업무명3', text: '내용3', key: 5 },
-        // { title: '업무명1', text: '내용1', key: 6 },
-        // { title: '업무명2', text: '내용2', key: 7 },
-        // { title: '업무명3', text: '내용3', key: 8 },
-        // { title: '업무명1', text: '내용1', key: 9 },
-        // { title: '업무명2', text: '내용2', key: 10 },
-        // { title: '업무명3', text: '내용3', key: 11 }
-      ]
+      store: null
     }
   },
   components: {
     TaskItem
+  },
+  computed: {
+    text(){
+      const WEEK = {
+        EN: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
+        KR: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일']
+      };
+
+      return moment(this.date).format('YYYY.MM.DD') + ' ' + WEEK.KR[this.week];
+    },
+    week(){
+      return moment(this.date).days();
+    },
+    weekend(){
+      return _.indexOf([0, 6], this.week) < 0 ? false : true;
+    }
   },
   created(){}
 }
@@ -63,13 +68,17 @@ export default {
         border: 0;
         border-right: 1px solid #ccc;
         background-color: transparent;
-        font-family: 'Dotum';
+        font-family: 'Malgun Gothic';
         font-weight: 800;
         font-size: 12px;
         cursor: pointer;
 
         &:hover {
           background-color: #ffc;
+        }
+
+        &.weekend {
+          color: #f00;
         }
       }
 
