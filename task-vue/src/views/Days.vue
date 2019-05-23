@@ -1,9 +1,9 @@
 <template>
   <section>
     <header>
-      <button>PREV</button>
-      <span>2019.05</span>
-      <button>NEXT</button>
+      <button @click="decrement">PREV</button>
+      <span>{{ date }}</span>
+      <button @click="increment">NEXT</button>
     </header>
     <article>
       <ol>
@@ -65,11 +65,27 @@ export default {
   components: {
     DateItem
   },
+  methods: {
+    increment(){
+      this.$store.commit('increment')
+    },
+    decrement(){
+      this.$store.commit('decrement')
+    }
+  },
+  computed: {
+    date(){
+      return this.$store.state.date
+    }
+  },
+  watch: {
+
+  },
   created(){
-    let year = 2019,
-      month = 5,
+    let year = this.$store.state.date.split('.')[0] * 1,
+      month = this.$store.state.date.split('.')[1] * 1,
       count = 0,
-      length = moment().endOf('month').format('DD') * 1,
+      length = moment(this.$store.state.date).endOf('month').format('DD') * 1,
       object = {};
 
     this.group = _.groupBy(this.data, 'DATE');
