@@ -1,30 +1,68 @@
 <template>
   <section>
     <header>
-      <span>2019.05.XX XXX</span>
+      <span>{{ text }}</span>
     </header>
     <article>
       <ul>
         <li>
-          <label for="">제목</label>
-          <input type="text" placeholder="제목을 입력하세요.">
+          <label for="TITLE">제목</label>
+          <input type="text" id="TITLE" placeholder="제목을 입력하세요." v-model="model.TITLE">
         </li>
         <li>
-          <label for="">내용</label>
-          <textarea placeholder="내용을 입력하세요."></textarea>
+          <label for="CONTS">내용</label>
+          <textarea id="CONTS" placeholder="내용을 입력하세요." v-model="model.CONTS"></textarea>
         </li>
         <li>
-          <label for="">구분</label>
-          <input type="text" placeholder="구분을 입력하세요.">
+          <label for="TAG">구분</label>
+          <input type="text" id="TAG" placeholder="구분을 입력하세요." v-model="model.TAG">
         </li>
       </ul>
     </article>
     <span class="menu">
       <button>SAVE</button>
-      <button>CANCLE</button>
+      <button @click="$router.go(-1)">BACK</button>
     </span>
   </section>
 </template>
+
+<script>
+import _ from 'lodash'
+import moment from 'moment'
+
+export default {
+  props: ['date', 'data'],
+  data(){
+    return {
+      status: { title: true, conts: true, tag: true },
+      model: { KEY: null, INDEX: null, CODE: null, TAG: null, DATE: null, TITLE: null, CONTS: null }
+    }
+  },
+  methods: {
+    fetchData(){
+      this.model = _.merge(this.clone, this.data)
+    }
+  },
+  computed: {
+    text(){
+      const WEEK = {
+        EN: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
+        KR: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일']
+      }
+
+      let date = moment(this.data ? String(this.data.DATE) : this.date)
+
+      return date.format('YYYY.MM.DD') + ' ' + WEEK.KR[date.days()]
+    }
+  },
+  watch: {
+    '$route': 'fetchData'
+  },
+  created(){
+    this.fetchData()
+  }
+}
+</script>
 
 <style lang="scss" scoped>
   section {
@@ -71,7 +109,7 @@
       z-index: 10;
 
       button {
-        padding: 10px;
+        padding: 10px 10px 10px 0;
         border: 0;
         background-color: transparent;
         font-family: 'Malgun Gothic';

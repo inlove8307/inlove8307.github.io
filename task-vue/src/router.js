@@ -30,7 +30,8 @@ export default new Router({
     {
       path: '/write',
       name: 'write',
-      component: Write
+      component: Write,
+      props: true
     },
     {
       path: '/data',

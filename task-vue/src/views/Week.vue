@@ -17,228 +17,45 @@
                 <li>업무명3</li>
               </ul>
             </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-          </ol>
-        </li>
-        <li>
-          <ol><!-- date -->
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-          </ol>
-        </li>
-        <li>
-          <ol><!-- date -->
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-          </ol>
-        </li>
-        <li>
-          <ol><!-- date -->
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-          </ol>
-        </li>
-        <li>
-          <ol><!-- date -->
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
-              </ul>
-            </li>
           </ol>
         </li>
       </ol>
     </article>
   </section>
 </template>
+
+<script>
+import _ from 'lodash'
+import moment from 'moment'
+
+export default {
+  computed: {
+    date(){
+      return this.$store.state.date
+    },
+    data(){
+      return this.$store.getters.group
+    }
+  },
+  created(){
+    let temp = _.values(this.data)
+    let array = []
+    let index = 7 - moment(this.date + '.01').days()
+
+
+    // [0, 4, 11, 18, 25]
+    do{
+      array.push([_.take(array, index)])
+      temp = _.drop(array, index)
+      index = 7
+      console.log(temp);
+    }
+    while(temp.length)
+
+    console.log(array);
+  }
+}
+</script>
 
 <style lang="scss" scoped>
   section {

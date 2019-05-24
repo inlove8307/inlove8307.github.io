@@ -6,7 +6,6 @@
         <router-link to="/">DAYS</router-link>
         <router-link to="/week">WEEK</router-link>
         <router-link to="/memo">MEMO</router-link>
-        <router-link to="/write">WRITE</router-link>
         <router-link to="/data">DATA</router-link>
       </nav>
     </div>

@@ -2,7 +2,7 @@
   <li>
     <div>
       <button @click="show = !show">{{ data.TITLE }}</button>
-      <button v-show="show">EDIT</button>
+      <button v-show="show" @click="write">EDIT</button>
       <button v-show="show">DEL</button>
     </div>
     <pre v-show="show">{{ data.CONTS }}</pre>
@@ -18,7 +18,11 @@ export default {
       show: false
     }
   },
-  created(){}
+  methods: {
+    write(){
+      this.$router.push({ name: 'write', params: { data: this.data } })
+    }
+  }
 }
 </script>
 
