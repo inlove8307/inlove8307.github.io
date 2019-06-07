@@ -1,7 +1,7 @@
 <template>
   <section>
     <header>
-      <span>{{ text }}</span>
+      <span>{{ [date.date, date.week].join(' ') }}</span>
     </header>
     <article>
       <ul>
@@ -28,7 +28,6 @@
 
 <script>
 import _ from 'lodash'
-import moment from 'moment'
 
 export default {
   props: ['date', 'data'],
@@ -40,19 +39,7 @@ export default {
   },
   methods: {
     fetchData(){
-      this.model = _.merge(this.clone, this.data)
-    }
-  },
-  computed: {
-    text(){
-      const WEEK = {
-        EN: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
-        KR: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일']
-      }
-
-      let date = moment(this.data ? String(this.data.DATE) : this.date)
-
-      return date.format('YYYY.MM.DD') + ' ' + WEEK.KR[date.days()]
+      this.model = _.merge(this.model, this.data)
     }
   },
   watch: {
@@ -99,6 +86,10 @@ export default {
         font-weight: 800;
         font-size: 12px;
         color: #fff;
+
+        &.weekend {
+          color: #f00;
+        }
       }
     }
 

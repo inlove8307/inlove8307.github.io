@@ -12,7 +12,7 @@
 <script>
 export default {
   name: 'TaskItem',
-  props: ['data'],
+  props: ['date', 'data'],
   data(){
     return {
       show: false
@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     write(){
-      this.$router.push({ name: 'write', params: { data: this.data } })
+      this.$router.push({ name: 'write', params: { date: this.date, data: this.data } })
     }
   }
 }

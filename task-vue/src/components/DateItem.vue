@@ -1,9 +1,10 @@
 <template>
   <li>
-    <button v-bind:class="{ weekend: weekend }" @click="write">{{ text }}</button>
+    <button v-bind:class="{ weekend: data.weekend }" @click="write">{{ [data.date, data.week].join(' ') }}</button>
     <ul>
       <task-item
-        v-for="item in data"
+        v-for="item in data.data"
+        v-bind:date="data"
         v-bind:data="item"
         v-bind:key="item.KEY"
       ></task-item>
@@ -12,35 +13,17 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import moment from 'moment'
 import TaskItem from '../components/TaskItem'
 
 export default {
   name: 'DateItem',
-  props: ['date', 'data'],
+  props: ['data'],
   components: {
     TaskItem
   },
-  computed: {
-    text(){
-      const WEEK = {
-        EN: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
-        KR: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일']
-      }
-
-      return moment(this.date).format('YYYY.MM.DD') + ' ' + WEEK.KR[this.week]
-    },
-    week(){
-      return moment(this.date).days()
-    },
-    weekend(){
-      return _.indexOf([0, 6], this.week) < 0 ? false : true
-    }
-  },
   methods: {
     write(){
-      this.$router.push({ name: 'write', params: { date: this.date }})
+      this.$router.push({ name: 'write', params: { date: this.data }})
     }
   }
 }

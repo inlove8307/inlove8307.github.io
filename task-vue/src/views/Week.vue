@@ -1,20 +1,26 @@
 <template>
   <section>
     <header>
-      <button>PREV</button>
-      <span>2019.05</span>
-      <button>NEXT</button>
+      <button @click="setDate(-1)">PREV</button>
+      <span>{{ date }}</span>
+      <button @click="setDate(1)">NEXT</button>
     </header>
     <article>
-      <ol><!-- week -->
-        <li>
-          <ol><!-- date -->
-            <li>
-              <strong>2019.05.01 수요일</strong>
-              <ul>
-                <li>업무명1</li>
-                <li>업무명2</li>
-                <li>업무명3</li>
+      <ol>
+        <li
+          v-for="week in data"
+          v-bind:key="week.key">
+          <ol>
+            <li
+              v-for="date in week"
+              v-bind:key="date.key">
+              <strong v-bind:class="{ weekend: date.weekend }">{{ date.date + ' ' + date.week }}</strong>
+              <ul v-show="date.data.length">
+                <li
+                  v-for="task in date.data"
+                  v-bind:key="task.key">
+                  {{ task.TITLE }}
+                </li>
               </ul>
             </li>
           </ol>
@@ -25,9 +31,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import moment from 'moment'
-
 export default {
   computed: {
     date(){
@@ -37,22 +40,18 @@ export default {
       return this.$store.getters.group
     }
   },
-  created(){
-    let temp = _.values(this.data)
-    let array = []
-    let index = 7 - moment(this.date + '.01').days()
-
-
-    // [0, 4, 11, 18, 25]
-    do{
-      array.push([_.take(array, index)])
-      temp = _.drop(array, index)
-      index = 7
-      console.log(temp);
+  methods: {
+    setDate(number){
+      this.$store.commit('setDate', number)
     }
-    while(temp.length)
-
-    console.log(array);
+  },
+  watch: {
+    date(){
+      this.$store.dispatch('getData')
+    }
+  },
+  mounted(){
+    this.$store.dispatch('getData')
   }
 }
 </script>
@@ -133,32 +132,37 @@ export default {
             &>li {
               margin: 0;
               padding: 0;
-              border-top: 1px solid #ccc;
-
-              &:first-child {
-                border-top: 0;
-              }
+              border-bottom: 1px solid #ccc;
 
               strong {
                 display: block;
                 padding: 10px;
-                border-bottom: 1px dashed #ccc;
                 font-family: 'Malgun Gothic';
                 font-weight: 800;
                 font-size: 12px;
+
+                &.weekend{
+                  color: #f00;
+                }
               }
 
               ul { /* task */
                 margin: 0;
-                padding: 10px 0 0 0;
+                padding: 0;
+                border-top: 1px dashed #ccc;
                 background-color: #efefef;
                 list-style: none;
 
                 li {
                   margin: 0;
-                  padding: 0 10px 10px 10px;
+                  padding: 10px;
+                  border-top: 1px dashed #ccc;
                   font-family: 'Malgun Gothic';
                   font-size: 12px;
+
+                  &:first-child {
+                    border-top: 0;
+                  }
                 }
               }
             }
