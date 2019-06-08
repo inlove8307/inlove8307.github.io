@@ -31,27 +31,66 @@
 </template>
 
 <script>
+import _ from 'lodash'
+import moment from 'moment'
+import DateInfo from '../mixins/DateInfo'
+
 export default {
-  computed: {
-    date(){
-      return this.$store.state.date
-    },
-    data(){
-      return this.$store.getters.group
-    }
-  },
+  mixins: [DateInfo],
   methods: {
     setDate(number){
       this.$store.commit('setDate', number)
+    },
+    getWeeks(){
+      let date = moment(this.date).endOf('month').format('YYYY.MM.DD').split('.')
+        , index = 7 - moment(this.date).startOf('month').days()
+        , result = []
+
+      while(index <= date[2] * 1){
+        result.push([date[0], date[1], _.padStart(index, 2, '0')].join(''))
+        index += 7
+
+        if(index > date[2] * 1) result.push(date.join(''))
+      }
+
+      return result
+    }
+  },
+  computed: {
+    date(){
+      return this.$store.state.date.join('.')
+    },
+    data(){
+      let data = this.$store.state.data
+        , weeks = this.getWeeks()
+        , object = {}
+        , result = []
+
+      for(let key in data){
+        object[key] = {
+          date: this.getDate(key),
+          week: this.getWeek(key),
+          weekend: this.getWeekend(key),
+          data: data[key]
+        }
+
+        if(weeks[0] == key){
+          result.push(object)
+          object = {}
+          weeks.shift()
+        }
+      }
+
+      return result
     }
   },
   watch: {
-    date(){
-      this.$store.dispatch('getData')
+    date(value){
+      this.$store.dispatch('getRecord', value)
     }
   },
   mounted(){
-    this.$store.dispatch('getData')
+    this.$store.dispatch('getRecord', this.date)
   }
 }
 </script>

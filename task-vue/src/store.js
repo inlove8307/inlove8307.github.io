@@ -51,34 +51,6 @@ export default new Vuex.Store({
     date: moment().format('YYYY.MM').split('.'),
     data: []
   },
-  getters: {
-    group: state => {
-      let date = moment(state.date).endOf('month').format('YYYY.MM.DD').split('.')
-        , index = 7 - moment(state.date).startOf('month').days()
-        , weeks = []
-        , object = {}
-        , result = []
-
-      while(index <= date[2] * 1){
-        weeks.push([date[0], date[1], _.padStart(index, 2, '0')].join(''))
-        index += 7
-
-        if(index > date[2] * 1) weeks.push(date.join(''))
-      }
-
-      _.forIn(state.data, function(value, key){
-        object[key] = value
-
-        if(weeks[0] == key){
-          result.push(object)
-          object = {}
-          weeks.shift()
-        }
-      })
-
-      return result
-    }
-  },
   mutations: {
     setData(state, payload){
       state.data = _.groupBy(payload, 'DATE')
@@ -112,11 +84,9 @@ export default new Vuex.Store({
   actions: {
     getRecord({commit}, payload){
       let result = []
-        , filter = new RegExp(payload.replace('.', ''))
+      , filter = new RegExp(payload.replace('.', ''))
 
-      db.tasks
-      .where('CODE')
-      .equals('C01')
+      db.tasks.where('CODE').equals('C01')
       .filter(data => filter.test(data.DATE))
       .each(data => result.push(data))
       .then(() => commit('setRecord', result))
@@ -129,14 +99,12 @@ export default new Vuex.Store({
       filter.tag = new RegExp(payload.tag || '')
       filter.title = new RegExp(payload.title || '')
 
-      db.tasks
-      .where('CODE')
-      .equals('C01')
+      db.tasks.where('CODE').equals('C01')
       .filter(data => filter.tag.test(data.TAG))
       .filter(data => filter.date.test(data.DATE))
       .filter(data => filter.title.test(data.TITLE))
       .each(data => result.push(data))
-      .then(() => { commit('setData', result) })
+      .then(() => commit('setData', result))
     }
   }
 })

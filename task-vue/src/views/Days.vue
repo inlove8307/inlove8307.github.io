@@ -6,7 +6,7 @@
       <button @click="setDate(1)">NEXT</button>
     </header>
     <article>
-      <div>
+      <fieldset>
         <label for="FILTER_TAG">구분</label>
         <select id="FILTER_TAG" v-model="filter.tag"></select>
         <label for="FILTER_DATE">날짜</label>
@@ -15,7 +15,7 @@
         <input type="text" id="FILTER_TITLE" v-model="filter.title">
         <button @click="getData">검색</button>
         <button @click="clear">초기화</button>
-      </div>
+      </fieldset>
       <ol>
         <date-item
           v-for="item in data"
@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import moment from 'moment'
 import _ from 'lodash'
+import moment from 'moment'
 import DateInfo from '../mixins/DateInfo'
 import DateItem from '../components/DateItem'
 
@@ -159,10 +159,12 @@ export default {
       flex: 1;
       flex-direction: column;
 
-      &>div {
+      fieldset {
         margin: 0 10px;
         padding: 10px 0;
+        border: 0;
         border-bottom: 1px solid #ccc;
+        background-color: transparent;
 
         label {
           float:left;
