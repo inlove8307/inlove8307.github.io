@@ -10,9 +10,9 @@
         <label for="FILTER_TAG">구분</label>
         <select id="FILTER_TAG" v-model="filter.tag"></select>
         <label for="FILTER_DATE">날짜</label>
-        <input type="number" id="FILTER_DATE" v-model="filter.date">
+        <input type="number" id="FILTER_DATE" v-model="filter.date" @keyup.enter="getData">
         <label for="FILTER_TITLE">제목</label>
-        <input type="text" id="FILTER_TITLE" v-model="filter.title">
+        <input type="text" id="FILTER_TITLE" v-model="filter.title" @keyup.enter="getData">
         <button @click="getData">검색</button>
         <button @click="clear">초기화</button>
       </fieldset>
