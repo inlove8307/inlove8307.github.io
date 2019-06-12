@@ -1,7 +1,8 @@
 <template>
   <section>
     <header>
-      <span>{{ [date.date, date.week].join(' ') }}</span>
+      <label for="EDIT_DATE" v-show="!edit" @click="edit = true">{{ date }}</label>
+      <input type="number" id="EDIT_DATE" v-show="edit" v-model="model.DATE" @keyup.enter="edit = false" placeholder="Date(Only Number)">
     </header>
     <article>
       <ul>
@@ -20,7 +21,7 @@
       </ul>
     </article>
     <span class="menu">
-      <button>SAVE</button>
+      <button @click="setData">SAVE</button>
       <button @click="$router.go(-1)">BACK</button>
     </span>
   </section>
@@ -28,24 +29,48 @@
 
 <script>
 import _ from 'lodash'
+import DateInfo from '../mixins/DateInfo'
 
 export default {
-  props: ['date', 'data'],
+  props: ['data'],
+  mixins: [DateInfo],
   data(){
     return {
-      status: { title: true, conts: true, tag: true },
-      model: { KEY: null, INDEX: null, CODE: null, TAG: null, DATE: null, TITLE: null, CONTS: null }
+      edit: false,
+      model: {
+        KEY: null,
+        INDEX: null,
+        CODE: null,
+        TAG: null,
+        DATE: null,
+        TITLE: null,
+        CONTS: null
+      }
     }
   },
   methods: {
+    setData(){
+      if(this.model.KEY){
+        this.$store.dispatch('update', this.model)
+      }
+      else{
+        this.model.KEY = this.model.KEY || new Date().getTime()
+        this.$store.dispatch('create', this.model)
+      }
+    },
     fetchData(){
       this.model = _.merge(this.model, this.data)
+    }
+  },
+  computed: {
+    date(){
+      return [this.getDate(this.model.DATE), this.getWeek(this.model.DATE)].join(' ')
     }
   },
   watch: {
     '$route': 'fetchData'
   },
-  created(){
+  mounted(){
     this.fetchData()
   }
 }
@@ -79,16 +104,35 @@ export default {
         cursor: pointer;
       }
 
-      span {
+      label {
         display: inline-block;
         padding: 10px;
         font-family: 'Malgun Gothic';
         font-weight: 800;
         font-size: 12px;
         color: #fff;
+        cursor: pointer;
 
-        &.weekend {
-          color: #f00;
+        &+input[type=number] {
+          margin:4px 0;
+          padding: 5px;
+          border: 1px solid #333;
+          border-radius: 3px;
+          background-color: #444;
+          box-shadow: inset 1px 1px 4px #333;
+          text-align: center;
+          font-family: 'Malgun Gothic';
+          font-weight: 800;
+          font-size: 12px;
+          color: #fff;
+          outline: none;
+
+          &[type=number]::-webkit-inner-spin-button,
+          &[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+          }
         }
       }
     }

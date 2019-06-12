@@ -2,70 +2,62 @@
   <section>
     <header>
       <span>MEMO</span>
+      <button class="write" @click="write">WRITE</button>
     </header>
     <article>
-      <div>
-        <label for="">입력</label>
-        <input type="text">
-        <label for="">선택</label>
-        <select>
-          <option>구분1</option>
-          <option>구분2</option>
-          <option>구분3</option>
-        </select>
-      </div>
+      <data-filter
+        v-bind:code="code">
+      </data-filter>
       <ul>
-        <li>
-          <div>
-            <button type="button" @click="show = !show">제목1</button>
-            <button type="button" v-show="show">EDIT</button>
-            <button type="button" v-show="show">DEL</button>
-          </div>
-          <pre v-show="show">내용1</pre>
-        </li>
-        <li>
-          <div>
-            <button type="button" @click="show = !show">제목1</button>
-            <button type="button" v-show="show">EDIT</button>
-            <button type="button" v-show="show">DEL</button>
-          </div>
-          <pre v-show="show">내용1</pre>
-        </li>
-        <li>
-          <div>
-            <button type="button" @click="show = !show">제목1</button>
-            <button type="button" v-show="show">EDIT</button>
-            <button type="button" v-show="show">DEL</button>
-          </div>
-          <pre v-show="show">내용1</pre>
-        </li>
-        <li>
-          <div>
-            <button type="button" @click="show = !show">제목1</button>
-            <button type="button" v-show="show">EDIT</button>
-            <button type="button" v-show="show">DEL</button>
-          </div>
-          <pre v-show="show">내용1</pre>
-        </li>
-        <li>
-          <div>
-            <button type="button" @click="show = !show">제목1</button>
-            <button type="button" v-show="show">EDIT</button>
-            <button type="button" v-show="show">DEL</button>
-          </div>
-          <pre v-show="show">내용1</pre>
-        </li>
+        <memo-post
+          v-for="post in data"
+          v-bind:key="post.key"
+          v-bind:data="post"
+          v-bind:code="code">
+        </memo-post>
       </ul>
     </article>
   </section>
 </template>
 
 <script>
+import moment from 'moment'
+import DataFilter from '../components/DataFilter'
+import MemoPost from '../components/MemoPost'
+
 export default {
-  data() {
+  data(){
     return {
-      show: false
+      code: 'C02'
     }
+  },
+  components: {
+    DataFilter,
+    MemoPost
+  },
+  computed: {
+    data(){
+      return this.$store.state.data
+    }
+  },
+  methods: {
+    write(){
+      this.$router.push({
+        name: 'write',
+        params: {
+          data: {
+            CODE: this.code,
+            DATE: moment().format('YYYYMMDD')
+          }
+        }
+      })
+    }
+  },
+  beforeCreate(){
+    this.$store.commit('setData')
+  },
+  mounted(){
+    this.$store.dispatch('getData', { code: this.code })
   }
 }
 </script>
@@ -98,6 +90,13 @@ export default {
         cursor: pointer;
       }
 
+      button.write {
+        position: absolute;
+        top: 0;
+        right: 0;
+        border: 0;
+      }
+
       span {
         display: inline-block;
         padding: 10px;
@@ -113,10 +112,12 @@ export default {
       display: flex;
       flex-direction: column;
 
-      &>div {
+      fieldset {
         margin: 0 10px;
         padding: 10px 0;
+        border: 0;
         border-bottom: 1px solid #ccc;
+        background-color: transparent;
 
         label {
           float:left;
@@ -132,6 +133,7 @@ export default {
           font-weight: 800;
           font-size: 12px;
           color: #fff;
+          cursor: pointer;
         }
 
         select {
@@ -148,6 +150,13 @@ export default {
           font-size: 12px;
           color: #fff;
           outline: none;
+          cursor: pointer;
+
+          option {
+            font-family: 'Malgun Gothic';
+            font-weight: 800;
+            font-size: 12px;
+          }
         }
 
         input {
@@ -164,6 +173,28 @@ export default {
           font-size: 12px;
           color: #fff;
           outline: none;
+
+          &[type=number]::-webkit-inner-spin-button,
+          &[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+          }
+        }
+
+        button {
+          float:left;
+          margin-right:5px;
+          padding: 5px;
+          border: 1px solid #333;
+          border-radius: 3px;
+          background-color: #444;
+          box-shadow: inset 1px 1px 0 #555;
+          font-family: 'Malgun Gothic';
+          font-weight: 800;
+          font-size: 12px;
+          color: #fff;
+          cursor: pointer;
         }
       }
 
@@ -172,55 +203,6 @@ export default {
         margin: 10px;
         padding: 0;
         list-style: none;
-
-        li {
-          overflow: hidden;
-          margin-top: 10px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          background-color: #fff;
-          box-shadow: 1px 1px 5px #ddd;
-
-          &:first-child {
-            margin-top: 0;
-          }
-
-          div {
-            display: flex;
-
-            button {
-              box-sizing: border-box;
-              padding: 10px;
-              border: 0;
-              border-left: 1px dashed #ccc;
-              background-color: transparent;
-              text-align: left;
-              font-family: 'Malgun Gothic';
-              font-weight: 800;
-              font-size: 12px;
-              cursor: pointer;
-
-              &:first-child {
-                flex: 1;
-                border-left: 0;
-              }
-
-              &:hover {
-                background-color: #ffc;
-              }
-            }
-          }
-
-          pre {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 10px;
-            border-top: 1px dashed #ccc;
-            background-color: #efefef;
-            font-family: 'Malgun Gothic';
-            font-size: 12px;
-          }
-        }
       }
     }
   }

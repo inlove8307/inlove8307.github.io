@@ -89,6 +89,9 @@ export default {
       this.$store.dispatch('getRecord', value)
     }
   },
+  beforeCreate(){
+    this.$store.commit('setData')
+  },
   mounted(){
     this.$store.dispatch('getRecord', this.date)
   }

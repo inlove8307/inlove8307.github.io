@@ -4,29 +4,21 @@
       <button @click="setDate(-1)">PREV</button>
       <span>{{ date }}</span>
       <button @click="setDate(1)">NEXT</button>
+      <button class="write" @click="write">WRITE</button>
     </header>
     <article>
-      <fieldset>
-        <label for="FILTER_TAG">구분</label>
-        <select id="FILTER_TAG" v-model="filter.tag"></select>
-        <label for="FILTER_DATE">날짜</label>
-        <input type="number" id="FILTER_DATE" v-model="filter.date" @keyup.enter="getData">
-        <label for="FILTER_TITLE">제목</label>
-        <input type="text" id="FILTER_TITLE" v-model="filter.title" @keyup.enter="getData">
-        <button @click="getData">검색</button>
-        <button @click="clear">초기화</button>
-      </fieldset>
+      <data-filter
+        v-bind:code="code">
+      </data-filter>
       <ol>
-        <date-item
+        <days-date
           v-for="item in data"
           v-bind:data="item"
           v-bind:key="item.key"
-        ></date-item>
+          v-bind:code="code"
+        ></days-date>
       </ol>
     </article>
-    <span class="menu">
-      <button @click="write">WRITE</button>
-    </span>
   </section>
 </template>
 
@@ -34,35 +26,34 @@
 import _ from 'lodash'
 import moment from 'moment'
 import DateInfo from '../mixins/DateInfo'
-import DateItem from '../components/DateItem'
+import DataFilter from '../components/DataFilter'
+import DaysDate from '../components/DaysDate'
 
 export default {
   data(){
     return {
-      filter: {
-        tag: null,
-        date: null,
-        title: null
-      }
+      code: 'C01'
     }
   },
   components: {
-    DateItem
+    DataFilter,
+    DaysDate
   },
   mixins: [DateInfo],
   methods: {
     setDate(number){
       this.$store.commit('setDate', number)
     },
-    getData(){
-      this.$store.dispatch('getData', this.filter)
-    },
     write(){
-      this.$router.push({ name: 'write', params: { date: this.data[moment().format('YYYYMMDD')] }})
-    },
-    clear(){
-      this.$store.dispatch('getRecord', this.date)
-      this.filter.date = this.filter.tag = this.filter.title = null
+      this.$router.push({
+        name: 'write',
+        params: {
+          data: {
+            CODE: this.code,
+            DATE: moment().format('YYYYMMDD')
+          }
+        }
+      })
     }
   },
   computed: {
@@ -87,8 +78,10 @@ export default {
   watch: {
     date(value){
       this.$store.dispatch('getRecord', value)
-      this.clear()
     }
+  },
+  beforeCreate(){
+    this.$store.commit('setData')
   },
   mounted(){
     this.$store.dispatch('getRecord', this.date)
@@ -124,6 +117,13 @@ export default {
         cursor: pointer;
       }
 
+      button.write {
+        position: absolute;
+        top: 0;
+        right: 0;
+        border: 0;
+      }
+
       span {
         display: inline-block;
         padding: 10px;
@@ -131,24 +131,6 @@ export default {
         font-weight: 800;
         font-size: 12px;
         color: #fff;
-      }
-    }
-
-    .menu {
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 10;
-
-      button {
-        padding: 10px 10px 10px 0;
-        border: 0;
-        background-color: transparent;
-        font-family: 'Malgun Gothic';
-        font-weight: 800;
-        font-size: 12px;
-        color: #fff;
-        cursor: pointer;
       }
     }
 
@@ -198,6 +180,12 @@ export default {
           color: #fff;
           outline: none;
           cursor: pointer;
+
+          option {
+            font-family: 'Malgun Gothic';
+            font-weight: 800;
+            font-size: 12px;
+          }
         }
 
         input {

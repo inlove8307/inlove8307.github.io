@@ -3,7 +3,7 @@
     <div>
       <button @click="show = !show">{{ data.TITLE }}</button>
       <button v-show="show" @click="write">EDIT</button>
-      <button v-show="show">DEL</button>
+      <button v-show="show" @click="clear">DEL</button>
     </div>
     <pre v-show="show">{{ data.CONTS }}</pre>
   </li>
@@ -11,8 +11,8 @@
 
 <script>
 export default {
-  name: 'TaskItem',
-  props: ['date', 'data'],
+  name: 'DaysTask',
+  props: ['code', 'data'],
   data(){
     return {
       show: false
@@ -20,7 +20,12 @@ export default {
   },
   methods: {
     write(){
-      this.$router.push({ name: 'write', params: { date: this.date, data: this.data } })
+      this.$router.push({ name: 'write', params: { data: this.data } })
+    },
+    clear(){
+      this.show = false
+      this.$store.dispatch('delete', this.data)
+      this.$store.dispatch('getTag', this.code)
     }
   }
 }

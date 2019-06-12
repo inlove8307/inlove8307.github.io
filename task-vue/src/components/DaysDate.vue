@@ -2,28 +2,37 @@
   <li>
     <button v-bind:class="{ weekend: data.weekend }" @click="write">{{ [data.date, data.week].join(' ') }}</button>
     <ul>
-      <task-item
+      <days-task
         v-for="item in data.data"
+        v-bind:key="item.key"
         v-bind:date="data"
         v-bind:data="item"
-        v-bind:key="item.KEY"
-      ></task-item>
+        v-bind:code="code"
+      ></days-task>
     </ul>
   </li>
 </template>
 
 <script>
-import TaskItem from '../components/TaskItem'
+import DaysTask from '../components/DaysTask'
 
 export default {
-  name: 'DateItem',
-  props: ['data'],
+  name: 'DaysDate',
+  props: ['code', 'data'],
   components: {
-    TaskItem
+    DaysTask
   },
   methods: {
     write(){
-      this.$router.push({ name: 'write', params: { date: this.data }})
+      this.$router.push({
+        name: 'write',
+        params: {
+          data: {
+            CODE: this.code,
+            DATE: this.data.date.replace(/\./g, '')
+          }
+        }
+      })
     }
   }
 }
