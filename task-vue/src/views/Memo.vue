@@ -2,7 +2,6 @@
   <section>
     <header>
       <span>MEMO</span>
-      <button class="write" @click="write">WRITE</button>
     </header>
     <article>
       <data-filter
@@ -17,6 +16,9 @@
         </memo-post>
       </ul>
     </article>
+    <span class="menu">
+      <button @click="write"><i class="material-icons">edit</i></button>
+    </span>
   </section>
 </template>
 
@@ -71,132 +73,67 @@ export default {
     background-color: #fff;
 
     header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       position: relative;
       z-index: 1;
       box-sizing: border-box;
+      height: 40px;
       border-bottom: 1px solid #333;
       background-color: #444;
       box-shadow: 0 1px 7px #777;
       text-align: center;
 
       button {
-        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 100%;
         border: 0;
         background-color: transparent;
-        font-family: 'Malgun Gothic';
-        font-weight: 800;
-        font-size: 12px;
         color: #fff;
         cursor: pointer;
       }
 
-      button.write {
-        position: absolute;
-        top: 0;
-        right: 0;
-        border: 0;
-      }
-
       span {
-        display: inline-block;
-        padding: 10px;
-        font-family: 'Malgun Gothic';
-        font-weight: 800;
+        font-family: 'Noto Sans KR', 'Malgun Gothic';
+        font-weight: 400;
         font-size: 12px;
         color: #fff;
       }
     }
 
+    .menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 10;
+      height:40px;
+
+      button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        float: left;
+        width: 40px;
+        height: 100%;
+        border: 0;
+        border-left: 1px solid #222;
+        background-color: #333;
+        box-shadow: inset 1px 0 #444;
+        text-decoration: none;
+        color: #fff;
+      }
+    }
+
     article {
+      overflow-x: hidden;
+      overflow-y: auto;
       flex: 1;
       display: flex;
       flex-direction: column;
-
-      fieldset {
-        margin: 0 10px;
-        padding: 10px 0;
-        border: 0;
-        border-bottom: 1px solid #ccc;
-        background-color: transparent;
-
-        label {
-          float:left;
-          padding: 5px;
-          border-top: 1px solid #333;
-          border-bottom: 1px solid #333;
-          border-left: 1px solid #333;
-          border-top-left-radius: 3px;
-          border-bottom-left-radius: 3px;
-          background-color: #444;
-          box-shadow: inset 1px 1px 0 #555;
-          font-family: 'Malgun Gothic';
-          font-weight: 800;
-          font-size: 12px;
-          color: #fff;
-          cursor: pointer;
-        }
-
-        select {
-          float:left;
-          margin-right:5px;
-          padding: 4px;
-          border: 1px solid #333;
-          border-top-right-radius: 3px;
-          border-bottom-right-radius: 3px;
-          background-color: #444;
-          box-shadow: inset 1px 1px 0 #555;
-          font-family: 'Malgun Gothic';
-          font-weight: 800;
-          font-size: 12px;
-          color: #fff;
-          outline: none;
-          cursor: pointer;
-
-          option {
-            font-family: 'Malgun Gothic';
-            font-weight: 800;
-            font-size: 12px;
-          }
-        }
-
-        input {
-          float:left;
-          margin-right:5px;
-          padding: 5px;
-          border: 1px solid #333;
-          border-top-right-radius: 3px;
-          border-bottom-right-radius: 3px;
-          background-color: #444;
-          box-shadow: inset 1px 1px 4px #333;
-          font-family: 'Malgun Gothic';
-          font-weight: 800;
-          font-size: 12px;
-          color: #fff;
-          outline: none;
-
-          &[type=number]::-webkit-inner-spin-button,
-          &[type=number]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-          }
-        }
-
-        button {
-          float:left;
-          margin-right:5px;
-          padding: 5px;
-          border: 1px solid #333;
-          border-radius: 3px;
-          background-color: #444;
-          box-shadow: inset 1px 1px 0 #555;
-          font-family: 'Malgun Gothic';
-          font-weight: 800;
-          font-size: 12px;
-          color: #fff;
-          cursor: pointer;
-        }
-      }
 
       ul {
         flex: 1;

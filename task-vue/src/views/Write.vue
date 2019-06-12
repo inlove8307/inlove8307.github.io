@@ -21,8 +21,8 @@
       </ul>
     </article>
     <span class="menu">
-      <button @click="setData">SAVE</button>
-      <button @click="$router.go(-1)">BACK</button>
+      <button @click="setData"><i class="material-icons">archive</i></button>
+      <button @click="$router.go(-1)"><i class="material-icons">clear</i></button>
     </span>
   </section>
 </template>
@@ -85,44 +85,48 @@ export default {
     background-color: #fff;
 
     header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       position: relative;
       z-index: 1;
       box-sizing: border-box;
+      height: 40px;
       border-bottom: 1px solid #333;
       background-color: #444;
       box-shadow: 0 1px 7px #777;
       text-align: center;
 
       button {
-        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 100%;
         border: 0;
         background-color: transparent;
-        font-family: 'Malgun Gothic';
-        font-weight: 800;
-        font-size: 12px;
         color: #fff;
         cursor: pointer;
       }
 
       label {
-        display: inline-block;
-        padding: 10px;
-        font-family: 'Malgun Gothic';
-        font-weight: 800;
+        font-family: 'Noto Sans KR', 'Malgun Gothic';
+        font-weight: 400;
         font-size: 12px;
         color: #fff;
         cursor: pointer;
 
         &+input[type=number] {
-          margin:4px 0;
+          box-sizing: border-box;
           padding: 5px;
+          width: 100px;
           border: 1px solid #333;
           border-radius: 3px;
           background-color: #444;
           box-shadow: inset 1px 1px 4px #333;
           text-align: center;
-          font-family: 'Malgun Gothic';
-          font-weight: 800;
+          font-family: 'Noto Sans KR', 'Malgun Gothic';
+          font-weight: 400;
           font-size: 12px;
           color: #fff;
           outline: none;
@@ -142,16 +146,21 @@ export default {
       top: 0;
       right: 0;
       z-index: 10;
+      height:40px;
 
       button {
-        padding: 10px 10px 10px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        float: left;
+        width: 40px;
+        height: 100%;
         border: 0;
-        background-color: transparent;
-        font-family: 'Malgun Gothic';
-        font-weight: 800;
-        font-size: 12px;
+        border-left: 1px solid #222;
+        background-color: #333;
+        box-shadow: inset 1px 0 #444;
+        text-decoration: none;
         color: #fff;
-        cursor: pointer;
       }
     }
 
@@ -193,8 +202,8 @@ export default {
             padding: 10px;
             border-bottom: 1px dashed #ccc;
             text-align: left;
-            font-family: 'Malgun Gothic';
-            font-weight: 800;
+            font-family: 'Noto Sans KR', 'Malgun Gothic';
+            font-weight: 400;
             font-size: 12px;
             cursor: pointer;
           }
@@ -205,7 +214,7 @@ export default {
             padding: 10px;
             border: 0;
             background-color: transparent;
-            font-family: 'Malgun Gothic';
+            font-family: 'Noto Sans KR', 'Malgun Gothic';
             font-size: 12px;
             outline: none;
           }

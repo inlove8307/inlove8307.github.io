@@ -59,8 +59,8 @@ export default {
         border: 0;
         border-right: 1px solid #ccc;
         background-color: transparent;
-        font-family: 'Malgun Gothic';
-        font-weight: 800;
+        font-family: 'Noto Sans KR', 'Malgun Gothic';
+        font-weight: 400;
         font-size: 12px;
         cursor: pointer;
 

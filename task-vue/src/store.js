@@ -15,7 +15,8 @@ export default new Vuex.Store({
   state: {
     date: moment().format('YYYY.MM').split('.'),
     data: null,
-    tag: null
+    tag: null,
+    alert: { show: false, modal: true, title: null, message: null, confirm: false, button: { confirm: true, cancle: true } }
   },
   mutations: {
     setDate(state, payload){
@@ -66,6 +67,9 @@ export default new Vuex.Store({
       }
 
       array.splice(array.indexOf(payload.data), 1)
+    },
+    setAlert(state, payload){
+      this.alert = _.merge(state.alert, payload)
     }
   },
   actions: {

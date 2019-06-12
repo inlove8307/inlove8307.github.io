@@ -82,8 +82,8 @@ fieldset {
     border-bottom-left-radius: 3px;
     background-color: #444;
     box-shadow: inset 1px 1px 0 #555;
-    font-family: 'Malgun Gothic';
-    font-weight: 800;
+    font-family: 'Noto Sans KR', 'Malgun Gothic';
+    font-weight: 400;
     font-size: 12px;
     color: #fff;
     cursor: pointer;
@@ -98,16 +98,16 @@ fieldset {
     border-bottom-right-radius: 3px;
     background-color: #444;
     box-shadow: inset 1px 1px 0 #555;
-    font-family: 'Malgun Gothic';
-    font-weight: 800;
+    font-family: 'Noto Sans KR', 'Malgun Gothic';
+    font-weight: 400;
     font-size: 12px;
     color: #fff;
     outline: none;
     cursor: pointer;
 
     option {
-      font-family: 'Malgun Gothic';
-      font-weight: 800;
+      font-family: 'Noto Sans KR', 'Malgun Gothic';
+      font-weight: 400;
       font-size: 12px;
     }
   }
@@ -121,8 +121,8 @@ fieldset {
     border-bottom-right-radius: 3px;
     background-color: #444;
     box-shadow: inset 1px 1px 4px #333;
-    font-family: 'Malgun Gothic';
-    font-weight: 800;
+    font-family: 'Noto Sans KR', 'Malgun Gothic';
+    font-weight: 400;
     font-size: 12px;
     color: #fff;
     outline: none;
@@ -143,8 +143,8 @@ fieldset {
     border-radius: 3px;
     background-color: #444;
     box-shadow: inset 1px 1px 0 #555;
-    font-family: 'Malgun Gothic';
-    font-weight: 800;
+    font-family: 'Noto Sans KR', 'Malgun Gothic';
+    font-weight: 400;
     font-size: 12px;
     color: #fff;
     cursor: pointer;

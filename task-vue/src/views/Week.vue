@@ -1,9 +1,9 @@
 <template>
   <section>
     <header>
-      <button @click="setDate(-1)">PREV</button>
+      <button @click="setDate(-1)"><i class="material-icons">navigate_before</i></button>
       <span>{{ date }}</span>
-      <button @click="setDate(1)">NEXT</button>
+      <button @click="setDate(1)"><i class="material-icons">navigate_next</i></button>
     </header>
     <article>
       <ol>
@@ -107,30 +107,33 @@ export default {
     background-color: #fff;
 
     header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       position: relative;
       z-index: 1;
       box-sizing: border-box;
+      height: 40px;
       border-bottom: 1px solid #333;
       background-color: #444;
       box-shadow: 0 1px 7px #777;
       text-align: center;
 
       button {
-        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 100%;
         border: 0;
         background-color: transparent;
-        font-family: 'Malgun Gothic';
-        font-weight: 800;
-        font-size: 12px;
         color: #fff;
         cursor: pointer;
       }
 
       span {
-        display: inline-block;
-        padding: 10px;
-        font-family: 'Malgun Gothic';
-        font-weight: 800;
+        font-family: 'Noto Sans KR', 'Malgun Gothic';
+        font-weight: 400;
         font-size: 12px;
         color: #fff;
       }
@@ -179,8 +182,8 @@ export default {
               strong {
                 display: block;
                 padding: 10px;
-                font-family: 'Malgun Gothic';
-                font-weight: 800;
+                font-family: 'Noto Sans KR', 'Malgun Gothic';
+                font-weight: 400;
                 font-size: 12px;
 
                 &.weekend{
@@ -199,7 +202,7 @@ export default {
                   margin: 0;
                   padding: 10px;
                   border-top: 1px dashed #ccc;
-                  font-family: 'Malgun Gothic';
+                  font-family: 'Noto Sans KR', 'Malgun Gothic';
                   font-size: 12px;
 
                   &:first-child {
