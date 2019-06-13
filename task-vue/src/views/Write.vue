@@ -161,6 +161,7 @@ export default {
         box-shadow: inset 1px 0 #444;
         text-decoration: none;
         color: #fff;
+        cursor: pointer;
       }
     }
 

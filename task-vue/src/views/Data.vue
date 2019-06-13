@@ -11,6 +11,10 @@
         </li>
       </ul>
     </article>
+    <span class="menu">
+      <button><i class="material-icons">get_app</i></button>
+      <button><i class="material-icons">move_to_inbox</i></button>
+    </span>
   </section>
 </template>
 
@@ -75,6 +79,7 @@
         box-shadow: inset 1px 0 #444;
         text-decoration: none;
         color: #fff;
+        cursor: pointer;
       }
     }
 

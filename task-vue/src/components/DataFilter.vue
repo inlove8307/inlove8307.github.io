@@ -9,8 +9,8 @@
     <input type="number" id="FILTER_DATE" v-model="filter.date" @keyup.enter="getData">
     <label for="FILTER_TITLE">제목</label>
     <input type="text" id="FILTER_TITLE" v-model="filter.title" @keyup.enter="getData">
-    <button @click="getData">검색</button>
-    <button @click="clear">초기화</button>
+    <button @click="getData"><i class="material-icons">search</i></button>
+    <button @click="clear"><i class="material-icons">clear</i></button>
   </fieldset>
 </template>
 
@@ -136,9 +136,15 @@ fieldset {
   }
 
   button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     float:left;
+    box-sizing: border-box;
     margin-right:5px;
-    padding: 5px;
+    padding: 0;
+    width: 30px;
+    height: 30px;
     border: 1px solid #333;
     border-radius: 3px;
     background-color: #444;
