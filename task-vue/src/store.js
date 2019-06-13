@@ -16,11 +16,22 @@ export default new Vuex.Store({
     date: moment().format('YYYY.MM').split('.'),
     data: null,
     tag: null,
-    alert: { show: false, modal: true, title: null, message: null, confirm: false, button: { confirm: true, cancle: true } }
+    alert: {
+      show: false,
+      modal: true,
+      title: null,
+      message: null,
+      confirm: false,
+      button: {
+        confirm: false,
+        cancle: false,
+        close: false
+      }
+    }
   },
   mutations: {
     setDate(state, payload){
-      let date = moment(state.date.join('.'))
+      let date = moment(state.date.join('.'), 'YYYY.MM')
         , value = Math.abs(payload)
 
       date = payload > 0
@@ -34,12 +45,12 @@ export default new Vuex.Store({
     },
     setRecord(state, payload){
       let group = _.groupBy(payload, 'DATE')
-        , length = moment(state.date.join('.')).endOf('month').format('DD') * 1
+        , length = moment(state.date.join('.'), 'YYYY.MM').endOf('month').format('DD') * 1
         , count = 0
         , object = {}
 
       while(count < length){
-        let date = moment(state.date.join('.')).add(count, 'd')
+        let date = moment(state.date.join('.'), 'YYYY.MM').add(count, 'd')
 
         object[date.format('YYYYMMDD')] = group[date.format('YYYYMMDD')] || []
         count++

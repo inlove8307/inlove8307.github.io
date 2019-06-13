@@ -55,8 +55,8 @@ export default {
       this.$store.commit('setDate', number)
     },
     getWeeks(){
-      let date = moment(this.date).endOf('month').format('YYYY.MM.DD').split('.')
-        , index = 7 - moment(this.date).startOf('month').days()
+      let date = moment(this.date, 'YYYY.MM').endOf('month').format('YYYY.MM.DD').split('.')
+        , index = 7 - moment(this.date, 'YYYY.MM').startOf('month').days()
         , result = []
 
       while(index <= date[2] * 1){
