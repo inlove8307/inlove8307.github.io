@@ -46,13 +46,17 @@ export default {
       this.$store.commit('setAlert', {
         show: true,
         title: '알림',
-        message: message
+        message: message,
+        button: {
+          confirm: true,
+          cancle: true,
+          close: false
+        }
       })
     },
     clear(){
       this.$store.dispatch('delete', this.data)
       this.$store.dispatch('getTag', this.code)
-      this.$store.commit('setAlert', { confirm: false })
     }
   }
 }

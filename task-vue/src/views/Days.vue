@@ -4,11 +4,11 @@
       <button @click="setDate(-1)"><i class="material-icons">navigate_before</i></button>
       <span>{{ date }}</span>
       <button @click="setDate(1)"><i class="material-icons">navigate_next</i></button>
-
     </header>
     <article>
       <data-filter
-        v-bind:code="code">
+        v-bind:code="code"
+        v-bind:disabled="false">
       </data-filter>
       <ol>
         <days-date

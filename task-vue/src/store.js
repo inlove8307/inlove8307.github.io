@@ -47,7 +47,7 @@ export default new Vuex.Store({
 
       state.data = object
     },
-    setMemo(state, payload){
+    setOrigin(state, payload){
       state.data = payload
     },
     setTag(state, payload){
@@ -101,10 +101,22 @@ export default new Vuex.Store({
             commit('setData', result)
             break
           case 'C02':
-            commit('setMemo', _.reverse(result))
+            commit('setOrigin', _.reverse(result))
             break
           default: break
         }
+      })
+    },
+    getAllData({commit}, payload){
+      let result = []
+
+      db.tasks.bulkPut(payload)
+      .then(() => {
+        db.tasks
+        .each(data => result.push(data))
+        .then(() => {
+          commit('setOrigin', result)
+        })
       })
     },
     getTag({commit}, payload){
@@ -132,6 +144,8 @@ export default new Vuex.Store({
             break
           default: break
         }
+
+        commit('setAlert', { confirm: false })
       })
     }
   }

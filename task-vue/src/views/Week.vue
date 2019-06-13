@@ -6,6 +6,10 @@
       <button @click="setDate(1)"><i class="material-icons">navigate_next</i></button>
     </header>
     <article>
+      <data-filter
+        v-bind:code="code"
+        v-bind:disabled="true">
+      </data-filter>
       <ol>
         <li
           v-for="week in data"
@@ -33,10 +37,19 @@
 <script>
 import _ from 'lodash'
 import moment from 'moment'
+import DataFilter from '../components/DataFilter'
 import DateInfo from '../mixins/DateInfo'
 
 export default {
   mixins: [DateInfo],
+  components: {
+    DataFilter
+  },
+  data(){
+    return {
+      code: 'C01'
+    }
+  },
   methods: {
     setDate(number){
       this.$store.commit('setDate', number)
@@ -143,7 +156,7 @@ export default {
       overflow: hidden;
       flex: 1;
       display: flex;
-      width: 100%;
+      flex-direction: column;
 
       &>ol { /* week */
         flex: 1;

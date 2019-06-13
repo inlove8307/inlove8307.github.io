@@ -3,8 +3,7 @@
     <div id="nav">
       <button @click="show = !show"><i class="material-icons">apps</i></button>
       <nav v-show="show" @click="show = false">
-        <router-link to="/"><i class="material-icons">event_note</i></router-link>
-        <router-link to="/week"><i class="material-icons">event_available</i></router-link>
+        <router-link to="/"><i class="material-icons">event_available</i></router-link>
         <router-link to="/memo"><i class="material-icons">list_alt</i></router-link>
         <router-link to="/data"><i class="material-icons">inbox</i></router-link>
       </nav>

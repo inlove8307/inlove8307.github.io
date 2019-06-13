@@ -5,7 +5,8 @@
     </header>
     <article>
       <data-filter
-        v-bind:code="code">
+        v-bind:code="code"
+        v-bind:disabled="false">
       </data-filter>
       <ul>
         <memo-post

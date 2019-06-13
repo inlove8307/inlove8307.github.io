@@ -7,16 +7,74 @@
       <ul>
         <li>
           <label>데이터(JSON)</label>
-          <textarea placeholder="데이터를 입력하세요."></textarea>
+          <textarea v-model="json" placeholder="데이터를 입력하세요."></textarea>
         </li>
       </ul>
     </article>
     <span class="menu">
-      <button><i class="material-icons">get_app</i></button>
-      <button><i class="material-icons">move_to_inbox</i></button>
+      <button @click="setData"><i class="material-icons">move_to_inbox</i></button>
     </span>
   </section>
 </template>
+
+<script>
+import _ from 'lodash'
+
+export default {
+  data(){
+    return {
+      json: null
+    }
+  },
+  computed: {
+    data(){
+      return this.$store.state.data
+    }
+  },
+  watch: {
+    data(value){
+      this.json = JSON.stringify(value)
+
+      this.$store.commit('setAlert', {
+        show: true,
+        title: '알림',
+        message: '데이터가 저장되었습니다.',
+        button: {
+          confirm: false,
+          cancle: false,
+          close: true
+        }
+      })
+    }
+  },
+  methods: {
+    setData(){
+      const KEYS = ['KEY', 'INDEX', 'CODE', 'TAG', 'DATE', 'TITLE', 'CONTS']
+
+      let data
+
+      try{
+        data = JSON.parse(this.json)
+
+        if(!_.isArray(data) || !data.length) throw data
+
+        for(let index = 0; index < data.length; index++){
+          if(!_.isObject(data[index])) throw data
+
+          for(let count = 0; count < KEYS.length; count++){
+            if(_.isUndefined(data[index][KEYS[count]])) throw data
+          }
+        }
+
+        this.$store.dispatch('getAllData', data)
+      }
+      catch(e){
+        this.$store.dispatch('getAllData', [])
+      }
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
   section {

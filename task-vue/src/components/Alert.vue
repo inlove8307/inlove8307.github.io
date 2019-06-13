@@ -8,6 +8,7 @@
         <div class="button">
           <button v-show="option.button.confirm" @click="setData({ show: false, confirm: true })">확인</button>
           <button v-show="option.button.cancle" @click="setData({ show: false, confirm: false })">취소</button>
+          <button v-show="option.button.close" @click="setData({ show: false, confirm: false })">닫기</button>
         </div>
       </div>
     </article>
