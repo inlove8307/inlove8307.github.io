@@ -2,8 +2,10 @@
   <li>
     <div>
       <button type="button" @click="show = !show">{{ data.TITLE }} <span>{{ date }}</span></button>
-      <button type="button" v-show="show" @click="write">EDIT</button>
-      <button type="button" v-show="show" @click="setAlert">DEL</button>
+      <span class="menu">
+        <button v-show="show" @click="write"><i class="material-icons">edit</i></button>
+        <button v-show="show" @click="setAlert"><i class="material-icons">clear</i></button>
+      </span>
     </div>
     <pre v-show="show">{{ data.CONTS }}</pre>
   </li>
@@ -79,30 +81,46 @@ li {
   div {
     display: flex;
 
-    button {
-      box-sizing: border-box;
-      padding: 10px;
+    & > button {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      padding: 0 10px;
+      height: 38px;
       border: 0;
-      border-left: 1px dashed #ccc;
       background-color: transparent;
-      text-align: left;
       font-family: 'Noto Sans KR', 'Malgun Gothic';
-      font-weight: 400;
       font-size: 12px;
       cursor: pointer;
-
-      &:first-child {
-        flex: 1;
-        border-left: 0;
-      }
 
       &:hover {
         background-color: #ffc;
       }
 
       span {
-        font-weight: 400;
+        margin-left: 10px;
         color: #ccc;
+      }
+    }
+
+    .menu {
+      button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        float: left;
+        padding: 0;
+        width: 38px;
+        height: 38px;
+        border: 0;
+        border-left: 1px solid #ccc;
+        background-color: transparent;
+        vertical-align: top;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #ffc;
+        }
       }
     }
   }

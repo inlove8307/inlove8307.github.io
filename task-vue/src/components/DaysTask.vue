@@ -63,64 +63,64 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  li {
-    border-bottom: 1px solid #ccc;
-    text-align: right;
+li {
+  border-bottom: 1px solid #ccc;
+  text-align: right;
 
-    div {
+  div {
+    display: flex;
+
+    & > button {
       display: flex;
+      align-items: center;
+      flex: 1;
+      padding: 0 10px;
+      height: 38px;
+      border: 0;
+      background-color: transparent;
+      font-family: 'Noto Sans KR', 'Malgun Gothic';
+      font-size: 12px;
+      cursor: pointer;
 
-      & > button {
+      &:hover {
+        background-color: #ffc;
+      }
+    }
+
+    .menu {
+      button {
         display: flex;
+        justify-content: center;
         align-items: center;
-        flex: 1;
-        padding: 0 10px;
+        float: left;
+        padding: 0;
+        width: 38px;
         height: 38px;
         border: 0;
+        border-left: 1px solid #ccc;
         background-color: transparent;
-        font-family: 'Noto Sans KR', 'Malgun Gothic';
-        font-size: 12px;
+        vertical-align: top;
         cursor: pointer;
 
         &:hover {
           background-color: #ffc;
         }
       }
-
-      .menu {
-        button {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          float: left;
-          padding: 0;
-          width: 38px;
-          height: 38px;
-          border: 0;
-          border-left: 1px solid #ccc;
-          background-color: transparent;
-          vertical-align: top;
-          cursor: pointer;
-
-          &:hover {
-            background-color: #ffc;
-          }
-        }
-      }
-    }
-
-    pre {
-      margin: 0;
-      padding: 10px;
-      border-top: 1px dashed #ccc;
-      background-color:#efefef;
-      font-family: 'Noto Sans KR', 'Malgun Gothic';
-      font-size: 12px;
-      text-align: left;
     }
   }
 
-  li:last-child {
-    border-bottom: 0;
+  pre {
+    margin: 0;
+    padding: 10px;
+    border-top: 1px dashed #ccc;
+    background-color:#efefef;
+    font-family: 'Noto Sans KR', 'Malgun Gothic';
+    font-size: 12px;
+    text-align: left;
   }
+}
+
+li:last-child {
+  border-bottom: 0;
+}
 </style>
