@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <!-- infomation -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, user-scalable=no">
+        <title>이벤트</title>
+
+        <!-- import stylesheet -->
+        <link rel="stylesheet" href="css/styles.css" type="text/css">
+
+        <!-- import library -->
+        <script type="text/javascript" src="lib/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/howler.min.js"></script>
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.4/howler.min.js"></script> -->
+    </head>
+    <body>
+        <div class="game-wrap">
+            <!-- 상단 -->
+            <div class="game-title">
+                <img src="assets/images/takephoto_img_title.jpg" alt="">
+            </div>
+            <!-- 게임 -->
+            <div class="game-inner">
+                <div class="game-list"></div>
+                <div class="game-phone">
+                    <div class="game-status"></div>
+                    <div class="game-effect"></div>
+                    <div class="game-focus"></div>
+                    <div class="game-bubble-01"></div>
+                    <div class="game-bubble-02"></div>
+                    <button type="button" class="game-button-play"></button>
+                    <button type="button" class="game-button-stop"></button>
+                    <button type="button" class="game-button-played"></button>
+                    <button type="button" class="game-button-clear"></button>
+                </div>
+            </div>
+            <!-- 하단 -->
+            <div class="game-info">
+                <img src="assets/images/takephoto_img_info.jpg" alt="">
+                <button type="button" class="game-button-info"></button>
+                <button type="button" class="game-button-main"></button>
+            </div>
+            <!-- 로고 -->
+            <div class="game-load">
+                <span class="game-load-logo"></span>
+            </div>
+            <!-- 레이어 -->
+            <div class="game-layer">
+                <!-- 선택 -->
+                <div class="game-select">
+                    <button type="button" class="game-select-popcorn on"></button>
+                    <button type="button" class="game-select-puzzle"></button>
+                    <div class="game-select-list-popcorn on">
+                        <button type="button" data-code="C01" class="game-select-popcorn-ryan"></button>
+                        <button type="button" data-code="C02" class="game-select-popcorn-muzi on"></button>
+                        <button type="button" data-code="C03" class="game-select-popcorn-con"></button>
+                        <button type="button" data-code="C04" class="game-select-popcorn-neo"></button>
+                        <button type="button" data-code="C05" class="game-select-popcorn-frodo"></button>
+                        <button type="button" data-code="C06" class="game-select-popcorn-jayg"></button>
+                        <button type="button" data-code="C07" class="game-select-popcorn-apeach"></button>
+                        <button type="button" data-code="C08" class="game-select-popcorn-tube"></button>
+                    </div>
+                    <div class="game-select-list-puzzle">
+                        <button type="button" data-code="C09" class="game-select-puzzle-ryan"></button>
+                        <button type="button" data-code="C10" class="game-select-puzzle-muzi on"></button>
+                        <button type="button" data-code="C11" class="game-select-puzzle-neo"></button>
+                        <button type="button" data-code="C12" class="game-select-puzzle-frodo"></button>
+                        <button type="button" data-code="C13" class="game-select-puzzle-jayg"></button>
+                        <button type="button" data-code="C14" class="game-select-puzzle-apeach"></button>
+                        <button type="button" data-code="C15" class="game-select-puzzle-tube"></button>
+                    </div>
+                    <button type="button" class="game-button-select"></button>
+                </div>
+                <!-- 성공 -->
+                <div class="game-success">
+                    <button type="button" class="game-button-success-close"></button>
+                </div>
+                <!-- 실패 (초점 틀림, 캐릭터 또는 로고 틀림) -->
+                <div class="game-focusout">
+                    <button type="button" class="game-button-focusout-close"></button>
+                </div>
+                <!-- 실패 (중복 캐릭터 또는 로고) -->
+                <div class="game-overlap">
+                    <button type="button" class="game-button-overlap-close"></button>
+                </div>
+                <!-- 클리어 -->
+                <div class="game-clear">
+                    <button type="button" class="game-clear-gift-popcorn on" data-value="P"></button>
+                    <button type="button" class="game-clear-gift-puzzle" data-value="M"></button>
+                    <button type="button" class="game-button-clear-close"></button>
+                </div>
+                <!-- 응모내역확인 -->
+                <div class="frendspop-gift-select">
+                    <div class="frendspop-gift-select-header">
+                        <img src="assets/images/gift_select/frendspop_img_popup_header.png" alt="">
+                        <div class="frendspop-gift-select-tab">
+                            <!-- 미션 클리어인 경우 CLASS에 'clear' 추가 -->
+                            <a class="frendspop-gift-select-tab-item-01 on clear" href="#">
+                                <img src="assets/images/gift_select/frendspop_ico_mission_01_on.png" alt="">
+                            </a>
+                            <a class="frendspop-gift-select-tab-item-02" href="#">
+                                <img src="assets/images/gift_select/frendspop_ico_mission_02.png" alt="">
+                            </a>
+                            <a class="frendspop-gift-select-tab-item-03" href="#">
+                                <img src="assets/images/gift_select/frendspop_ico_mission_03.png" alt="">
+                            </a>
+                            <a class="frendspop-gift-select-tab-item-04" href="#">
+                                <img src="assets/images/gift_select/frendspop_ico_mission_all.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="frendspop-gift-select-table">
+                        <!-- MISSION 1 발도장 -->
+                        <ul class="frendspop-gift-select-table-item" style="display:block">
+                            <li class="frendspop-gift-select-table-item-title">
+                                <img src="assets/images/gift_select/frendspop_tbl_type_a_header.png" alt="">
+                            </li>
+                            <li class="frendspop-gift-select-table-item-row">
+                                <span class="frendspop-gift-select-table-item-col-01 type-a">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_row_01_title.png" alt="">
+                                </span>
+                                <!-- RADIO -->
+                                <a href="#" class="frendspop-gift-select-table-item-col-02 type-a">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_row_01_item_01_on.png" alt="">
+                                </a>
+                                <a href="#" class="frendspop-gift-select-table-item-col-03 type-a">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_row_01_item_02.png" alt="">
+                                </a>
+                                <!-- EMPTY -->
+                                <!--
+                                <span class="frendspop-gift-select-table-item-empty type-a">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_empty.png" alt="">
+                                </span>
+                                -->
+                                <!-- VALUE -->
+                                <input type="hidden" id="M1-ITEM1" name="" value="P">
+                            </li>
+                            <li class="frendspop-gift-select-table-item-row">
+                                <span class="frendspop-gift-select-table-item-col-01 type-a">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_row_02_title.png" alt="">
+                                </span>
+                                <!-- RADIO -->
+                                <a href="#" class="frendspop-gift-select-table-item-col-02 type-a">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_row_02_item_01_on.png" alt="">
+                                </a>
+                                <a href="#" class="frendspop-gift-select-table-item-col-03 type-a">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_row_02_item_02.png" alt="">
+                                </a>
+                                <!-- EMPTY -->
+                                <!--
+                                <span class="frendspop-gift-select-table-item-empty type-a">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_empty.png" alt="">
+                                </span>
+                                -->
+                                <!-- VALUE -->
+                                <input type="hidden" id="M1-ITEM2" name="" value="P">
+                            </li>
+                            <li class="frendspop-gift-select-table-item-row">
+                                <span class="frendspop-gift-select-table-item-col-01 type-a">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_row_03_title.png" alt="">
+                                </span>
+                                <!-- RADIO -->
+                                <a href="#" class="frendspop-gift-select-table-item-col-02 type-a">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_row_03_item_01_on.png" alt="">
+                                </a>
+                                <a href="#" class="frendspop-gift-select-table-item-col-03 type-a">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_row_03_item_02.png" alt="">
+                                </a>
+                                <!-- EMPTY -->
+                                <!--
+                                <span class="frendspop-gift-select-table-item-empty type-a">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_empty.png" alt="">
+                                </span>
+                                -->
+                                <!-- VALUE -->
+                                <input type="hidden" id="M1-ITEM3" name="" value="P">
+                            </li>
+                            <li class="frendspop-gift-select-table-item-row">
+                                <span class="frendspop-gift-select-table-item-col-01 type-a">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_row_04_title.png" alt="">
+                                </span>
+                                <!-- RADIO -->
+                                <!--
+                                <a href="#" class="frendspop-gift-select-table-item-col-02 type-a">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_row_04_item_01_on.png" alt="">
+                                </a>
+                                <a href="#" class="frendspop-gift-select-table-item-col-03 type-a">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_row_04_item_02.png" alt="">
+                                </a>
+                                -->
+                                <!-- EMPTY -->
+                                <span class="frendspop-gift-select-table-item-empty type-a">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_empty.png" alt="">
+                                </span>
+                                <!-- VALUE -->
+                                <input type="hidden" id="M1-ITEM4" name="" value="P">
+                            </li>
+                        </ul>
+                        <!-- // MISSION 1 발도장 -->
+                        <!-- MISSION 2 숨박꼭질 -->
+                        <ul class="frendspop-gift-select-table-item">
+                            <li class="frendspop-gift-select-table-item-title">
+                                <img src="assets/images/gift_select/frendspop_tbl_type_b_header.png" alt="">
+                            </li>
+                            <li class="frendspop-gift-select-table-item-row">
+                                <!-- RADIO -->
+                                <a href="#" class="frendspop-gift-select-table-item-col-02 type-b">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_b_row_01_item_01_on.png" alt="">
+                                </a>
+                                <a href="#" class="frendspop-gift-select-table-item-col-03 type-b">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_b_row_01_item_02.png" alt="">
+                                </a>
+                                <!-- EMPTY -->
+                                <!--
+                                <span class="frendspop-gift-select-table-item-empty type-b">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_empty.png" alt="">
+                                </span>
+                                -->
+                                <!-- VALUE -->
+                                <input type="hidden" id="M2-ITEM1" name="" value="P">
+                            </li>
+                        </ul>
+                        <!-- // MISSION 2 숨박꼭질 -->
+                        <!-- MISSION 3 순간포착 -->
+                        <ul class="frendspop-gift-select-table-item">
+                            <li class="frendspop-gift-select-table-item-title">
+                                <img src="assets/images/gift_select/frendspop_tbl_type_b_header.png" alt="">
+                            </li>
+                            <li class="frendspop-gift-select-table-item-row">
+                                <!-- RADIO -->
+                                <a href="#" class="frendspop-gift-select-table-item-col-02 type-b">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_b_row_01_item_01_on.png" alt="">
+                                </a>
+                                <a href="#" class="frendspop-gift-select-table-item-col-03 type-b">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_b_row_01_item_02.png" alt="">
+                                </a>
+                                <!-- EMPTY -->
+                                <!--
+                                <span class="frendspop-gift-select-table-item-empty type-b">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_a_empty.png" alt="">
+                                </span>
+                                -->
+                                <!-- VALUE -->
+                                <input type="hidden" id="M3-ITEM1" name="" value="P">
+                            </li>
+                        </ul>
+                        <!-- // MISSION 3 순간포착 -->
+                        <!-- MISSION 4 특별미션 (선택 없음) -->
+                        <ul class="frendspop-gift-select-table-item">
+                            <li class="frendspop-gift-select-table-item-row">
+                                <!-- 모든 미션 클리어 -->
+                                <a href="#" class="frendspop-gift-select-table-item-col-02 type-c">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_c_row_01_item_01_on.png" alt="">
+                                </a>
+                                <!-- 응모 대상이 아닙니다 -->
+                                <!--
+                                <a href="#" class="frendspop-gift-select-table-item-col-02 type-c">
+                                    <img src="assets/images/gift_select/frendspop_tbl_type_c_row_01_item_01.png" alt="">
+                                </a>
+                                -->
+                            </li>
+                        </ul>
+                        <!-- // MISSION 4 특별미션 (선택 없음) -->
+                    </div>
+                    <div class="frendspop-gift-select-footer">
+                        <img src="assets/images/gift_select/frendspop_img_popup_footer.png" alt="">
+                        <a class="frendspop-gift-select-button" href="#">
+                            <img src="assets/images/gift_select/frendspop_btn_save.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <script>
+                (function(){
+                    $('.frendspop-gift-select-tab a').on('click', function(event){
+                        $(this).children().attr('src', function(){
+                            var temp = $(this).attr('src').split('_on');
+
+                            if (temp[1]) {
+                                return temp[0] + '_on.png';
+                            }
+                            else {
+                                temp = $(this).attr('src').split('.png');
+                                return temp[0] + '_on.png';
+                            }
+                        });
+
+                        $(this).siblings().children().attr('src', function(){
+                            var temp = $(this).attr('src').split('_on');
+
+                            if (temp[1]) {
+                                return temp[0] + '.png';
+                            }
+                        });
+
+                        $('.frendspop-gift-select-table-item').eq($(this).index()).show().siblings().hide();
+
+                        event.preventDefault();
+                    });
+
+                    $('.frendspop-gift-select-table-item-row a').on('click', function(event){
+                        $(this).children().attr('src', function(){
+                            var temp = $(this).attr('src').split('_on');
+
+                            if (temp[1]) {
+                                return temp[0] + '_on.png';
+                            }
+                            else {
+                                temp = $(this).attr('src').split('.png');
+                                return temp[0] + '_on.png';
+                            }
+                        });
+
+                        $(this).siblings().children().attr('src', function(){
+                            var temp = $(this).attr('src').split('_on');
+
+                            if (temp[1]) {
+                                return temp[0] + '.png';
+                            }
+                        });
+
+                        event.preventDefault();
+                    });
+
+                    $('.game-button-info').on('click', function(event){
+                        $('.frendspop-gift-select').show();
+                        $('.game-layer').fadeIn();
+
+                        event.preventDefault();
+                    });
+
+                    $('.frendspop-gift-select-button').on('click', function(event){
+                        $('.frendspop-gift-select').fadeOut();
+                        $('.game-layer').fadeOut();
+
+                        event.preventDefault();
+                    });
+                }());
+                </script>
+                <!-- // 응모내역확인 -->
+            </div>
+        </div>
+        <!-- mobile console -->
+        <!-- <div class="game-console">
+            <div class="game-console-button-wrap">
+                <button class="game-console-button" data-type="console">CONSOLE</button>
+                <button class="game-console-button" data-type="element">ELEMENT</button>
+                <button class="game-console-button" data-type="hide">SHOW</button>
+            </div>
+            <dia class="game-console-output">
+                <div class="game-console-message"></div>
+                <div class="game-console-element"></div>
+            </dia>
+        </div> -->
+
+        <!-- import script -->
+        <script type="text/javascript" src="js/script.js"></script>
+    </body>
+</html>
