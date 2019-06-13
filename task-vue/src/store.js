@@ -155,8 +155,6 @@ export default new Vuex.Store({
             break
           default: break
         }
-
-        commit('setAlert', { confirm: false })
       })
     }
   }

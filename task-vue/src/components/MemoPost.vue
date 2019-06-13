@@ -60,6 +60,7 @@ export default {
     clear(){
       this.$store.dispatch('delete', this.data)
       this.$store.dispatch('getTag', this.code)
+      this.$store.commit('setAlert', { confirm: false })
     }
   }
 }
