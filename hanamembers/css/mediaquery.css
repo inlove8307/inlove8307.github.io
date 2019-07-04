@@ -12,56 +12,58 @@
     padding: 10px;
   }
   #root h2 {
-    padding: 10px;
+    padding: 5px 10px 5px 0;
     border-bottom-width: 1px;
   }
   #root h3 {
-    padding: 10px;
+    padding: 5px 10px 5px 0;
     border-bottom-width: 1px;
   }
   #root header {
     border-bottom-width: 1px;
+    box-shadow: 0 1px 5px rgb(68, 68, 68);
   }
   #root header menu a {
     padding: 10px;
   }
   #root aside {
+    padding-top: 5px;
     border-right-width: 1px;
   }
   #root aside menu a {
-    padding: 10px;
+    padding: 5px 10px;
     border-bottom-width: 1px;
   }
   #root section {
-    padding: 0 10px 10px;
+    padding: 5px 10px 10px;
   }
   #root table {
     margin-top: 10px;
   }
   #root caption {
-    padding: 10px;
+    padding: 5px 10px;
     border-width: 1px;
   }
   #root thead th {
-    padding: 10px;
+    padding: 5px 10px;
     border-width: 1px;
   }
   #root thead th:nth-child(1) {
     width: 120px;
   }
   #root tbody th {
-    padding: 10px;
+    padding: 5px 10px;
     border-width: 1px;
   }
   #root tbody td {
-    padding: 10px;
+    padding: 5px 10px;
     border-width: 1px;
   }
   #root footer {
     border-top-width: 1px;
   }
   #root footer address {
-    padding: 10px;
+    padding: 5px 10px;
   }
 }
 
