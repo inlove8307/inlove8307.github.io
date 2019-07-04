@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flip</title>
 
-  <link rel="stylesheet" href="./css/style.css">
-  <link rel="stylesheet" href="./css/mediaquery.css">
-  <link rel="stylesheet" href="./css/font.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/mediaquery.css">
+  <link rel="stylesheet" href="../css/font.css">
 
-  <script src="./lib/lodash.js"></script>
-  <script src="./lib/jquery-3.4.1.min.js"></script>
-  <script src="./lib/TweenMax.min.js"></script>
+  <script src="../lib/lodash.js"></script>
+  <script src="../lib/jquery-3.4.1.min.js"></script>
+  <script src="../lib/TweenMax.min.js"></script>
 </head>
 <body>
 
@@ -55,6 +55,7 @@
       background-color: rgb(0, 0, 0);
     }
     .flip-back {
+      transform: rotateY(-180deg);
       background-color: rgb(0, 0, 0);
     }
   </style>
@@ -63,7 +64,7 @@
     (function(){
       'use strict';
 
-      new TweenMax.to('.flip', 1, {rotationY: 360, repeat: -1, repeatDelay: 1 });
+      new TweenMax.to('.flip', 1, { rotationY: 360, repeat: -1, repeatDelay: 1 });
     }())
   </script>
 
