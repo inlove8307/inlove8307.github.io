@@ -42,7 +42,6 @@
     .flip {
       width: 40vw;
       height: 40vw;
-      perspective: 1000px;
     }
     .flip-inner {
       position: relative;
@@ -72,7 +71,7 @@
     (function(){
       'use strict';
 
-      new TweenMax.to('.flip-inner', 2, { rotationY: 360, ease: Power0.easeNone, repeat: -1, repeatDelay: 1 });
+      new TweenMax.to('.flip-inner', 2, { rotationY: -360, ease: Power0.easeNone, repeat: -1, repeatDelay: 1 });
     }())
   </script>
 
