@@ -17,8 +17,12 @@
 
   <div class="container">
     <div class="flip">
-      <span class="flip-front">&nbsp;</span>
-      <span class="flip-back">&nbsp;</span>
+      <span class="flip-front">
+        <img src="../assets/images/logo.png">
+      </span>
+      <span class="flip-back">
+        <img src="../assets/images/logo.jpg">
+      </span>
     </div>
   </div>
 
@@ -40,6 +44,10 @@
       transform: rotateY(0deg);
       transform-style: preserve-3d;
     }
+    .flip img {
+      width: 100%;
+      height: 100%;
+    }
     .flip-front,
     .flip-back {
       display: flex;
@@ -56,14 +64,10 @@
     }
     .flip-front {
       z-index: 1;
-      background: url('../assets/images/logo.png') no-repeat 0 0;
-      background-size: cover;
       transform: rotateY(0deg);
     }
     .flip-back {
       z-index: 0;
-      background: url('../assets/images/logo.jpg') no-repeat 0 0;
-      background-size: cover;
       transform: rotateY(-180deg);
     }
   </style>
