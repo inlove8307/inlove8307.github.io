@@ -54,7 +54,7 @@
       border-radius: 100%;
       border: 0.78vw solid rgb(0, 0, 0);
       backface-visibility: hidden;
-      font-size: 3.12vw;
+      font-size: 6.25vw;
     }
     .flip-front {
       transform: rotateY(0deg);
@@ -74,8 +74,8 @@
 
       var timeline = new TimelineMax({ repeat: -1, repeatDelay: 1 });
 
-      timeline.to('.flip', 1, { transform: 'rotateY(180deg)', ease: Power0.easeNone });
-      timeline.to('.flip', 1, { transform: 'rotateY(360deg)', ease: Power0.easeNone });
+      timeline.to('.flip', 1, { transform: 'rotateY(180deg)', ease: Power2.easeIn });
+      timeline.to('.flip', 1, { transform: 'rotateY(360deg)', ease: Power2.easeOut });
     }())
   </script>
 
