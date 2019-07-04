@@ -34,6 +34,7 @@
       position: relative;
       width: 40vw;
       height: 40vw;
+      transform: rotateY(0deg);
       transform-style: preserve-3d;
     }
     .flip-front,
@@ -47,7 +48,7 @@
       width: 100%;
       height: 100%;
       border-radius: 100%;
-      /*backface-visibility: hidden;*/
+      backface-visibility: hidden;
       font-size: 3.12vw;
       color: rgb(255, 255, 255);
     }
@@ -64,7 +65,10 @@
     (function(){
       'use strict';
 
-      new TweenMax.to('.flip', 1, { rotationY: 360, repeat: -1, repeatDelay: 1 });
+      var timeline = new TimelineMax({ repeat: -1, repeatDelay: 1 });
+
+      timeline.to('.flip', 1, { transform: 'rotateY(180deg)', ease: Power0.easeNone });
+      timeline.to('.flip', 1, { transform: 'rotateY(360deg)', ease: Power0.easeNone });
     }())
   </script>
 
