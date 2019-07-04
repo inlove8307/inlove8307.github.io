@@ -72,10 +72,7 @@
     (function(){
       'use strict';
 
-      var timeline = new TimelineMax({ repeat: -1, repeatDelay: 1 });
-
-      timeline.to('.flip-inner', 1, { transform: 'rotateY(180deg)' });
-      timeline.to('.flip-inner', 1, { transform: 'rotateY(0deg)' });
+      new TweenMax.to('.flip-inner', 2, { rotationY: 360, ease: Power0.easeNone, repeat: -1, repeatDelay: 1 });
     }())
   </script>
 
