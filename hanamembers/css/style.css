@@ -5,8 +5,10 @@ html, body {
   padding: 0;
 }
 #root.container {
+  overflow: hidden;
   display: flex;
   flex-flow: column;
+  width: 100vw;
   height: 100vh;
   font-family: 'Noto Sans KR';
   font-size: 3.12vw;
@@ -125,5 +127,9 @@ html, body {
   text-align: center;
 }
 #root footer address a {
+  overflow: hidden;
+  display: inline-block;
+  max-width: 100%;
   color: inherit;
+  text-overflow: ellipsis;
 }
