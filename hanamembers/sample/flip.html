@@ -17,8 +17,8 @@
 
   <div class="container">
     <div class="flip">
-      <span class="flip-front">FRONT</span>
-      <span class="flip-back">BACK</span>
+      <span class="flip-front">&nbsp;</span>
+      <span class="flip-back">&nbsp;</span>
     </div>
   </div>
 
@@ -51,20 +51,18 @@
       box-sizing: border-box;
       width: 100%;
       height: 100%;
-      border-radius: 100%;
-      border: 0.78vw solid rgb(0, 0, 0);
       backface-visibility: hidden;
       font-size: 6.25vw;
     }
     .flip-front {
+      background: url('../assets/images/logo.png') no-repeat 0 0;
+      background-size: cover;
       transform: rotateY(0deg);
-      background-color: rgb(68, 68, 68);
-      color: rgb(255, 255, 255);
     }
     .flip-back {
+      background: url('../assets/images/logo.jpg') no-repeat 0 0;
+      background-size: cover;
       transform: rotateY(-180deg);
-      background-color: rgb(239, 239, 239);
-      color: rgb(68, 68, 68);
     }
   </style>
 
@@ -74,8 +72,8 @@
 
       var timeline = new TimelineMax({ repeat: -1, repeatDelay: 1 });
 
-      timeline.to('.flip', 1, { transform: 'rotateY(180deg)', ease: Power2.easeIn });
-      timeline.to('.flip', 1, { transform: 'rotateY(360deg)', ease: Power2.easeOut });
+      timeline.to('.flip', 1, { transform: 'rotateY(180deg)' });
+      timeline.to('.flip', 1, { transform: 'rotateY(0deg)' });
     }())
   </script>
 
