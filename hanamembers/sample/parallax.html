@@ -487,8 +487,9 @@
         $.each(offset[top].target, eventSet);
       });
 
-      $(document).on('ready', eventTo);
       $(window).on('scroll', eventTo);
+
+      eventTo();
     }())
   </script>
 
