@@ -106,25 +106,25 @@
   }
   #root caption {
     padding: 0.78vw 1.56vw;
-    border-width: 1.56vw;
+    border-width: 0.07vw;
   }
   #root thead th {
     padding: 0.78vw 1.56vw;
-    border-width: 1.56vw;
+    border-width: 0.07vw;
   }
   #root thead th:nth-child(1) {
     width: 4.68vw;
   }
   #root tbody th {
     padding: 0.78vw 1.56vw;
-    border-width: 1.56vw;
+    border-width: 0.07vw;
   }
   #root tbody td {
     padding: 0.78vw 1.56vw;
-    border-width: 1.56vw;
+    border-width: 0.07vw;
   }
   #root footer {
-    border-top-width: 1.56vw;
+    border-top-width: 0.07vw;
   }
   #root footer address {
     padding: 0.78vw 1.56vw;
