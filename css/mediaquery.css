@@ -69,6 +69,77 @@
   }
 }
 
+@media (orientation: landscape) {
+  #root.container {
+    font-size: 14px;
+    font-weight: 400;
+  }
+  #root h1 {
+    padding: 10px;
+  }
+  #root h2 {
+    padding: 5px 10px 5px 0;
+    border-bottom-width: 1px;
+  }
+  #root h3 {
+    padding: 5px 10px 5px 0;
+    border-bottom-width: 1px;
+  }
+  #root header {
+    border-bottom-width: 1px;
+    box-shadow: 0 1px 5px rgb(68, 68, 68);
+  }
+  #root header menu a {
+    padding: 10px;
+  }
+  #root aside {
+    padding-top: 5px;
+    border-right-width: 1px;
+  }
+  #root aside menu a {
+    padding: 5px 10px;
+    border-bottom-width: 1px;
+  }
+  #root section {
+    padding: 5px 10px 10px;
+  }
+  #root table {
+    margin-top: 10px;
+  }
+  #root caption {
+    padding: 5px 10px;
+    border-width: 1px;
+  }
+  #root thead th {
+    padding: 5px 10px;
+    border-width: 1px;
+  }
+  #root thead th:nth-child(1) {
+    width: 120px;
+  }
+  #root tbody th {
+    padding: 5px 10px;
+    border-width: 1px;
+  }
+  #root tbody td {
+    padding: 5px 10px;
+    border-width: 1px;
+  }
+  #root footer {
+    border-top-width: 1px;
+  }
+  #root footer address {
+    padding: 5px 10px;
+  }
+}
+
+/*
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {}
+
 /*
   ##Device = Laptops, Desktops
   ##Screen = B/w 1025px to 1280px
