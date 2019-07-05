@@ -69,65 +69,14 @@
 }
 
 @media all and (orientation: landscape) {
-  #root.container {
-    font-size: 1.56vw;
-  }
-  #root h1 {
-    padding: 1.56vw;
-  }
-  #root h2 {
-    padding: 0.78vw 1.56vw 0.78vw 0;
-    border-bottom-width: 0.07vw;
-  }
-  #root h3 {
-    padding: 0.78vw 1.56vw 0.78vw 0;
-    border-bottom-width: 0.07vw;
-  }
-  #root header {
-    border-bottom-width: 0.07;
-    box-shadow: 0 0.07vw 0.39vw rgb(68, 68, 68);
-  }
-  #root header menu a {
-    padding: 1.56vw;
-  }
-  #root aside {
-    padding-top: 5px;
-    border-right-width: 1px;
-  }
-  #root aside menu a {
-    padding: 0.78vw 1.56vw;
-    border-bottom-width: 0.07vw;
-  }
-  #root section {
-    padding: 0.78vw 1.56vw 1.56vw;
-  }
-  #root table {
-    margin-top: 1.56vw;
-  }
-  #root caption {
-    padding: 0.78vw 1.56vw;
-    border-width: 0.07vw;
-  }
-  #root thead th {
-    padding: 0.78vw 1.56vw;
-    border-width: 0.07vw;
-  }
-  #root thead th:nth-child(1) {
-    width: 4.68vw;
-  }
-  #root tbody th {
-    padding: 0.78vw 1.56vw;
-    border-width: 0.07vw;
-  }
-  #root tbody td {
-    padding: 0.78vw 1.56vw;
-    border-width: 0.07vw;
-  }
-  #root footer {
-    border-top-width: 0.07vw;
-  }
-  #root footer address {
-    padding: 0.78vw 1.56vw;
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
   }
 }
 
