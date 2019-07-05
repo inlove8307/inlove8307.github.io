@@ -50,7 +50,7 @@
         </p>
       </article>
 
-      <article>
+      <article data-event="true" data-code="E04">
         <h1 class="title">
           <em data-event="true" data-code="E01">ARTICLE TITLE</em>
         </h1>
@@ -116,7 +116,7 @@
         </p>
       </article>
 
-      <article>
+      <article data-event="true" data-code="E04">
         <h1 class="title">
           <em data-event="true" data-code="E01">ARTICLE TITLE</em>
         </h1>
@@ -182,7 +182,7 @@
         </p>
       </article>
 
-      <article>
+      <article data-event="true" data-code="E04">
         <h1 class="title">
           <em data-event="true" data-code="E01">ARTICLE TITLE</em>
         </h1>
@@ -248,7 +248,7 @@
         </p>
       </article>
 
-      <article>
+      <article data-event="true" data-code="E04">
         <h1 class="title">
           <em data-event="true" data-code="E01">ARTICLE TITLE</em>
         </h1>
@@ -314,7 +314,7 @@
         </p>
       </article>
 
-      <article>
+      <article data-event="true" data-code="E04">
         <h1 class="title">
           <em data-event="true" data-code="E01">ARTICLE TITLE</em>
         </h1>
@@ -358,11 +358,10 @@
     }
     article {
       overflow: hidden;
-      border-bottom: 0.15vw solid rgb(239, 239, 239);
-      background-color: rgba(255, 255, 255, 0.85);
+      background-color: rgba(0, 0, 0, 0.85);
     }
     article:nth-child(even) {
-      background-color: rgba(255, 255, 255, 1);
+      background-color: rgba(0, 0, 0, 1);
     }
     .title {
       overflow: hidden;
@@ -380,6 +379,7 @@
       font-style: normal;
       font-size: 4.68vw;
       line-height: 1;
+      color: rgb(255, 255, 255);
     }
     .image {
       overflow: hidden;
@@ -415,6 +415,7 @@
       font-family: 'Noto Sans KR';
       font-weight: 700;
       font-size: 3.12vw;
+      color: rgb(255, 255, 255);
     }
   </style>
 
@@ -441,8 +442,8 @@
           duration: 1.5
         },
         E04: {
-          set: { 'background-color': 'rgb(255, 255, 255)' },
-          to: { 'background-color': 'rgb(0, 0, 0)', ease: Power4.easeOut },
+          set: { 'background-color': 'rgba(0, 0, 0, 0.85)' },
+          to: { 'background-color': 'rgba(0, 0, 0, 1)', ease: Power4.easeOut },
           duration: 3
         }
       };
