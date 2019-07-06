@@ -85,7 +85,10 @@ html, body {
   flex: 1;
   padding: 1.56vw 3.12vw 3.12vw;
 }
-#root article {}
+#root article {
+  padding-bottom: 3.12vw;
+  border-bottom: 0.15vw solid rgb(239, 239, 239);
+}
 #root table {
   margin-top: 3.12vw;
   width: 100%;
@@ -101,7 +104,6 @@ html, body {
   font-weight: inherit;
   color: rgb(255, 255, 255);
 }
-#root thead {}
 #root thead th {
   padding: 1.56vw 3.12vw;
   border: 0.15vw solid rgb(68, 68, 68);
@@ -125,16 +127,10 @@ html, body {
 #root tbody td a {
   color: inherit;
 }
-#root footer {}
-#root footer address {
+#root .link-right {
   padding: 1.56vw 0;
-  font-style: normal;
   text-align: right;
 }
-#root footer address a {
-  overflow: hidden;
-  display: inline-block;
-  max-width: 100%;
+#root .link-right a {
   color: inherit;
-  text-overflow: ellipsis;
 }

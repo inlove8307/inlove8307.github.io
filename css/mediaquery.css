@@ -1,10 +1,5 @@
 @charset "utf-8";
 
-/*
-  ##Device = Desktops
-  ##Screen = 1281px to higher resolution desktops
-*/
-
 @media (min-width: 1281px) {
   #root.container {
     font-size: 14px;
@@ -38,6 +33,10 @@
   #root section {
     padding: 5px 10px 10px;
   }
+  #root article {
+    padding-bottom: 10px;
+    border-bottom-width: 1px;
+  }
   #root table {
     margin-top: 10px;
   }
@@ -60,15 +59,10 @@
     padding: 5px 10px;
     border-width: 1px;
   }
-  #root footer {
-    border-top-width: 1px;
-  }
-  #root footer address {
-    padding: 5px 10px;
+  #root .link-right {
+    padding: 5px 0;
   }
 }
-
-@media all and (orientation: landscape) {}
 
 /*
   ##Device = Desktops
