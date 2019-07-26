@@ -171,7 +171,7 @@ var ROOT = ROOT || {};
         },
         to: function(offset, screen){
           $.each(offset, function(key, item){
-            if ((scree.middle > parseInt(key) || screen.top + screen.height == screen.document)) {
+            if ((screen.middle > parseInt(key) || screen.top + screen.height == screen.document)) {
               $.each(item.target, function(index, el){
                 var prop = props.get($(el).data('parallax'));
 
