@@ -458,6 +458,9 @@
           }
         }
       });
+
+      $(document).on('ready', parallax.init);
+      $(window).on('scroll', parallax.scroll);
     }());
   </script>
 </body>
