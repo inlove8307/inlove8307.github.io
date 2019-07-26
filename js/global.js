@@ -76,7 +76,6 @@ var ROOT = ROOT || {};
       delete: function(){
         $(window).on('load', function(event){
           $wrap.remove();
-          $button.remove();
           $style.remove();
         });
       }
