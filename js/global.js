@@ -89,4 +89,117 @@ var ROOT = ROOT || {};
 
 (function(){
   'use strict';
+
+  function parallax(params){
+    var $els = params.$els
+      , codes = params.codes;
+
+    var props, offset, event, screen;
+
+    props = (function(){
+      var object = {};
+
+      return {
+        set: function(codes){
+          for (var key in codes) {
+            object[key] = codes[key];
+          }
+        },
+        get: function(code){
+          return code ? object[code] : object;
+        }
+      }
+    }());
+
+    offset = (function(){
+      var object = {};
+
+      return {
+        set: function($els){
+          $.each($els, function(index, item){
+            var top = Math.floor($(item).offset().top);
+
+            object[top] = object[top] || {};
+            object[top].target = object[top].target || [];
+            object[top].target.push(item);
+          });
+        },
+        reset: function(){
+          object = {};
+          this.set($els);
+        },
+        get: function(){
+          return object;
+        }
+      }
+    }());
+
+    screen = (function(){
+      var object = {};
+
+      return {
+        set: function(){
+          var top = $(window).scrollTop()
+            , height = $(window).outerHeight();
+
+          object.top = top;
+          object.middle = top + (height / 5) * 4;
+          object.bottom = top + height;
+          object.height = height;
+          object.document = $(document).outerHeight();
+        },
+        get: function(){
+          return object;
+        }
+      }
+    }());
+
+    event = (function(){
+      return {
+        set: function(offset){
+          var key, index, el;
+
+          for (key in offset) {
+            index = -1;
+
+            while (++index < offset[key].target.length) {
+              el = offset[key].target[index];
+              $(el).data('evented', false);
+              TweenMax.set(el, props.get($(el).data('parallax')).set);
+            }
+          }
+        },
+        to: function(offset, screen){
+          $.each(offset, function(key, item){
+            if ((scree.middle > parseInt(key) || screen.top + screen.height == screen.document)) {
+              $.each(item.target, function(index, el){
+                var prop = props.get($(el).data('parallax'));
+
+                if (!$(el).data('evented')) {
+                  TweenMax.to(el, prop.duration, prop.to);
+                  $(el).data('evented', true);
+                }
+              });
+            }
+          });
+        },
+      }
+    }());
+
+    return {
+      init: function(){
+        screen.set();
+        offset.set($els);
+        props.set(codes);
+        event.set(offset.get());
+        event.to(offset.get(), screen.get());
+      },
+      scroll: function(){
+        screen.set();
+        event.to(offset.get(), screen.get());
+      }
+    }
+  }
+
+  ROOT.parallax = parallax;
 }());
