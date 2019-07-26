@@ -40,7 +40,7 @@ var ROOT = ROOT || {};
       .debug-text span{font-family:\'Noto Sans KR\';font-size:1.66vw;color:rgba(0, 0, 0, 1);}\
       .debug-text i{font-family:\'Noto Sans KR\';font-size:1.66vw;font-style:normal;color:rgba(0, 0, 0, 1);}\
       .debug-clear{position:absolute;top:2.77vw;right:2.77vw;border:0;background-color:transparent;font-family:\'Noto Sans KR\';font-size:1.66vw;color:rgba(0, 0, 0, 1);}\
-      .debug-button{position:fixed;bottom:2.77vw;right:2.77vw;margin:0;padding:0;width:6.94vw;height:6.94vw;border:0;border-radius:100%;background-color:rgba(0, 0, 0, 1);font-weight:700;font-family:\'Noto Sans KR\';font-size:2.77vw;color:rgba(255, 255, 255, 1);}\
+      .debug-button{position:fixed;bottom:2.77vw;right:2.77vw;margin:0;padding:0;width:6.94vw;height:6.94vw;border:1px solid rgba(255, 255, 255, 1);border-radius:100%;background-color:rgba(0, 0, 0, 1);font-weight:700;font-family:\'Noto Sans KR\';font-size:2.77vw;color:rgba(255, 255, 255, 1);}\
       ';
 
     $wrap.append($inner, $button, $clear);
