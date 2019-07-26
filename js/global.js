@@ -193,10 +193,12 @@ var ROOT = ROOT || {};
         props.set(codes);
         event.set(offset.get());
         event.to(offset.get(), screen.get());
+        ROOT.console.log('parallax.init');
       },
       scroll: function(){
         screen.set();
         event.to(offset.get(), screen.get());
+        ROOT.console.log('parallax.scroll');
       }
     }
   }
