@@ -182,7 +182,7 @@ var ROOT = ROOT || {};
               });
             }
           });
-        },
+        }
       }
     }());
 
@@ -193,15 +193,15 @@ var ROOT = ROOT || {};
         props.set(codes);
         event.set(offset.get());
         event.to(offset.get(), screen.get());
-        ROOT.console.log('parallax.init');
+        ROOT.console.log(['debug', 'parallax.init'].join(' | '));
       },
       scroll: function(){
         screen.set();
         event.to(offset.get(), screen.get());
-        ROOT.console.log('parallax.scroll');
+        ROOT.console.log(['debug', 'parallax.scroll'].join(' | '));
       }
     }
-  }
+  };
 
   ROOT.parallax = parallax;
 }());
