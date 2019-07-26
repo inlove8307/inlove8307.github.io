@@ -26,13 +26,13 @@ var ROOT = ROOT || {};
   var console = (function(console){
     var $wrap = $('<section>', { id: 'DEBUG', class: 'debug' })
       , $inner = $('<article>', { class: 'debug-inner' })
-      , $title = $('<h2>', { class: 'debug-title' })
+      , $title = $('<h2>', { class: 'debug-title', text: 'DEBUG' })
       , $text = $('<div>', { class: 'debug-text' })
-      , $button = $('<button>', { class: 'debug-button' })
-      , $clear = $('<button>', { class: 'debug-clear' })
+      , $button = $('<button>', { class: 'debug-button', text: 'D' })
+      , $clear = $('<button>', { class: 'debug-clear', text: 'CLEAR' })
       , $style = $('<style>', { id: 'DEBUG_CSS' })
       , style = '\
-      .debug{position:fiexed;bottom:0;left:0;z-index:9999;width:100%;height:0;}\
+      .debug{position:fixed;bottom:0;left:0;z-index:9999;width:100%;height:0;}\
       .debug-inner{display:flex;flex-flow:column;position:relative;width:100%;height:100%;border-top:1px solid rgba(0, 0, 0, 1);background-color:rgba(255, 255, 255, 0.95);}\
       .debug-title{margin:0;padding:2.77vw;border-bottom:1px solid rgba(0, 0, 0, 1);font-family:\'Noto Sans KR\';font-size:1.66vw;color:rgba(0, 0, 0, 1);}\
       .debug-text{overflow-x:hidden;overflow-y:auto;flex:1;margin:0;padding:2.77vw;}\
