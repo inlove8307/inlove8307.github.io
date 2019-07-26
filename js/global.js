@@ -32,7 +32,7 @@ var ROOT = ROOT || {};
       , $clear = $('<button>', { class: 'debug-clear', text: 'CLEAR' })
       , $style = $('<style>', { id: 'DEBUG_CSS' })
       , style = '\
-      .debug{position:fixed;bottom:0;left:0;z-index:9999;width:100%;height:0;}\
+      .debug{position:fixed;bottom:0;left:0;z-index:9999;width:100%;height:50vh;}\
       .debug-inner{display:flex;flex-flow:column;position:relative;width:100%;height:100%;border-top:1px solid rgba(0, 0, 0, 1);background-color:rgba(255, 255, 255, 0.95);}\
       .debug-title{margin:0;padding:2.77vw;border-bottom:1px solid rgba(0, 0, 0, 1);font-family:\'Noto Sans KR\';font-size:1.66vw;color:rgba(0, 0, 0, 1);}\
       .debug-text{overflow-x:hidden;overflow-y:auto;flex:1;margin:0;padding:2.77vw;}\
