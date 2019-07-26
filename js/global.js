@@ -43,11 +43,11 @@ var ROOT = ROOT || {};
       .debug-button{position:fixed;bottom:2.77vw;right:2.77vw;z-index:9999;margin:0;padding:0;width:6.94vw;height:6.94vw;border:1px solid rgba(255, 255, 255, 1);border-radius:100%;background-color:rgba(0, 0, 0, 1);font-weight:700;font-family:\'Noto Sans KR\';font-size:2.77vw;color:rgba(255, 255, 255, 1);}\
       ';
 
-    $wrap.append($inner, $button, $clear);
+    $wrap.append($inner, $clear);
     $inner.append($title, $text);
 
     $(window).on('load', function(event){
-      $('body').append($wrap, $style.text(style));
+      $('body').append($wrap, $button, $style.text(style));
 
       $button.on('touchstart', function(event){
         $wrap.height()
