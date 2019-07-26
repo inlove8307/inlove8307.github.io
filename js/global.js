@@ -38,9 +38,9 @@ var ROOT = ROOT || {};
       .debug-text{overflow-x:hidden;overflow-y:auto;flex:1;margin:0;padding:2.77vw;}\
       .debug-text p{margin:0 0 2.77vw;padding:0;}\
       .debug-text span{font-family:\'Noto Sans KR\';font-size:1.66vw;color:rgba(0, 0, 0, 1);}\
-      .debug-text i{font-family:\'Noto Sans KR\';font-size:1.66vw;font-style:normal;color:rgba(0, 0, 0, 1);}\
+      .debug-text i{margin-left:2.77vw;font-family:\'Noto Sans KR\';font-size:1.66vw;font-style:normal;color:rgba(0, 0, 0, 1);}\
       .debug-clear{position:absolute;top:2.77vw;right:2.77vw;border:0;background-color:transparent;font-family:\'Noto Sans KR\';font-size:1.66vw;color:rgba(0, 0, 0, 1);}\
-      .debug-button{position:fixed;bottom:2.77vw;right:2.77vw;margin:0;padding:0;width:6.94vw;height:6.94vw;border:1px solid rgba(255, 255, 255, 1);border-radius:100%;background-color:rgba(0, 0, 0, 1);font-weight:700;font-family:\'Noto Sans KR\';font-size:2.77vw;color:rgba(255, 255, 255, 1);}\
+      .debug-button{position:fixed;bottom:2.77vw;right:2.77vw;z-index:9999;margin:0;padding:0;width:6.94vw;height:6.94vw;border:1px solid rgba(255, 255, 255, 1);border-radius:100%;background-color:rgba(0, 0, 0, 1);font-weight:700;font-family:\'Noto Sans KR\';font-size:2.77vw;color:rgba(255, 255, 255, 1);}\
       ';
 
     $wrap.append($inner, $button, $clear);
@@ -176,6 +176,8 @@ var ROOT = ROOT || {};
                 var prop = props.get($(el).data('parallax'));
 
                 if (!$(el).data('evented')) {
+                  ROOT.console.log(['debug', 'event.to offset', Object.keys(offset).length, Math.floor(screen.middle), key].join(' | '));
+                  ROOT.console.log(['debug', 'event.to target', $(el).data('parallax'), 'evented: ' + $(el).data('evented'), typeof($(el).data('evented'))].join(' | '));
                   TweenMax.to(el, prop.duration, prop.to);
                   $(el).data('evented', true);
                 }
