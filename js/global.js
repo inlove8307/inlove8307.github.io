@@ -47,7 +47,9 @@ var ROOT = ROOT || {};
     $inner.append($title, $text);
 
     $(window).on('load', function(event){
-      $('body').append($wrap, $button, $style.text(style));
+      setTimeout(function(){
+        $('body').append($wrap, $button, $style.text(style));
+      }, 1000);
 
       $button.on('touchstart', function(event){
         $wrap.height()
