@@ -46,7 +46,7 @@ var ROOT = ROOT || {};
     $wrap.append($inner, $button, $clear);
     $inner.append($title, $text);
 
-    $(document).on('ready', function(event){
+    $(window).on('load', function(event){
       $('body').append($wrap, $style.text(style));
 
       $button.on('touchstart', function(event){
@@ -74,7 +74,7 @@ var ROOT = ROOT || {};
         }
       },
       delete: function(){
-        $(document).on('ready', function(event){
+        $(window).on('load', function(event){
           $wrap.remove();
           $style.remove();
         });
