@@ -52,7 +52,7 @@
         </p>
       </article>
 
-      <article data-parallax="C04">
+      <article>
         <h1 class="title">
           <em data-parallax="C01">ARTICLE TITLE</em>
         </h1>
@@ -118,7 +118,7 @@
         </p>
       </article>
 
-      <article data-parallax="C04">
+      <article>
         <h1 class="title">
           <em data-parallax="C01">ARTICLE TITLE</em>
         </h1>
@@ -184,7 +184,7 @@
         </p>
       </article>
 
-      <article data-parallax="C04">
+      <article>
         <h1 class="title">
           <em data-parallax="C01">ARTICLE TITLE</em>
         </h1>
@@ -250,7 +250,7 @@
         </p>
       </article>
 
-      <article data-parallax="C04">
+      <article>
         <h1 class="title">
           <em data-parallax="C01">ARTICLE TITLE</em>
         </h1>
@@ -316,7 +316,7 @@
         </p>
       </article>
 
-      <article data-parallax="C04">
+      <article>
         <h1 class="title">
           <em data-parallax="C01">ARTICLE TITLE</em>
         </h1>
@@ -370,19 +370,21 @@
     }
     article {
       overflow: hidden;
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: rgba(255, 255, 255, 1);
     }
-    article:nth-child(even) {
+    /* article:nth-child(even) {
       background-color: rgba(0, 0, 0, 1);
-    }
+    } */
     .title {
       overflow: hidden;
       position: relative;
       margin: 6.24vw 0;
-      width: 200vw;
+      height: 4.68vw;
     }
     .title em {
-      float: left;
+      position: absolute;
+      top: 0;
+      left: 0;
       box-sizing: border-box;
       padding: 0 3.12vw;
       width: 100vw;
@@ -391,7 +393,7 @@
       font-style: normal;
       font-size: 4.68vw;
       line-height: 1;
-      color: rgb(255, 255, 255);
+      color: rgba(0, 0, 0, 1);
     }
     .image {
       overflow: hidden;
@@ -427,7 +429,7 @@
       font-family: 'Noto Sans KR';
       font-weight: 700;
       font-size: 3.12vw;
-      color: rgb(255, 255, 255);
+      color: rgba(0, 0, 0, 1);
     }
   </style>
 
@@ -435,27 +437,26 @@
     (function(){
       'use strict';
 
+      $.each($('[data-parallax=C01]'), function(index, title){
+        $(title).parent().append($(title).clone().css('left', '100vw')).width($(title).width() * 2);
+      });
+      
       var parallax = ROOT.parallax({
         $els: $('[data-parallax]'),
         codes: {
           C01: {
-            set: { x: '100vh' },
-            to: { x: 0, ease: Power0.easeNone, repeat: -1 },
-            duration: 10
+            set: { x: 0 },
+            to: { x: '-100vw', ease: Power0.easeNone, repeat: -1 },
+            duration: 5
           },
           C02: {
             set: { scale: 1.5 },
             to: { scale: 1, ease: Power2.easeOut },
-            duration: 3
+            duration: 5
           },
           C03: {
-            set: { y: 10, opacity: 0 },
+            set: { y: 50, opacity: 0 },
             to: { y: 0, opacity: 1, ease: Power2.easeOut },
-            duration: 1
-          },
-          C04: {
-            set: { 'background-color': 'rgba(0, 0, 0, 0.8)' },
-            to: { 'background-color': 'rgba(0, 0, 0, 1)', ease: Power2.easeOut },
             duration: 1
           }
         }
@@ -463,6 +464,8 @@
 
       $(window).on('load', parallax.init);
       $(window).on('scroll', parallax.scroll);
+
+      ROOT.console.add();
     }());
   </script>
 </body>
