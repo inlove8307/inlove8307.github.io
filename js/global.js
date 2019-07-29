@@ -159,8 +159,9 @@ var ROOT = ROOT || {};
 
             while (++index < offset[key].target.length) {
               el = offset[key].target[index];
-              $(el).data('evented', false);
+
               TweenMax.set(el, props.get($(el).data('parallax')).set);
+              $(el).data('evented', false);
             }
           }
         },
@@ -168,7 +169,7 @@ var ROOT = ROOT || {};
           for (var key in offset) {
             if (screen.middle > parseInt(key) || screen.top + screen.height == screen.document) {
               // ROOT.console.log(['debug', 'event.to offset', Object.keys(offset).length, Math.floor(screen.middle), key].join(' | '));
-              this.event(offset[key].target);
+              this.play(offset[key].target);
             }
 
             if (screen.bottom < parseInt(key)) {
@@ -176,7 +177,7 @@ var ROOT = ROOT || {};
             }
           }
         },
-        event: function(target){
+        play: function(target){
           var prop, index = -1;
 
           while (++index < target.length) {
@@ -207,17 +208,17 @@ var ROOT = ROOT || {};
 
     return {
       init: function(){
+        ROOT.console.log(['debug', 'parallax.init'].join(' | '));
         screen.set();
         offset.set($els);
         props.set(codes);
         event.set(offset.get());
         event.to(offset.get(), screen.get());
-        ROOT.console.log(['debug', 'parallax.init'].join(' | '));
       },
       scroll: function(){
+        ROOT.console.log(['debug', 'parallax.scroll'].join(' | '));
         screen.set();
         event.to(offset.get(), screen.get());
-        ROOT.console.log(['debug', 'parallax.scroll'].join(' | '));
       }
     }
   };
