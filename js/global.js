@@ -19,7 +19,7 @@ window[namespace] = window[namespace] || {};
     return result;
   };
 
-  string.price = function(value, fixed){
+  string.price = function(value){
     var result = String(value).split('.')
       , regexp = /\B(?=(\d{3})+(?!\d))/g;
 

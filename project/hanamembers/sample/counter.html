@@ -54,8 +54,8 @@
       ROOT.console.log('counter');
 
       var counter = ROOT.counter(1999900, 0.05, function(number){
-        $('.counter').text(number);
-        ROOT.console.log(number);
+        $('.counter').text(ROOT.string.price(number));
+        ROOT.console.log(ROOT.string.price(number));
       });
 
       $('.counter').on('click', function(){
