@@ -51,14 +51,19 @@
     (function(){
       'use strict';
 
+      ROOT.console.log('counter');
+
       var counter = ROOT.counter(1999900, 0.05, function(number){
         $('.counter').text(ROOT.string.price(number));
         ROOT.console.log(ROOT.string.price(number));
       });
 
-      ROOT.console.log('counter');
+      ROOT.console.log(counter);
 
-      $('.counter').on('click', counter.play);
+      $('.counter').on('click', function(){
+        ROOT.console.log('click');
+        counter.play();
+      });
 
       ROOT.console.add();
     }());
