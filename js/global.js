@@ -1,6 +1,8 @@
-var ROOT = ROOT || {};
+var namespace = 'ROOT';
 
-(function(){
+window[namespace] = window[namespace] || {};
+
+(function(global){
   'use strict';
 
   var string = {};
@@ -17,10 +19,19 @@ var ROOT = ROOT || {};
     return result;
   };
 
-  ROOT.string = string;
-}());
+  string.price = function(value, fixed){
+    var result = String(value).split('.')
+      , regexp = /\B(?=(\d{3})+(?!\d))/g;
 
-(function(){
+    result[0] = result[0].replace(regexp, ',');
+
+    return result.join['.'];
+  }
+
+  global.string = string;
+}(window[namespace]));
+
+(function(global){
   'use strict';
 
   var console = (function(console){
@@ -79,10 +90,60 @@ var ROOT = ROOT || {};
     }
   }(window.console));
 
-  ROOT.console = console;
-}());
+  global.console = console;
+}(window[namespace]));
 
-(function(){
+(function(global){
+  'use strict';
+
+  function counter(number, speed, callback){
+    var number = String(number)
+      , callback = typeof(callback) == 'function' ? callback : function(){};
+
+    var array, interval;
+
+    function update(){
+      array[1].unshift(array[0].pop());
+
+      isNaN(parseInt(array[1][0]))
+        ? update()
+        : interval = increment(parseInt(array[1][0]));
+    }
+
+    function increment(count){
+      var index = 0;
+
+      return setInterval(function(){
+        array[1][0] = index++;
+        callback(array[1].join(''));
+
+        if (count < index) {
+          clearInterval(interval);
+
+          if (array[0].length) {
+            update();
+          }
+        }
+      }, speed * 1000);
+    }
+
+    function reset(){
+      clearInterval(interval);
+      array = [String(number).split(''), []];
+    }
+
+    return {
+      play: function(){
+        reset();
+        update();
+      }
+    }
+  }
+
+  global.counter = counter;
+}(window[namespace]));
+
+(function(global){
   'use strict';
 
   function parallax(params){
@@ -168,7 +229,6 @@ var ROOT = ROOT || {};
         to: function(offset, screen){
           for (var key in offset) {
             if (screen.middle > parseInt(key) || screen.top + screen.height == screen.document) {
-              // ROOT.console.log(['debug', 'event.to offset', Object.keys(offset).length, Math.floor(screen.middle), key].join(' | '));
               this.play(offset[key].target);
             }
 
@@ -184,7 +244,6 @@ var ROOT = ROOT || {};
             prop = props.get($(target[index]).data('parallax'));
 
             if (!$(target[index]).data('evented')) {
-              ROOT.console.log(['debug', 'event.to event', $(target[index]).data('parallax'), 'evented: ' + $(target[index]).data('evented'), typeof($(target[index]).data('evented'))].join(' | '));
               TweenMax.to(target[index], prop.duration, prop.to);
               $(target[index]).data('evented', true);
             }
@@ -197,7 +256,6 @@ var ROOT = ROOT || {};
             prop = props.get($(target[index]).data('parallax'));
 
             if ($(target[index]).data('evented')) {
-              ROOT.console.log(['debug', 'event.to reset', $(target[index]).data('parallax'), 'evented: ' + $(target[index]).data('evented'), typeof($(target[index]).data('evented'))].join(' | '));
               TweenMax.set(target[index], prop.set);
               $(target[index]).data('evented', false);
             }
@@ -208,7 +266,6 @@ var ROOT = ROOT || {};
 
     return {
       init: function(){
-        ROOT.console.log(['debug', 'parallax.init'].join(' | '));
         screen.set();
         offset.set($els);
         props.set(codes);
@@ -216,12 +273,11 @@ var ROOT = ROOT || {};
         event.to(offset.get(), screen.get());
       },
       scroll: function(){
-        ROOT.console.log(['debug', 'parallax.scroll'].join(' | '));
         screen.set();
         event.to(offset.get(), screen.get());
       }
     }
   };
 
-  ROOT.parallax = parallax;
-}());
+  global.parallax = parallax;
+}(window[namespace]));

@@ -1,0 +1,62 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parallax</title>
+
+  <link rel="stylesheet" href="/lib/normalize.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/mediaquery.css">
+  <link rel="stylesheet" href="/css/font.css">
+
+  <script src="/lib/lodash.js"></script>
+  <script src="/lib/jquery-3.4.1.min.js"></script>
+  <script src="/lib/TweenMax.min.js"></script>
+  <script src="/js/global.js"></script>
+</head>
+<body>
+
+  <section class="container">
+    <p class="price">＄<span class="counter">0</span></p>
+  </section>
+
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .price {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      width: 27.77vw;
+      height: 27.77vw;
+      border-radius: 100%;
+      background-color: rgba(0, 0, 0, 1);
+      font-family: 'Noto Sans KR';
+      font-weight: 700;
+      font-size: 3.12vw;
+      color: rgba(255, 255, 255, 1);
+    }
+  </style>
+
+  <script>
+    (function(){
+      'use strict';
+
+      var counter = ROOT.counter(1999900, 0.05, function(number){
+        $('.counter').text(ROOT.price(number));
+        ROOT.console.log(ROOT.price(number));
+      });
+
+      $('.counter').on('click', counter.play);
+
+      ROOT.console.add();
+    }());
+  </script>
+</body>
+</html>
