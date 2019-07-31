@@ -27,8 +27,8 @@
       justify-content: center;
       align-items: center;
       position: fixed;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
     }
     .price {
       display: flex;
@@ -55,6 +55,8 @@
         $('.counter').text(ROOT.string.price(number));
         ROOT.console.log(ROOT.string.price(number));
       });
+
+      ROOT.console.log('counter');
 
       $('.counter').on('click', counter.play);
 
