@@ -26,6 +26,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
     }
     .price {
       display: flex;
@@ -49,8 +52,8 @@
       'use strict';
 
       var counter = ROOT.counter(1999900, 0.05, function(number){
-        $('.counter').text(ROOT.price(number));
-        ROOT.console.log(ROOT.price(number));
+        $('.counter').text(ROOT.string.price(number));
+        ROOT.console.log(ROOT.string.price(number));
       });
 
       $('.counter').on('click', counter.play);
