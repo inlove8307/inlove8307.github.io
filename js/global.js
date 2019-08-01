@@ -25,7 +25,7 @@ window[namespace] = window[namespace] || {};
 
     result[0] = result[0].replace(regexp, ',');
 
-    return result.join['.'];
+    return result.join('.');
   };
 
   global.string = string;

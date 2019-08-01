@@ -51,18 +51,16 @@
     (function(){
       'use strict';
 
-      ROOT.console.log('counter');
+      ROOT.console.log(['log', 'counter'].join(' | '));
 
       var counter = ROOT.counter(1999900, 0.05, function(number){
         $('.counter').text(ROOT.string.price(number));
-
-        ROOT.console.log(['log', 'counter return', number].join(' | '));
-        ROOT.console.log(['log', 'counter price', ROOT.string.price(number)].join(' | '));
+        ROOT.console.log(['log', 'counter', 'price', ROOT.string.price(number)].join(' | '));
       });
 
       $('.counter').on('click', function(){
-        ROOT.console.log('click');
         counter.play();
+        ROOT.console.log(['log', 'counter', 'click'].join(' | '));
       });
 
       ROOT.console.add();
