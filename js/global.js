@@ -23,14 +23,10 @@ window[namespace] = window[namespace] || {};
     var result = String(value).split('.')
       , regexp = /\B(?=(\d{3})+(?!\d))/g;
 
-    global.console.log(['log', 'global.string.price value', value].join(' | '));
-
     result[0] = result[0].replace(regexp, ',');
 
-    global.console.log(['log', 'global.string.price result', result].join(' | '));
-
     return result.join['.'];
-  }
+  };
 
   global.string = string;
 }(window[namespace]));
