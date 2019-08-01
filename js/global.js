@@ -213,16 +213,19 @@ window[namespace] = window[namespace] || {};
     event = (function(){
       return {
         set: function(offset){
-          var key, index, el;
+          var key, index, el, prop;
 
           for (key in offset) {
             index = -1;
 
             while (++index < offset[key].target.length) {
               el = offset[key].target[index];
+              prop = props.get($(el).data('parallax'));
 
-              TweenMax.set(el, props.get($(el).data('parallax')).set);
-              $(el).data('evented', false);
+              if (prop) {
+                TweenMax.set(el, prop.set);
+                $(el).data('evented', false);
+              }
             }
           }
         },
@@ -243,7 +246,7 @@ window[namespace] = window[namespace] || {};
           while (++index < target.length) {
             prop = props.get($(target[index]).data('parallax'));
 
-            if (!$(target[index]).data('evented')) {
+            if (prop && !$(target[index]).data('evented')) {
               TweenMax.to(target[index], prop.duration, prop.to);
               $(target[index]).data('evented', true);
             }
@@ -255,7 +258,7 @@ window[namespace] = window[namespace] || {};
           while (++index < target.length) {
             prop = props.get($(target[index]).data('parallax'));
 
-            if ($(target[index]).data('evented')) {
+            if (prop && $(target[index]).data('evented')) {
               TweenMax.set(target[index], prop.set);
               $(target[index]).data('evented', false);
             }
