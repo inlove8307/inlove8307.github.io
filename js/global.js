@@ -264,19 +264,18 @@ window[namespace] = window[namespace] || {};
       }
     }());
 
-    return {
-      init: function(){
-        screen.set();
-        offset.set($els);
-        props.set(codes);
-        event.set(offset.get());
-        event.to(offset.get(), screen.get());
-      },
-      scroll: function(){
-        screen.set();
-        event.to(offset.get(), screen.get());
-      }
-    }
+    $(window).on('load', function(){
+      screen.set();
+      offset.set($els);
+      props.set(codes);
+      event.set(offset.get());
+      event.to(offset.get(), screen.get());
+    });
+
+    $(window).on('scroll', function(){
+      screen.set();
+      event.to(offset.get(), screen.get());
+    });
   };
 
   global.parallax = parallax;

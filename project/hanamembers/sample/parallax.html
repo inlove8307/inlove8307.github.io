@@ -440,7 +440,7 @@
       $.each($('[data-parallax=C01]'), function(index, title){
         $(title).parent().append($(title).clone().css('left', '100vw')).width($(title).width() * 2);
       });
-      
+
       var parallax = ROOT.parallax({
         $els: $('[data-parallax]'),
         codes: {
@@ -461,9 +461,6 @@
           }
         }
       });
-
-      $(window).on('load', parallax.init);
-      $(window).on('scroll', parallax.scroll);
 
       ROOT.console.add();
     }());
