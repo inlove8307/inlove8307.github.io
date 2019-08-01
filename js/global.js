@@ -102,8 +102,6 @@ window[namespace] = window[namespace] || {};
 
     var array, interval;
 
-    global.console.log([number, speed, callback].join(' | '));
-
     function update(){
       array[1].unshift(array[0].pop());
 
