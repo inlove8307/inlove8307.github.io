@@ -23,9 +23,11 @@ window[namespace] = window[namespace] || {};
     var result = String(value).split('.')
       , regexp = /\B(?=(\d{3})+(?!\d))/g;
 
-    global.console.log(result);
+    global.console.log(['log', 'global.string.price value', value]);
 
     result[0] = result[0].replace(regexp, ',');
+
+    global.console.log(['log', 'global.string.price result', result]);
 
     return result.join['.'];
   }
