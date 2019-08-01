@@ -23,7 +23,7 @@ window[namespace] = window[namespace] || {};
     var result = String(value).split('.')
       , regexp = /\B(?=(\d{3})+(?!\d))/g;
 
-    global.console.log(value);
+    global.console.log(result);
 
     result[0] = result[0].replace(regexp, ',');
 
