@@ -437,6 +437,8 @@
     (function(){
       'use strict';
 
+      ROOT.console.log(['log', 'parallax', 'init'].join(' | '));
+
       $.each($('[data-parallax=C01]'), function(index, title){
         $(title).parent().append($(title).clone().css('left', '100vw')).width($(title).width() * 2);
       });

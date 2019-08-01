@@ -265,6 +265,7 @@ window[namespace] = window[namespace] || {};
     }());
 
     $(window).on('load', function(){
+      global.console.log(['log', 'global.parallax', 'load'].join(' | '));
       screen.set();
       offset.set($els);
       props.set(codes);
@@ -273,6 +274,7 @@ window[namespace] = window[namespace] || {};
     });
 
     $(window).on('scroll', function(){
+      global.console.log(['log', 'global.parallax', 'scroll'].join(' | '));
       screen.set();
       event.to(offset.get(), screen.get());
     });
