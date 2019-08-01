@@ -175,9 +175,8 @@ window[namespace] = window[namespace] || {};
           $.each($els, function(index, item){
             var top = Math.floor($(item).offset().top);
 
-            object[top] = object[top] || {};
-            object[top].target = object[top].target || [];
-            object[top].target.push(item);
+            object[top] = object[top] || [];
+            object[top].push(item);
           });
         },
         reset: function(){
@@ -218,8 +217,8 @@ window[namespace] = window[namespace] || {};
           for (key in offset) {
             index = -1;
 
-            while (++index < offset[key].target.length) {
-              el = offset[key].target[index];
+            while (++index < offset[key].length) {
+              el = offset[key][index];
               prop = props.get($(el).data('parallax'));
 
               if (prop) {
@@ -232,11 +231,11 @@ window[namespace] = window[namespace] || {};
         to: function(offset, screen){
           for (var key in offset) {
             if (screen.middle > parseInt(key) || screen.top + screen.height == screen.document) {
-              this.play(offset[key].target);
+              this.play(offset[key]);
             }
 
             if (screen.bottom < parseInt(key)) {
-              this.reset(offset[key].target);
+              this.reset(offset[key]);
             }
           }
         },
