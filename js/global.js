@@ -34,6 +34,33 @@ window[namespace] = window[namespace] || {};
 (function(global){
   'use strict';
 
+  var location = (function(location){
+    var parameters;
+
+    parameters = (function(search){
+      var array = search.substr(1).split('&')
+        , object = {};
+
+      while (array.length) {
+        array[0] = array[0].split('=');
+        object[array[0][0]] = array[0][1];
+        array.shift();
+      }
+
+      return object;
+    }(location.search));
+
+    return {
+      parameters: parameters
+    }
+  }(window.location));
+
+  global.location = location;
+}(window[namespace]));
+
+(function(global){
+  'use strict';
+
   var observer = (function(){
     var object = {}
       , config = {
@@ -62,6 +89,8 @@ window[namespace] = window[namespace] || {};
       },
     }
   }());
+
+  global.observer = observer;
 }(window[namespace]));
 
 (function(global){
