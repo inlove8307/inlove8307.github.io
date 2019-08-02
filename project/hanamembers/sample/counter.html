@@ -13,7 +13,7 @@
   <script src="/lib/lodash.js"></script>
   <script src="/lib/jquery-3.4.1.min.js"></script>
   <script src="/lib/TweenMax.min.js"></script>
-  <script src="/js/global.js?v=201908021424"></script>
+  <script src="/js/global.js?v=201908021436"></script>
 </head>
 <body>
 
@@ -53,7 +53,7 @@
 
       ROOT.console.log(['log', 'counter'].join(' | '));
 
-      ROOT.console.log(['log', 'location.parameters', JSON.stringify(ROOT.location.parameters)].join(' | '));
+      ROOT.console.log(['log', 'location.parameters', ROOT.json.set(ROOT.location.parameters)].join(' | '));
 
       var counter = ROOT.counter(1999900, 0.05, function(number){
         $('.counter').text(ROOT.string.price(number));

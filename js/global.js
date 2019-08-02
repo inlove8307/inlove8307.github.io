@@ -61,6 +61,19 @@ window[namespace] = window[namespace] || {};
 (function(global){
   'use strict';
 
+  var json = (function(json){
+    return {
+      set: json.stringify,
+      get: json.parse
+    }
+  }(window.JSON));
+
+  global.json = json;
+}(window[namespace]));
+
+(function(global){
+  'use strict';
+
   var observer = (function(){
     var object = {}
       , config = {
