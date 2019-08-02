@@ -33,14 +33,14 @@
     .counter {
       margin: 0;
       padding: 0;
-      width: 27.77vw;
-      height: 27.77vw;
+      width: 35vw;
+      height: 35vw;
       border: 0;
       border-radius: 100%;
       background-color: rgba(0, 0, 0, 1);
       font-family: 'Noto Sans KR';
       font-weight: 700;
-      font-size: 3.12vw;
+      font-size: 3.47vw;
       color: rgba(255, 255, 255, 1);
     }
   </style>
@@ -53,8 +53,13 @@
 
       ROOT.console.log(['log', 'location.parameters', ROOT.json.set(ROOT.location.parameters)].join(' | '));
 
-      var counter = ROOT.counter(1999900, 0.05, function(number){
+      var counter = ROOT.counter(1999900, 0.07, function(number){
+        var random = (Math.random * 0.5).toFixed(2);
+
         $('.price').text(ROOT.string.price(number));
+
+        TweenMax.fromTo(this, random, { width: '35vw', height: '35vw' }, { width: '40vw', height: '40vw' });
+
         ROOT.console.log(['log', 'counter', 'price', ROOT.string.price(number)].join(' | '));
       });
 
@@ -63,6 +68,7 @@
         ROOT.console.log(['log', 'counter', 'click'].join(' | '));
       });
 
+      /*
       ROOT.observer.set('counter', function(observer){
         var index = -1;
 
@@ -72,6 +78,7 @@
       });
 
       ROOT.observer.add('counter', $('.price').get());
+      */
 
       ROOT.console.add();
     }());
