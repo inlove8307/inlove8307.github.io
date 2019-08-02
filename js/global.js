@@ -34,6 +34,39 @@ window[namespace] = window[namespace] || {};
 (function(global){
   'use strict';
 
+  var observer = (function(){
+    var object = {}
+      , config = {
+        attributes: true,
+        childList: true,
+        subtree: true
+      };
+
+    return {
+      set: function(name, callback){
+        object[name] = new MutationObserver(callback.bind(this));
+      },
+      add: function(name, target, option){
+        var target = Array.isArray(target) ? target : [target];
+
+        while (target.length) {
+          object[name].observe(target[0], option || config);
+          target.shift();
+        }
+      },
+      get: function(name){
+        return object[name]
+      },
+      del: function(name){
+        object[name].disconnect();
+      },
+    }
+  }());
+}(window[namespace]));
+
+(function(global){
+  'use strict';
+
   var console = (function(console){
     var $wrap = $('<section>', { class: 'debug' })
       , $inner = $('<article>', { class: 'debug-inner' })
