@@ -54,7 +54,7 @@
       ROOT.console.log(['log', 'location.parameters', ROOT.json.set(ROOT.location.parameters)].join(' | '));
 
       var counter = ROOT.counter(1999900, 0.07, function(number){
-        var random = (Math.random * 0.5).toFixed(2);
+        var random = (Math.random() * 0.5).toFixed(2);
 
         $('.price').text(ROOT.string.price(number));
 
