@@ -190,13 +190,16 @@ window[namespace] = window[namespace] || {};
 
       return setInterval(function(){
         array[1][0] = index++;
-        callback(array[1].join(''));
+        callback(array[1].join(''), speed, false);
 
         if (count < index) {
           clearInterval(interval);
 
           if (array[0].length) {
             update();
+          }
+          else {
+            callback(array[1].join(''), speed, true);
           }
         }
       }, speed * 1000);
