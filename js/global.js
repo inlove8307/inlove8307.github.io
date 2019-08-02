@@ -46,6 +46,9 @@ window[namespace] = window[namespace] || {};
       set: function(name, callback){
         object[name] = new MutationObserver(callback.bind(this));
       },
+      get: function(name){
+        return object[name]
+      },
       add: function(name, target, option){
         var target = Array.isArray(target) ? target : [target];
 
@@ -53,9 +56,6 @@ window[namespace] = window[namespace] || {};
           object[name].observe(target[0], option || config);
           target.shift();
         }
-      },
-      get: function(name){
-        return object[name]
       },
       del: function(name){
         object[name].disconnect();
