@@ -81,9 +81,11 @@
       $('.counter').on('click', function(){
         var t = this;
 
-        $(t).prop('disabled', true);
-
         price = Math.floor(Math.random() * ROOT.string.rightpad(1, 0, Math.floor(Math.random() * 10)));
+
+        if (!price) return $(this).trigger('click');
+
+        $(t).prop('disabled', true);
 
         ROOT.counter(price, 0.1, function(number, duration, complete){
           var random = (Math.random() * (duration * 10)).toFixed(2);
