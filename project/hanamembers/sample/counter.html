@@ -74,21 +74,33 @@
 
       ROOT.console.log(['log', 'location.parameters', ROOT.json.set(ROOT.location.parameters)].join(' | '));
 
-      var counter = ROOT.counter(7998500, 0.07, function(number, duration, complete){
-        console.log(duration);
-        var random = (Math.random() * (duration * 10)).toFixed(2);
+      var price;
 
-        $('.price').text(ROOT.string.price(number));
-
-        complete
-          ? TweenMax.to($('.counter'), duration, { width: '35vw', height: '35vw' })
-          : TweenMax.fromTo($('.counter'), random, { width: '35vw', height: '35vw' }, { width: '40vw', height: '40vw' });
-
-        ROOT.console.log(['log', 'counter', 'price', ROOT.string.price(number)].join(' | '));
-      });
+      var counter;
 
       $('.counter').on('click', function(){
-        counter.play();
+        var t = this;
+
+        $(t).prop('disabled', true);
+
+        price = Math.floor(Math.random() * 1000000000);
+
+        ROOT.counter(price, 0.1, function(number, duration, complete){
+          var random = (Math.random() * (duration * 10)).toFixed(2);
+
+          $('.price').text(ROOT.string.price(number));
+
+          if (complete) {
+            TweenMax.to($('.counter'), duration, { width: '35vw', height: '35vw' });
+            $(t).prop('disabled', false);
+          }
+          else {
+            TweenMax.fromTo($('.counter'), random, { width: '35vw', height: '35vw' }, { width: '40vw', height: '40vw' });
+          }
+
+          ROOT.console.log(['log', 'counter', 'price', ROOT.string.price(number)].join(' | '));
+        }).play();
+
         ROOT.console.log(['log', 'counter', 'click'].join(' | '));
       });
 
