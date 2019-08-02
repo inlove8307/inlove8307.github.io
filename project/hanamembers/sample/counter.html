@@ -13,7 +13,7 @@
   <script src="/lib/lodash.js"></script>
   <script src="/lib/jquery-3.4.1.min.js"></script>
   <script src="/lib/TweenMax.min.js"></script>
-  <script src="/js/global.js?v=201908021404"></script>
+  <script src="/js/global.js?v=201908021413"></script>
 </head>
 <body>
 
@@ -64,6 +64,12 @@
         counter.play();
         ROOT.console.log(['log', 'counter', 'click'].join(' | '));
       });
+
+      ROOT.observer.set('counter', function(observer){
+        ROOT.console.log(['log', 'observer', observer[1].target.textContent].join(' | '));
+      });
+
+      ROOT.observer.add('counter', $('.counter').get());
 
       ROOT.console.add();
     }());
