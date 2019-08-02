@@ -53,6 +53,8 @@
 
       ROOT.console.log(['log', 'counter'].join(' | '));
 
+      ROOT.console.log(['log', 'location.parameters', JSON.stringify(ROOT.location.parameters)].join(' | '));
+
       var counter = ROOT.counter(1999900, 0.05, function(number){
         $('.counter').text(ROOT.string.price(number));
         ROOT.console.log(['log', 'counter', 'price', ROOT.string.price(number)].join(' | '));
