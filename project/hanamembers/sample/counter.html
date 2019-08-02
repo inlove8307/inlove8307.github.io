@@ -41,7 +41,11 @@
       font-family: 'Noto Sans KR';
       font-weight: 700;
       font-size: 3.47vw;
+      letter-spacing: -0.13vw;
       color: rgba(255, 255, 255, 1);
+    }
+    .counter:focus {
+      outline: none;
     }
   </style>
 
@@ -53,12 +57,12 @@
 
       ROOT.console.log(['log', 'location.parameters', ROOT.json.set(ROOT.location.parameters)].join(' | '));
 
-      var counter = ROOT.counter(1999900, 0.07, function(number){
+      var counter = ROOT.counter(7998500, 0.07, function(number){
         var random = (Math.random() * 0.5).toFixed(2);
 
         $('.price').text(ROOT.string.price(number));
 
-        TweenMax.fromTo(this, random, { width: '35vw', height: '35vw' }, { width: '40vw', height: '40vw' });
+        TweenMax.fromTo($('.counter'), random, { width: '35vw', height: '35vw' }, { width: '40vw', height: '40vw' });
 
         ROOT.console.log(['log', 'counter', 'price', ROOT.string.price(number)].join(' | '));
       });
