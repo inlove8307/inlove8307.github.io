@@ -70,13 +70,13 @@
     (function(){
       'use strict';
 
-      ROOT.console.log(['log', 'counter'].join(' | '));
+      ROOT.console.log(['log', 'counter', 'init'].join(' | '));
 
       $('.counter').on('click', function(){
         var t = this
           , price = Math.floor(Math.random() * ROOT.string.rightpad(1, 0, Math.floor(Math.random() * 10)));
 
-        if (!price) return $(this).trigger('click');
+        if (!price) return $(t).trigger('click');
 
         ROOT.console.log(['log', 'counter', 'price', ROOT.string.price(price)].join(' | '));
 
