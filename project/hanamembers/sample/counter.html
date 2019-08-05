@@ -82,7 +82,7 @@
 
         if (!price) return $(this).trigger('click');
 
-        ROOT.console.log(['log', 'counter', 'price', ROOT.string.price(args.number)].join(' | '));
+        ROOT.console.log(['log', 'counter', 'price', ROOT.string.price(price)].join(' | '));
 
         $(t).prop('disabled', true);
 
