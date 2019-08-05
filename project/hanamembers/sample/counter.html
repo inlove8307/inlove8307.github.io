@@ -82,18 +82,14 @@
 
         $(t).prop('disabled', true);
 
-        ROOT.counter(price, 0.1, function(args){
-          var random = (Math.random() * (args.speed * 10)).toFixed(2);
-
+        ROOT.counter(price, 0.05, function(args){
           $('.price').text(ROOT.string.price(args.count));
 
           if (args.complete) {
             TweenMax.to($('.counter'), args.speed, { width: '35vw', height: '35vw' });
             $(t).prop('disabled', false);
           }
-          else {
-            TweenMax.fromTo($('.counter'), random, { width: '35vw', height: '35vw' }, { width: '40vw', height: '40vw' });
-          }
+          else TweenMax.fromTo($('.counter'), (Math.random() * (args.speed * 10)).toFixed(3), { width: '35vw', height: '35vw' }, { width: '40vw', height: '40vw' });
         }).play();
       });
 
