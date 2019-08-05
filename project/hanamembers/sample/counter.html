@@ -72,11 +72,7 @@
 
       ROOT.console.log(['log', 'counter'].join(' | '));
 
-      ROOT.console.log(['log', 'location.parameters', ROOT.json.set(ROOT.location.parameters)].join(' | '));
-
       $('.counter').on('click', function(){
-        ROOT.console.log(['log', 'counter', 'click'].join(' | '));
-
         var t = this
           , price = Math.floor(Math.random() * ROOT.string.rightpad(1, 0, Math.floor(Math.random() * 10)));
 
@@ -102,6 +98,8 @@
       });
 
       /*
+      ROOT.console.log(['log', 'location.parameters', ROOT.json.set(ROOT.location.parameters)].join(' | '));
+
       ROOT.observer.set('counter', function(observer){
         var index = -1;
 
