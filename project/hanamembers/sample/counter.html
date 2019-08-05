@@ -15,7 +15,7 @@
   <script src="/lib/lodash.js"></script>
   <script src="/lib/jquery-3.4.1.min.js"></script>
   <script src="/lib/TweenMax.min.js"></script>
-  <script src="/js/global.js?v=201908050956"></script>
+  <script src="/js/global.js?v=201908051429"></script>
 </head>
 <body>
 
@@ -74,7 +74,7 @@
 
       $('.counter').on('click', function(){
         var t = this
-          , price = Math.floor(Math.random() * ROOT.string.pad(1, 0, Math.floor(Math.random() * 10), 'after'));
+          , price = Math.floor(Math.random() * ROOT.string.pad(1, 0, Math.floor(Math.random() * 10), true));
 
         if (!price) return $(t).trigger('click');
 
