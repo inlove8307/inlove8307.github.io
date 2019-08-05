@@ -15,7 +15,7 @@
   <script src="/lib/lodash.js"></script>
   <script src="/lib/jquery-3.4.1.min.js"></script>
   <script src="/lib/TweenMax.min.js"></script>
-  <script src="/js/global.js?v=201908022001"></script>
+  <script src="/js/global.js?v=201908050945"></script>
 </head>
 <body>
 
@@ -74,33 +74,28 @@
 
       ROOT.console.log(['log', 'location.parameters', ROOT.json.set(ROOT.location.parameters)].join(' | '));
 
-      var price;
-
-      var counter;
-
       $('.counter').on('click', function(){
-        var t = this;
-
-        price = Math.floor(Math.random() * ROOT.string.rightpad(1, 0, Math.floor(Math.random() * 10)));
+        var t = this
+          , price = Math.floor(Math.random() * ROOT.string.rightpad(1, 0, Math.floor(Math.random() * 10)));
 
         if (!price) return $(this).trigger('click');
 
         $(t).prop('disabled', true);
 
-        ROOT.counter(price, 0.1, function(number, duration, complete){
-          var random = (Math.random() * (duration * 10)).toFixed(2);
+        ROOT.counter(price, 0.1, function(args){
+          var random = (Math.random() * (args.speed * 10)).toFixed(2);
 
-          $('.price').text(ROOT.string.price(number));
+          $('.price').text(ROOT.string.price(args.number));
 
-          if (complete) {
-            TweenMax.to($('.counter'), duration, { width: '35vw', height: '35vw' });
+          if (args.complete) {
+            TweenMax.to($('.counter'), args.speed, { width: '35vw', height: '35vw' });
             $(t).prop('disabled', false);
           }
           else {
             TweenMax.fromTo($('.counter'), random, { width: '35vw', height: '35vw' }, { width: '40vw', height: '40vw' });
           }
 
-          ROOT.console.log(['log', 'counter', 'price', ROOT.string.price(number)].join(' | '));
+          ROOT.console.log(['log', 'counter', 'price', ROOT.string.price(args.number)].join(' | '));
         }).play();
 
         ROOT.console.log(['log', 'counter', 'click'].join(' | '));

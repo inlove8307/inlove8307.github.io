@@ -184,8 +184,12 @@ window[namespace] = window[namespace] || {};
   'use strict';
 
   function counter(number, speed, callback){
-    var number = String(number)
-      , callback = typeof(callback) == 'function' ? callback : function(){};
+    var args = {
+        number: number,
+        speed: speed,
+        count: 0,
+        complete: false
+      };
 
     var array, interval;
 
@@ -202,16 +206,16 @@ window[namespace] = window[namespace] || {};
 
       return setInterval(function(){
         array[1][0] = index++;
-        callback(array[1].join(''), speed, false);
+        args.count = array[1].join('');
+        callback(args);
 
         if (count < index) {
           clearInterval(interval);
 
-          if (array[0].length) {
-            update();
-          }
+          if (array[0].length) update();
           else {
-            callback(array[1].join(''), speed, true);
+            args.complete = false;
+            callback(args);
           }
         }
       }, speed * 1000);
