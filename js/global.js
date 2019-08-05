@@ -15,10 +15,10 @@ window[namespace] = window[namespace] || {};
     return value.replace(type ? regexp[type] : regexp, '');
   };
 
-  string.pad = function(value, char, count, after){
+  string.pad = function(value, char, length, after){
     var result = String(value);
 
-    while (result.length < count) {
+    while (result.length < length) {
       result = after
         ? result + String(char)
         : String(char) + result;
