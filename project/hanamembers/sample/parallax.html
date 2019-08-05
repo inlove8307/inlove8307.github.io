@@ -440,15 +440,15 @@
       ROOT.console.log(['log', 'parallax', 'init'].join(' | '));
 
       $.each($('[data-parallax=C01]'), function(index, title){
-        $(title).parent().append($(title).clone().css('left', '100vw')).width($(title).width() * 2);
+        $(title).parent().append($(title).clone().css('left', '100vw')));
       });
 
-      var parallax = ROOT.parallax({
+      ROOT.parallax({
         $els: $('[data-parallax]'),
         codes: {
           C01: {
             set: { x: 0 },
-            to: { x: '-100vw', ease: Power0.easeNone, repeat: -1 },
+            to: { x: '-100%', ease: Power0.easeNone, repeat: -1 },
             duration: 5
           },
           C02: {
@@ -457,7 +457,7 @@
             duration: 5
           },
           C03: {
-            set: { y: 50, opacity: 0 },
+            set: { y: '50vw', opacity: 0 },
             to: { y: 0, opacity: 1, ease: Power2.easeOut },
             duration: 1
           }

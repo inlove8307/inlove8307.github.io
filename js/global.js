@@ -10,10 +10,8 @@ window[namespace] = window[namespace] || {};
   string.leftpad = function(value, char, count){
     var result = String(value);
 
-    if (result.length - 1 < count) {
-      while (result.length < count) {
-        result = String(char) + result;
-      }
+    while (result.length < count) {
+      result = String(char) + result;
     }
 
     return result;
@@ -22,10 +20,8 @@ window[namespace] = window[namespace] || {};
   string.rightpad = function(value, char, count){
     var result = String(value);
 
-    if (result.length - 1 < count) {
-      while (result.length < count) {
-        result = result + String(char);
-      }
+    while (result.length < count) {
+      result = result + String(char);
     }
 
     return result;
