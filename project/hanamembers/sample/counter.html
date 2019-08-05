@@ -85,7 +85,7 @@
         ROOT.counter(price, 0.1, function(args){
           var random = (Math.random() * (args.speed * 10)).toFixed(2);
 
-          $('.price').text(ROOT.string.price(args.number));
+          $('.price').text(ROOT.string.price(args.count));
 
           if (args.complete) {
             TweenMax.to($('.counter'), args.speed, { width: '35vw', height: '35vw' });
@@ -94,10 +94,9 @@
           else {
             TweenMax.fromTo($('.counter'), random, { width: '35vw', height: '35vw' }, { width: '40vw', height: '40vw' });
           }
-
-          ROOT.console.log(['log', 'counter', 'price', ROOT.string.price(args.number)].join(' | '));
         }).play();
 
+        ROOT.console.log(['log', 'counter', 'price', ROOT.string.price(args.number)].join(' | '));
         ROOT.console.log(['log', 'counter', 'click'].join(' | '));
       });
 
