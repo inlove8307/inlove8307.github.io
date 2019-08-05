@@ -74,7 +74,7 @@
 
       $('.counter').on('click', function(){
         var t = this
-          , price = Math.floor(Math.random() * ROOT.string.rightpad(1, 0, Math.floor(Math.random() * 10)));
+          , price = Math.floor(Math.random() * ROOT.string.pad(1, 0, Math.floor(Math.random() * 10), 'after'));
 
         if (!price) return $(t).trigger('click');
 

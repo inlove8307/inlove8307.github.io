@@ -7,21 +7,21 @@ window[namespace] = window[namespace] || {};
 
   var string = {};
 
-  string.leftpad = function(value, char, count){
-    var result = String(value);
+  string.trim = function(value, type){
+    var regexp = type
+      ? { before: /^\s+/g, after: /\s+$/g, all: /\s/g }
+      : /^\s+|\s+$/g;
 
-    while (result.length < count) {
-      result = String(char) + result;
-    }
-
-    return result;
+    return value.replace(type ? regexp[type] : regexp, '');
   };
 
-  string.rightpad = function(value, char, count){
+  string.pad = function(value, char, count, after){
     var result = String(value);
 
     while (result.length < count) {
-      result = result + String(char);
+      result = after
+        ? result + String(char)
+        : String(char) + result;
     }
 
     return result;
@@ -98,10 +98,19 @@ window[namespace] = window[namespace] || {};
         return object[name]
       },
       add: function(name, target, option){
-        var target = Array.isArray(target) ? target : [target];
+        var target = Array.isArray(target) ? target : [target]
+          , key;
 
         while (target.length) {
-          object[name].observe(target[0], option || config);
+          if (option) {
+            for (key in config) {
+              option[key] = option[key]
+                ? option[key]
+                : config[key];
+            }
+          }
+
+          object[name].observe(target[0], option);
           target.shift();
         }
       },
