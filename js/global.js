@@ -46,7 +46,7 @@ window[namespace] = window[namespace] || {};
     var parameters;
 
     parameters = (function(search){
-      var array = search.substr(1).split('&')
+      var array = !!search ? search.substr(1).split('&') : []
         , object = {};
 
       while (array.length) {
