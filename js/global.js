@@ -214,7 +214,7 @@ window[namespace] = window[namespace] || {};
 
           if (array[0].length) update();
           else {
-            args.complete = false;
+            args.complete = true;
             callback(args);
           }
         }
