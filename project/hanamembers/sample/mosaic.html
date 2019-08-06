@@ -8,6 +8,7 @@
   <title>Mosaic</title>
 
   <link rel="stylesheet" href="/lib/normalize.css">
+  <link rel="stylesheet" href="/lib/animate.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/mediaquery.css">
   <link rel="stylesheet" href="/css/font.css">
@@ -20,17 +21,45 @@
 <body>
 
   <section class="container">
-    <div class="mosaic">
-      <img src="/assets/images/img_mosaic.jpg" alt="worth the wait">
-    </div>
+    <ul class="mosaic-list">
+      <li class="mosaic"><img src="/assets/images/img_mosaic_01.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_02.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_03.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_04.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_05.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_06.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_07.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_08.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_09.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_10.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_11.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_12.jpg" alt="img"></li>
+    </ul>
     <div class="button">
       <button class="play">PLAY</button>
     </div>
   </section>
 
   <style>
+    .mosaic-list {
+      overflow: hidden;
+      position: relative;
+      margin: 0;
+      padding: 0;
+    }
     .mosaic {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
       width: 100%;
+    }
+    .mosaic:nth-child(1) {
+      position: relative;
+      z-index: 1;
+    }
+    .mosaic:nth-child(2) {
+      z-index: 0;
     }
     .mosaic img {
       width: 100%;
@@ -62,16 +91,26 @@
       ROOT.console.log(['log', 'mosaic', 'init'].join(' | '));
 
       $('.play').on('click', function(event){
-        var t = this;
+        var t = this, $mosaic, $img;
+
+        $mosaic = $('.mosaic').eq(0);
+        $img = $mosaic.find('img');
 
         ROOT.console.log(['log', 'mosaic', 'play'].join(' | '));
 
         $(t).prop('disabled', true);
 
-        ROOT.mosaic($('.mosaic img'), { row: 10, column: 10 }, function(target, complete){
+        ROOT.mosaic($img, { row: 10, column: 10 }, function(target, complete){
           if (complete) {
             ROOT.console.log(['log', 'mosaic', 'complete'].join(' | '));
-            $(t).prop('disabled', false);
+
+            TweenMax.fromTo($mosaic, 1, { y: '0%' }, { y: '-100%', ease: Power3.easeOut, delay: 1, onComplete: function(){
+              $mosaic.parent().append($mosaic);
+              $mosaic.removeAttr('style');
+              $(t).prop('disabled', false);
+            }});
+
+            TweenMax.fromTo($mosaic.next(), 1, { y: '100%' }, { y: '0%', ease: Power3.easeOut, delay: 1 });
           }
         }).play();
       });
