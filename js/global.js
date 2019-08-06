@@ -391,7 +391,7 @@ window[namespace] = window[namespace] || {};
     var $container = $img.parent();
     var array, interval;
 
-    $ServiceWorkerContainer.css({ overflow: 'hidden', position: 'relative' });
+    $container.css({ overflow: 'hidden', position: 'relative' });
 
     function reset(){
       var width = $img.width() / count.column
@@ -400,7 +400,7 @@ window[namespace] = window[namespace] || {};
         , column;
 
       clearInterval(interval);
-      $ServiceWorkerContainer.find('span').remove();
+      $container.find('span').remove();
 
       array = [];
 
