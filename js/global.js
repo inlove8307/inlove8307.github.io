@@ -383,3 +383,74 @@ window[namespace] = window[namespace] || {};
 
   global.parallax = parallax;
 }(window[namespace]));
+
+(function(global){
+  'use strict';
+
+  var mosaic = function($img, count, callback){
+    var $container = $img.parent();
+    var array, interval;
+
+    $ServiceWorkerContainer.css({ overflow: 'hidden', position: 'relative' });
+
+    function reset(){
+      var width = $img.width() / count.column
+        , height = $img.height() / count.row
+        , row
+        , column;
+
+      clearInterval(interval);
+      $ServiceWorkerContainer.find('span').remove();
+
+      array = [];
+
+      for (row = 0; row < count.row; row++) {
+        for (column = 0; column < count.column; column++) {
+          array.unshift($('<span>', { css: {
+            position: 'absolute',
+            top: row * height + 'px',
+            left: column * width + 'px',
+            width: width + 'px',
+            height: height + 'px',
+            'background-image': 'url(\'' + $img.attr('src') + '\')',
+            'background-position': [-column * width + 'px', -row * height + 'px'].join(' '),
+            'background-repeat': 'no-repeat',
+            'background-size': [$img.width() + 'px', $img.height + 'px'].join(' ')
+          }}).get()[0]);
+
+          $container.append(array[0]);
+        }
+      }
+    }
+
+    function action(){
+      interval = setInterval(function(){
+        var random = Math.floor(Math.random() * array.length);
+
+        $(array[random]).css('z-index', 1);
+
+        if (array.length) {
+          if (callback) callback(array[random], false);
+          TweenMax.to(array[random], 0.5, { scale: 1.5 });
+          TweenMax.to(array[random], 0.5, { scale: 0, ease: Power0.easeNone, delay: 0.5, onComplete: function(){
+            $(this.target).remove();
+          }});
+          array.splice(random, 1);
+        }
+        else {
+          clearInterval(interval);
+          if (callback) callback(array[random], true);
+        }
+      }, 50);
+    }
+
+    return {
+      play: function(){
+        reset();
+        action();
+      }
+    }
+  };
+
+  global.mosaic = mosaic;
+}(window[namespace]));

@@ -1,0 +1,82 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Expires" content="-1">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Counter</title>
+
+  <link rel="stylesheet" href="/lib/normalize.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/mediaquery.css">
+  <link rel="stylesheet" href="/css/font.css">
+
+  <script src="/lib/lodash.js"></script>
+  <script src="/lib/jquery-3.4.1.min.js"></script>
+  <script src="/lib/TweenMax.min.js"></script>
+  <script src="/js/global.js?v=201908061442"></script>
+</head>
+<body>
+
+  <section class="container">
+    <div class="mosaic">
+      <img src="/assets/images/img_mosaic.jpg" alt="worth the wait">
+    </div>
+    <div class="button">
+      <button class="play">PLAY</button>
+    </div>
+  </section>
+
+  <style>
+    .mosaic {
+      width: 100%;
+    }
+    .mosaic img {
+      width: 100%;
+      vertical-align: top;
+    }
+    .button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .play {
+      width: 20vw;
+      height: 20vw;
+      border: 0;
+      border-radius: 100%;
+      background-color: rgba(0, 0, 0, 1);
+      font-family: 'Noto Sans KR';
+      font-weight: 400;
+      font-size: 3.12vw;
+      color: rgba(255, 255, 255, 1);
+    }
+  </style>
+
+  <script>
+    (function(){
+      'use strict';
+
+      ROOT.console.log(['log', 'mosaic', 'init'].join(' | '));
+
+      $('.play').on('click', function(event){
+        var t = this;
+
+        ROOT.console.log(['log', 'mosaic', 'play'].join(' | '));
+
+        $(t).prop('disabled', true);
+
+        ROOT.mosaic($('.mosaic img'), { row: 10, column: 10 }, function(target, complete){
+          if (complete) {
+            ROOT.console.log(['log', 'mosaic', 'complete'].join(' | '));
+            $(t).prop('disabled', false);
+          }
+        }).play();
+      });
+
+      ROOT.console.add();
+    }());
+  </script>
+</body>
+</html>
