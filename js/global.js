@@ -415,7 +415,7 @@ window[namespace] = window[namespace] || {};
             'background-image': 'url(\'' + $img.attr('src') + '\')',
             'background-position': [-column * width + 'px', -row * height + 'px'].join(' '),
             'background-repeat': 'no-repeat',
-            'background-size': [$img.width() + 'px', $img.height + 'px'].join(' ')
+            'background-size': [$img.width() + 'px', $img.height() + 'px'].join(' ')
           }}).get()[0]);
 
           $container.append(array[0]);
