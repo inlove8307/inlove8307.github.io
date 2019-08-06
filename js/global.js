@@ -431,7 +431,7 @@ window[namespace] = window[namespace] || {};
 
         if (array.length) {
           if (callback) callback(array[random], false);
-          TweenMax.to(array[random], 0.5, { scale: 1.5 });
+          TweenMax.to(array[random], 0.5, { scale: 1.7 });
           TweenMax.to(array[random], 0.5, { scale: 0, ease: Power0.easeNone, delay: 0.5, onComplete: function(){
             $(this.target).remove();
           }});
