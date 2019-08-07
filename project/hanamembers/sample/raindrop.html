@@ -100,8 +100,8 @@
 
         ROOT.image.split($mosaic.find('img'), { row: 10, column: 10 })
         .effect(function(target, length){
-          TweenMax.to(target, 0.1, { scale: (Math.random() * 2).toFixed(2), 'border-radius': '100%', ease: Power4.easeOut });
-          TweenMax.to(target, 0.9, { scale: 0, ease: Power4.easeIn, onComplete: function(){
+          TweenMax.to(target, 0.1, { scale: (Math.random() * 1.5).toFixed(2), 'border-radius': '100%', ease: Power4.easeOut });
+          TweenMax.to(target, 0.9, { scale: 0, ease: Power4.easeIn, delay: 0.1, onComplete: function(){
             $(this.target).remove();
           }});
         })
