@@ -482,7 +482,7 @@ window[namespace] = window[namespace] || {};
     }
 
     function split($img){
-      var resutl = [], row, column;
+      var result = [], row, column;
 
       var width = $img.width() / count.column
         , height = $img.height() / count.row;
