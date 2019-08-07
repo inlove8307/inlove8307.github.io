@@ -100,16 +100,22 @@
 
         $mosaic.find('img').css('visibility', 'hidden');
 
-        ROOT.image.split($mosaic.find('img'), { row: 1, column: 15 }).play(function(target, complete){
-          if (complete) {
-            TweenMax.fromTo($mosaic, 1, { y: '0%', ease: Power4.easeIn, delay: 1, onComplete: function(){
-              this.target.parent().append(this.target);
-              $(t).prop('disabled', false).css('opacity', 1);
-            }});
+        ROOT.image.split($mosaic.find('img'), { row: 1, column: 15 })
+        .effect(function(target, length){
+          var percent = length % 2 ? 100 : -100;
 
-            TweenMax.fromTo($mosaic.next(), 1, { y: '100%' }, { y: '0%', ease: Power4.easeIn, delay: 1 });
-          }
-        });
+          TweenMax.to(target, 1, { y: percent + '%', opacity: 0, ease: Power4.easeIn, onComplete: function(){
+            $(this.target).remove();
+
+            if (length == 1) {
+              $(t).prop('disabled', false).css('opacity', 1);
+              $mosaic.parent().append($mosaic);
+              $mosaic.find('img').css('visibility', 'visible');
+              ROOT.console.log(['log', 'mosaic', 'complete'].join(' | '));
+            }
+          }});
+        })
+        .play();
       });
 
       ROOT.console.add();
