@@ -16,7 +16,7 @@
   <script src="/lib/lodash.js"></script>
   <script src="/lib/jquery-3.4.1.min.js"></script>
   <script src="/lib/TweenMax.min.js"></script>
-  <script src="/js/global.js?v=201908061519"></script>
+  <script src="/js/global.js?v=201908071720"></script>
 </head>
 <body>
 
@@ -91,28 +91,31 @@
       ROOT.console.log(['log', 'mosaic', 'init'].join(' | '));
 
       $('.play').on('click', function(event){
-        var t = this, $mosaic, $img;
-
-        $mosaic = $('.mosaic').eq(0);
-        $img = $mosaic.find('img');
-
-        ROOT.console.log(['log', 'mosaic', 'play'].join(' | '));
+        var t = this
+          , $mosaic = $('.mosaic').eq(0);
 
         $(t).prop('disabled', true).css('opacity', 0.3);
 
-        ROOT.mosaic($img, { row: 10, column: 10 }, function(target, complete){
-          if (complete) {
-            ROOT.console.log(['log', 'mosaic', 'complete'].join(' | '));
+        ROOT.console.log(['log', 'mosaic', 'play'].join(' | '));
 
-            TweenMax.fromTo($mosaic, 1, { y: '0%' }, { y: '-100%', ease: Power3.easeOut, delay: 1, onComplete: function(){
-              $mosaic.parent().append($mosaic);
-              $mosaic.removeAttr('style');
+        $mosaic.find('img').css('visibility', 'hidden');
+
+        ROOT.image.split($mosaic.find('img'), { row: 1, column: 15 })
+        .effect(function(target, length){
+          var percent = length % 2 ? 100 : -100;
+
+          TweenMax.to(target, 1, { y: percent + '%', opacity: 0, ease: Power4.easeIn, onComplete: function(){
+            $(this.target).remove();
+
+            if (length == 1) {
               $(t).prop('disabled', false).css('opacity', 1);
-            }});
-
-            TweenMax.fromTo($mosaic.next(), 1, { y: '100%' }, { y: '0%', ease: Power3.easeOut, delay: 1 });
-          }
-        }).play();
+              $mosaic.parent().append($mosaic);
+              $mosaic.find('img').css('visibility', 'visible');
+              ROOT.console.log(['log', 'mosaic', 'complete'].join(' | '));
+            }
+          }});
+        })
+        .play();
       });
 
       ROOT.console.add();

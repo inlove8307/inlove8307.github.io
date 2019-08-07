@@ -384,29 +384,112 @@ window[namespace] = window[namespace] || {};
   global.parallax = parallax;
 }(window[namespace]));
 
+// (function(global){
+//   'use strict';
+
+//   var mosaic = function($img, count, callback){
+//     var $container = $img.parent();
+//     var array, interval;
+
+//     $container.css({ overflow: 'hidden', position: 'relative' });
+
+//     function reset(){
+//       var width = $img.width() / count.column
+//         , height = $img.height() / count.row
+//         , row
+//         , column;
+
+//       clearInterval(interval);
+//       $container.find('span').remove();
+
+//       array = [];
+
+//       for (row = 0; row < count.row; row++) {
+//         for (column = 0; column < count.column; column++) {
+//           array.unshift($('<span>', { css: {
+//             position: 'absolute',
+//             top: row * height + 'px',
+//             left: column * width + 'px',
+//             width: width + 'px',
+//             height: height + 'px',
+//             'background-image': 'url(\'' + $img.attr('src') + '\')',
+//             'background-position': [-column * width + 'px', -row * height + 'px'].join(' '),
+//             'background-repeat': 'no-repeat',
+//             'background-size': [$img.width() + 'px', $img.height() + 'px'].join(' ')
+//           }}).get()[0]);
+
+//           $container.append(array[0]);
+//         }
+//       }
+//     }
+
+//     function action(){
+//       interval = setInterval(function(){
+//         var random = Math.floor(Math.random() * array.length);
+
+//         $(array[random]).css('z-index', 1);
+
+//         if (array.length) {
+//           if (callback) callback(array[random], false);
+//           TweenMax.to(array[random], 0.5, { scale: 1.7 });
+//           TweenMax.to(array[random], 0.5, { scale: 0, ease: Power0.easeNone, delay: 0.5, onComplete: function(){
+//             $(this.target).remove();
+//           }});
+//           array.splice(random, 1);
+//         }
+//         else {
+//           clearInterval(interval);
+//           if (callback) callback(array[random], true);
+//         }
+//       }, 50);
+//     }
+
+//     return {
+//       play: function(){
+//         reset();
+//         action();
+//       }
+//     }
+//   };
+
+//   global.mosaic = mosaic;
+// }(window[namespace]));
+
 (function(global){
   'use strict';
 
-  var mosaic = function($img, count, callback){
-    var $container = $img.parent();
-    var array, interval;
+  var image = {};
 
-    $container.css({ overflow: 'hidden', position: 'relative' });
+  image.split = function($img, count){
+    var array, effect, interval;
 
-    function reset(){
+    function wrap($img){
+      var $el;
+
+      $el = $('<span>', { css:{
+        overflow: 'hidden',
+        display: 'block',
+        position: 'relative',
+        width: $img.width() + 'px',
+        height: $img.height() + 'px'
+      }});
+
+      $el = $img.wrap($el).parent();
+      $el.data('image-effect-wrap', true);
+      $img.css({ width: '100%', position: 'relative', 'z-index': -1 });
+
+      return $el;
+    }
+
+    function split($img){
+      var resutl = [], row, column;
+
       var width = $img.width() / count.column
-        , height = $img.height() / count.row
-        , row
-        , column;
-
-      clearInterval(interval);
-      $container.find('span').remove();
-
-      array = [];
+        , height = $img.height() / count.row;
 
       for (row = 0; row < count.row; row++) {
         for (column = 0; column < count.column; column++) {
-          array.unshift($('<span>', { css: {
+          result.push($('<ins>', { css: {
             position: 'absolute',
             top: row * height + 'px',
             left: column * width + 'px',
@@ -417,13 +500,13 @@ window[namespace] = window[namespace] || {};
             'background-repeat': 'no-repeat',
             'background-size': [$img.width() + 'px', $img.height() + 'px'].join(' ')
           }}).get()[0]);
-
-          $container.append(array[0]);
         }
       }
+
+      return result;
     }
 
-    function action(){
+    function play(callback){
       interval = setInterval(function(){
         var random = Math.floor(Math.random() * array.length);
 
@@ -431,10 +514,7 @@ window[namespace] = window[namespace] || {};
 
         if (array.length) {
           if (callback) callback(array[random], false);
-          TweenMax.to(array[random], 0.5, { scale: 1.7 });
-          TweenMax.to(array[random], 0.5, { scale: 0, ease: Power0.easeNone, delay: 0.5, onComplete: function(){
-            $(this.target).remove();
-          }});
+          effect(array[random], array.length);
           array.splice(random, 1);
         }
         else {
@@ -442,15 +522,30 @@ window[namespace] = window[namespace] || {};
           if (callback) callback(array[random], true);
         }
       }, 50);
-    }
+    };
+
+    effect = function(target, length){
+      TweenMax.to(target, 0.5, { scale: 1.5 });
+      TweenMax.to(target, 0.5, { scale: 0, ease: Power0.easeNone, delay: 0.5, onComplete: function(){
+        $(this.target).remove();
+      }});
+    };
+
+    if (!$img.parent().data('image-effect-wrap')) wrap($img);
+    if (array && array.length) $(array).remove();
+
+    array = split($img);
+    $img.parent().append(array);
 
     return {
-      play: function(){
-        reset();
-        action();
+      effect: function(callback){
+        if (callback) effect = callback;
+        return this;
+      },
+      paly: function(callback){
+        clearInterval(interval);
+        paly(callback);
       }
     }
-  };
-
-  global.mosaic = mosaic;
+  }
 }(window[namespace]));
