@@ -548,4 +548,6 @@ window[namespace] = window[namespace] || {};
       }
     }
   }
+
+  global.image = image;
 }(window[namespace]));
