@@ -98,11 +98,9 @@
 
         ROOT.console.log(['log', 'mosaic', 'play'].join(' | '));
 
-        $mosaic.find('img').css('visibility', 'hidden');
-
-        ROOT.image.split($mosaic.find('img'), { row: 1, column: 15 }).play(function(target, complete){
+        ROOT.image.split($mosaic.find('img'), { row: 10, column: 10 }).play(function(target, complete){
           if (complete) {
-            TweenMax.fromTo($mosaic, 1, { y: '0%', ease: Power4.easeIn, delay: 1, onComplete: function(){
+            TweenMax.fromTo($mosaic, 1, { y: '0%' }, { y: '-100%', ease: Power4.easeIn, delay: 1, onComplete: function(){
               this.target.parent().append(this.target);
               $(t).prop('disabled', false).css('opacity', 1);
             }});
