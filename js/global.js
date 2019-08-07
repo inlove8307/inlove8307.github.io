@@ -392,7 +392,7 @@ window[namespace] = window[namespace] || {};
   image.split = function($img, count){
     var array, effect, interval;
 
-    function wrap($img){
+    function wrap(){
       var $el;
 
       $el = $('<span>', { css:{
@@ -410,7 +410,7 @@ window[namespace] = window[namespace] || {};
       return $el;
     }
 
-    function split($img){
+    function split(){
       var result = [], row, column;
 
       var width = $img.width() / count.column
@@ -435,7 +435,7 @@ window[namespace] = window[namespace] || {};
       return result;
     }
 
-    function play(callback){
+    function play(callback, speed){
       interval = setInterval(function(){
         var random = Math.floor(Math.random() * array.length);
 
@@ -450,7 +450,7 @@ window[namespace] = window[namespace] || {};
           clearInterval(interval);
           if (callback) callback(array[random], true);
         }
-      }, 50);
+      }, speed ? speed * 1000 : 1000);
     };
 
     effect = function(target, length){
@@ -460,10 +460,10 @@ window[namespace] = window[namespace] || {};
       }});
     };
 
-    if (!$img.parent().data('image-effect-wrap')) wrap($img);
+    if (!$img.parent().data('image-effect-wrap')) wrap();
     if (array && array.length) $(array).remove();
 
-    array = split($img);
+    array = split();
     $img.parent().append(array);
 
     return {
@@ -471,9 +471,9 @@ window[namespace] = window[namespace] || {};
         if (callback) effect = callback;
         return this;
       },
-      play: function(callback){
+      play: function(callback, speed){
         clearInterval(interval);
-        play(callback);
+        play(callback, speed);
       }
     }
   }
