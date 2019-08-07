@@ -542,9 +542,9 @@ window[namespace] = window[namespace] || {};
         if (callback) effect = callback;
         return this;
       },
-      paly: function(callback){
+      play: function(callback){
         clearInterval(interval);
-        paly(callback);
+        play(callback);
       }
     }
   }
