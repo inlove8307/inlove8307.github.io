@@ -5,7 +5,7 @@
   <meta http-equiv="Expires" content="-1">
   <meta http-equiv="Cache-Control" content="no-cache">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mosaic</title>
+  <title>Raindrop</title>
 
   <link rel="stylesheet" href="/lib/normalize.css">
   <link rel="stylesheet" href="/lib/animate.css">
@@ -97,8 +97,6 @@
         $(t).prop('disabled', true).css('opacity', 0.3);
 
         ROOT.console.log(['log', 'mosaic', 'play'].join(' | '));
-
-        $mosaic.find('img').css('visibility', 'hidden');
 
         ROOT.image.split($mosaic.find('img'), { row: 10, column: 10 })
         .effect(function(target, length){
