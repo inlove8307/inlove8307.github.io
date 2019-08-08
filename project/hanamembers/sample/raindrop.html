@@ -120,18 +120,18 @@
 
           timeline
           .to(target, 0.1, { scale: (Math.random() * 1.5).toFixed(2), 'border-radius': '100%', ease: Power4.easeOut })
-          .to(target, 0.2, { scale: (Math.random() * 0.5).toFixed(2), ease: Power4.easeIn })
+          .to(target, 0.3, { scale: (Math.random() * 0.5).toFixed(2), ease: Power4.easeIn })
           .to(target, 1, { y: length % 2 ? y : y * -1, opacity: 0, ease: Power4.easeIn, onComplete: function(){
             $(this.target).remove();
           }})
           .eventCallback('onComplete', function(){
             if (length == 1) {
-              TweenMax.fromTo($mosaic, 1, { y: '0%' }, { y: '-100%', ease: Power4.easeIn, delay: 1, onComplete: function(){
+              TweenMax.fromTo($mosaic, 1, { y: '0%' }, { y: '-100%', ease: Power4.easeIn, onComplete: function(){
                 this.target.parent().append(this.target);
                 $(t).prop('disabled', false).css('opacity', 1);
               }});
 
-              TweenMax.fromTo($mosaic.next(), 1, { y: '100%' }, { y: '0%', ease: Power4.easeIn, delay: 1 });
+              TweenMax.fromTo($mosaic.next(), 1, { y: '100%' }, { y: '0%', ease: Power4.easeIn });
             }
           });
         })
