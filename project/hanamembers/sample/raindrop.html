@@ -115,21 +115,27 @@
 
         ROOT.image.split($mosaic.find('img'), { row: 10, column: 10 })
         .effect(function(target, length){
-          TweenMax.to(target, 0.1, { scale: (Math.random() * 1.5).toFixed(2), 'border-radius': '100%', ease: Power4.easeOut });
-          TweenMax.to(target, 0.9, { scale: 0, ease: Power4.easeIn, delay: 0.1, onComplete: function(){
-            $(this.target).remove();
-          }});
-        })
-        .play(function(target, complete){
-          if (complete) {
-            TweenMax.fromTo($mosaic, 1, { y: '0%' }, { y: '-100%', ease: Power4.easeIn, delay: 1, onComplete: function(){
-              this.target.parent().append(this.target);
-              $(t).prop('disabled', false).css('opacity', 1);
-            }});
+          var timeline = new TimelineLite();
+          var y = Math.floor(Math.random() * $mosaic.width());
 
-            TweenMax.fromTo($mosaic.next(), 1, { y: '100%' }, { y: '0%', ease: Power4.easeIn, delay: 1 });
-          }
-        }, 0.05);
+          timeline
+          .to(target, 0.1, { scale: (Math.random() * 1.5).toFixed(2), 'border-radius': '100%', ease: Power4.easeOut })
+          .to(target, 0.2, { scale: (Math.random() * 0.5).toFixed(2), ease: Power4.easeIn })
+          .to(target, 1, { y: length % 2 ? y : y * -1, opacity: 0, ease: Power4.easeIn, onComplete: function(){
+            $(this.target).remove();
+          }})
+          .eventCallback('onComplete', function(){
+            if (length == 1) {
+              TweenMax.fromTo($mosaic, 1, { y: '0%' }, { y: '-100%', ease: Power4.easeIn, delay: 1, onComplete: function(){
+                this.target.parent().append(this.target);
+                $(t).prop('disabled', false).css('opacity', 1);
+              }});
+
+              TweenMax.fromTo($mosaic.next(), 1, { y: '100%' }, { y: '0%', ease: Power4.easeIn, delay: 1 });
+            }
+          });
+        })
+        .play(null, 0.05);
       });
 
       ROOT.console.add();
