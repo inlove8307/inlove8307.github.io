@@ -34,10 +34,10 @@
         <ul>&nbsp;</ul>
         <del>&nbsp;</del>
       </div>
-      <div class="buttons">
-        <button class="play">PLAY</button>
-      </div>
     </artice>
+    <div class="buttons">
+      <button class="play">PLAY</button>
+    </div>
   </section>
 
   <style>
@@ -281,8 +281,8 @@
       $('.play').on('click', function(event){
         count[0].value = 0;
         count[1].value = 0;
-        $all.removeCalss('reverse');
-        $user.removeCalss('reverse').css('left', 0);
+        $all.removeClass('reverse');
+        $user.removeClass('reverse').css('left', 0);
 
         TweenMax.to(count[0], speed, { value: $all.data('steps'), onUpdate: function(){
           $all.find('.text em').text([ROOT.string.price(Math.ceil(count[0].value)), '걸음'].join(' '));
