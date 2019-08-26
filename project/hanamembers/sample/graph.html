@@ -262,21 +262,21 @@
           , user = offset.get().user;
 
         $.each($graph.find('li'), function(index){
-          if (offset.user.left > $(this).offset().left && offset.user.left < $(this).offset().left + $(this).width) {
+          if (.user.left > $(this).offset().left && user.left < $(this).offset().left + $(this).width) {
             $(this).addClass('user').siblings().removeClass('user');
           }
         });
 
-        if (offset.user.right >= offset.all.left) {
+        if (user.right >= all.left) {
           $user.addClass('reverse');
         }
 
-        if (offset.user.left >= offset.all.left) {
+        if (user.left >= all.left) {
           $user.removeClass('reverse');
           $all.addClass('reverse');
         }
 
-        if (offset.user.right >= $(window).width()) {
+        if (user.right >= $(window).width()) {
           $user.addClass('reverse');
         }
       }});
