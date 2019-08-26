@@ -247,7 +247,7 @@
       $.each($graph.find('li'), function(index){
         var o = offset.get();
 
-        if (o.all.left > $(this).offset().left && o.all.left < $(this).offset().left + $(this).width) {
+        if (o.all.left > $(this).offset().left && o.all.left < $(this).offset().left + $(this).width()) {
           $(this).addClass('all');
         }
       });
@@ -264,7 +264,7 @@
         var o = offset.get();
 
         $.each($graph.find('li'), function(index){
-          if (o.user.left > $(this).offset().left && o.user.left < $(this).offset().left + $(this).width) {
+          if (o.user.left > $(this).offset().left && o.user.left < $(this).offset().left + $(this).width()) {
             $(this).addClass('user').siblings().removeClass('user');
           }
         });
