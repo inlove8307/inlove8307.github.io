@@ -262,7 +262,7 @@
           , user = offset.get().user;
 
         $.each($graph.find('li'), function(index){
-          if (.user.left > $(this).offset().left && user.left < $(this).offset().left + $(this).width) {
+          if (user.left > $(this).offset().left && user.left < $(this).offset().left + $(this).width) {
             $(this).addClass('user').siblings().removeClass('user');
           }
         });
