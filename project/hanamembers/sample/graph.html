@@ -242,9 +242,9 @@
       $user.css({ transform: ['rotate(', -angle ,'deg)'].join('') });
       $graph.html(array).next('del').css({ width: diagonal, transform: ['rotate(', angle, 'deg)'].join('') });
       $.each($graph.find('li'), function(index){
-        var offset = offset.get();
+        var all = offset.get().all;
 
-        if (offset.all.left > $(this).offset().left && offset.all.left < $(this).offset().left + $(this).width) {
+        if (all.left > $(this).offset().left && all.left < $(this).offset().left + $(this).width) {
           $(this).addClass('all');
         }
       });
@@ -258,7 +258,8 @@
       }});
 
       TweenMax.to($user, speed, { left: [$user.data('steps') / 10000 * 100, '%'].join(''), ease: Power2.easeOut, onUpdate: function(){
-        var offset = offset.get();
+        var all = offset.get().all
+          , user = offset.get().user;
 
         $.each($graph.find('li'), function(index){
           if (offset.user.left > $(this).offset().left && offset.user.left < $(this).offset().left + $(this).width) {
