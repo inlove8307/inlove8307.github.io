@@ -39,7 +39,9 @@
 
   <style>
     html {}
-    body {}
+    body {
+      background-color: rgba(240, 241, 245, 1);
+    }
     .container {}
     .wrapper {
       display: block;
@@ -243,9 +245,9 @@
       $user.css({ transform: ['rotate(', -angle ,'deg)'].join('') });
       $graph.html(array).next('del').css({ width: diagonal, transform: ['rotate(', angle, 'deg)'].join('') });
       $.each($graph.find('li'), function(index){
-        var all = offset.get().all;
+        var o = offset.get();
 
-        if (all.left > $(this).offset().left && all.left < $(this).offset().left + $(this).width) {
+        if (o.all.left > $(this).offset().left && o.all.left < $(this).offset().left + $(this).width) {
           $(this).addClass('all');
         }
       });
@@ -259,25 +261,26 @@
       }});
 
       TweenMax.to($user, speed, { left: [$user.data('steps') / 10000 * 100, '%'].join(''), ease: Power2.easeOut, onUpdate: function(){
-        var all = offset.get().all
-          , user = offset.get().user;
+        var o = offset.get();
 
         $.each($graph.find('li'), function(index){
-          if (user.left > $(this).offset().left && user.left < $(this).offset().left + $(this).width) {
+          if (o.user.left > $(this).offset().left && o.user.left < $(this).offset().left + $(this).width) {
             $(this).addClass('user').siblings().removeClass('user');
           }
         });
 
-        if (user.right >= all.left) {
+        console.log(o.all, o.user);
+
+        if (o.user.right >= o.all.left) {
           $user.addClass('reverse');
         }
 
-        if (user.left >= all.left) {
+        if (o.user.left >= o.all.left) {
           $user.removeClass('reverse');
           $all.addClass('reverse');
         }
 
-        if (user.right >= $(window).width()) {
+        if (o.user.right >= $(window).width()) {
           $user.addClass('reverse');
         }
       }});
