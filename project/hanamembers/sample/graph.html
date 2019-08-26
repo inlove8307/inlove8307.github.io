@@ -285,10 +285,10 @@
       $('.play').on('click', function(event){
         var t = this;
 
-        count[0].value = 0;
-        count[1].value = 0;
+        count = [{ value: 0 }, { value: 0 }];
         $all.removeClass('reverse');
         $user.removeClass('reverse').css('left', 0);
+        $user.data('steps', Math.ceil(Math.random() * 10000));
 
         $(t).prop('disabled', true);
 
