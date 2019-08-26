@@ -34,6 +34,9 @@
         <ul>&nbsp;</ul>
         <del>&nbsp;</del>
       </div>
+      <div class="buttons">
+        <button class="play">PLAY</button>
+      </div>
     </artice>
   </section>
 
@@ -209,6 +212,23 @@
       transform-origin: 100% 100%;
       text-decoration: none;
     }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 5vw;
+    }
+    .buttons .play {
+      width: 20vw;
+      height: 20vw;
+      border: 0;
+      border-radius: 100%;
+      background-color: rgba(0, 0, 0, 1);
+      font-family: 'Noto Sans KR';
+      font-weight: 400;
+      font-size: 3.12vw;
+      color: rgba(255, 255, 255, 1);
+    }
   </style>
 
   <script>
@@ -258,36 +278,43 @@
         }
       });
 
-      TweenMax.to(count[0], speed, { value: $all.data('steps'), onUpdate: function(){
-        $all.find('.text em').text([ROOT.string.price(Math.ceil(count[0].value)), '걸음'].join(' '));
-      }});
+      $('.play').on('click', function(event){
+        count[0].value = 0;
+        count[1].value = 0;
+        $all.removeCalss('reverse');
+        $user.removeCalss('reverse').css('left', 0);
 
-      TweenMax.to(count[1], speed, { value: $user.data('steps'), onUpdate: function(){
-        $user.find('.text em').text([ROOT.string.price(Math.ceil(count[1].value)), '걸음'].join(' '));
-      }});
+        TweenMax.to(count[0], speed, { value: $all.data('steps'), onUpdate: function(){
+          $all.find('.text em').text([ROOT.string.price(Math.ceil(count[0].value)), '걸음'].join(' '));
+        }});
 
-      TweenMax.to($user, speed, { left: [$user.data('steps') / 10000 * 100, '%'].join(''), ease: Power2.easeOut, onUpdate: function(){
-        var o = offset.get();
+        TweenMax.to(count[1], speed, { value: $user.data('steps'), onUpdate: function(){
+          $user.find('.text em').text([ROOT.string.price(Math.ceil(count[1].value)), '걸음'].join(' '));
+        }});
 
-        $.each($graph.find('li'), function(index){
-          if (o.user.left > $(this).offset().left && o.user.left < $(this).offset().left + $(this).width()) {
-            $(this).addClass('user').siblings().removeClass('user');
+        TweenMax.to($user, speed, { left: [$user.data('steps') / 10000 * 100, '%'].join(''), ease: Power2.easeOut, onUpdate: function(){
+          var o = offset.get();
+
+          $.each($graph.find('li'), function(index){
+            if (o.user.left > $(this).offset().left && o.user.left < $(this).offset().left + $(this).width()) {
+              $(this).addClass('user').siblings().removeClass('user');
+            }
+          });
+
+          if (o.user.right >= o.all.left) {
+            $user.addClass('reverse');
           }
-        });
 
-        if (o.user.right >= o.all.left) {
-          $user.addClass('reverse');
-        }
+          if (o.user.left >= o.all.left) {
+            $user.removeClass('reverse');
+            $all.addClass('reverse');
+          }
 
-        if (o.user.left >= o.all.left) {
-          $user.removeClass('reverse');
-          $all.addClass('reverse');
-        }
-
-        if (o.user.right >= $(window).width()) {
-          $user.addClass('reverse');
-        }
-      }});
+          if (o.user.right >= $(window).width()) {
+            $user.addClass('reverse');
+          }
+        }});
+      });
     }());
   </script>
 </body>
