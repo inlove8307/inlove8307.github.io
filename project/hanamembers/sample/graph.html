@@ -280,10 +280,14 @@
       });
 
       $('.play').on('click', function(event){
+        var t = this;
+
         count[0].value = 0;
         count[1].value = 0;
         $all.removeClass('reverse');
         $user.removeClass('reverse').css('left', 0);
+
+        $(t).prop('disabled', true);
 
         TweenMax.to(count[0], speed, { value: $all.data('steps'), onUpdate: function(){
           $all.find('.text em').text([ROOT.string.price(Math.ceil(count[0].value)), '걸음'].join(' '));
@@ -314,6 +318,8 @@
           if (o.user.right >= $(window).width()) {
             $user.addClass('reverse');
           }
+        }, onComplete: function(){
+          $(t).prop('disabled', false);
         }});
       });
     }());
