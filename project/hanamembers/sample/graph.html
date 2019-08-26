@@ -24,10 +24,10 @@
     <artice class="wrapper">
       <div class="steps">
         <span class="all" data-steps="5000">
-          <span class="text"></span>
+          <span class="text">동일연령/성별 평균<br><strong>&nbsp;</strong></span>
         </span>
         <span class="user" data-steps="6000">
-          <span class="text"></span>
+          <span class="text">나의 일평균<br><strong>&nbsp;</strong></span>
         </span>
       </div>
       <div class="graph">
@@ -61,7 +61,7 @@
       position: absolute;
       bottom: 0;
       left: 0;
-      width: 23.14vw;
+      width: 30.55vw;
       height: 12.96vw;
       transform-origin: 0 100%;
     }
@@ -253,11 +253,11 @@
       });
 
       TweenMax.to(count[0], speed, { value: $all.data('steps'), onUpdate: function(){
-        $all.find('.text').text([ROOT.string.price(Math.ceil(count[0].value)), '걸음'].join(' '));
+        $all.find('.text strong').text([ROOT.string.price(Math.ceil(count[0].value)), '걸음'].join(' '));
       }});
 
       TweenMax.to(count[1], speed, { value: $user.data('steps'), onUpdate: function(){
-        $user.find('.text').text([ROOT.string.price(Math.ceil(count[1].value)), '걸음'].join(' '));
+        $user.find('.text strong').text([ROOT.string.price(Math.ceil(count[1].value)), '걸음'].join(' '));
       }});
 
       TweenMax.to($user, speed, { left: [$user.data('steps') / 10000 * 100, '%'].join(''), ease: Power2.easeOut, onUpdate: function(){
