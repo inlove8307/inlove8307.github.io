@@ -190,11 +190,11 @@ window[namespace] = window[namespace] || {};
 
   function counter(number, speed, callback){
     var args = {
-        number: number,
-        speed: speed,
-        count: 0,
-        complete: false
-      };
+      number: number,
+      speed: speed,
+      count: 0,
+      complete: false
+    };
 
     var array, interval;
 
@@ -392,6 +392,10 @@ window[namespace] = window[namespace] || {};
   image.split = function($img, count){
     var array, effect, interval;
 
+    function px(value){
+      return [value, 'px'].join('');
+    }
+
     function wrap(){
       var $el;
 
@@ -399,8 +403,8 @@ window[namespace] = window[namespace] || {};
         overflow: 'hidden',
         display: 'block',
         position: 'relative',
-        width: $img.width() + 'px',
-        height: $img.height() + 'px'
+        width: [$img.width(), 'px'].join(''),
+        height: [$img.height(), 'px'].join('')
       }});
 
       $el = $img.wrap($el).parent();
@@ -420,14 +424,14 @@ window[namespace] = window[namespace] || {};
         for (column = 0; column < count.column; column++) {
           result.push($('<ins>', { css: {
             position: 'absolute',
-            top: row * height + 'px',
-            left: column * width + 'px',
-            width: width + 'px',
-            height: height + 'px',
-            'background-image': 'url(\'' + $img.attr('src') + '\')',
-            'background-position': [-column * width + 'px', -row * height + 'px'].join(' '),
+            top: px(row * height),
+            left: px(column * width),
+            width: px(width),
+            height: px(height),
+            'background-image': ['url(\'', $img.attr('src'), '\')'].join(''),
+            'background-position': [px(-column * width), px(-row * height)].join(' '),
             'background-repeat': 'no-repeat',
-            'background-size': [$img.width() + 'px', $img.height() + 'px'].join(' ')
+            'background-size': [px($img.width()), px($img.height())].join(' ')
           }}).get()[0]);
         }
       }
