@@ -5,7 +5,7 @@
   <meta http-equiv="Expires" content="-1">
   <meta http-equiv="Cache-Control" content="no-cache">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Graph</title>
+  <title>Statistics</title>
 
   <link rel="stylesheet" href="/lib/normalize.css">
   <link rel="stylesheet" href="/lib/animate.css">
@@ -243,8 +243,8 @@
         , $all = $steps.find('.all')
         , $user = $steps.find('.user')
         , $graph = $('.graph ul')
-        , angle = Math.atan2($graph.height(), $graph.width()) * (180 / Math.PI)
-        , diagonal = [Math.sqrt($graph.width() * $graph.width() + $graph.height() * $graph.height()) / $graph.width() * 100, '%'].join('')
+        , angle = Math.atan2($graph.height(), $graph.width()) * 180 / Math.PI
+        , diagonal = [Math.sqrt(Math.pow($graph.width(), 2) + Math.pow($graph.height(), 2)) / $graph.width() * 100, '%'].join('')
         , slice = 20
         , speed = 5
         , array = []
@@ -274,10 +274,13 @@
       $all.css({ left: [$all.data('steps') / 10000 * 100, '%'].join(''), transform: ['rotate(', -angle ,'deg)'].join('') });
       $user.css({ transform: ['rotate(', -angle ,'deg)'].join('') });
       $graph.html(array).next('del').css({ width: diagonal, transform: ['rotate(', angle, 'deg)'].join('') });
+
       $.each($graph.find('li'), function(index){
         var o = offset.get();
 
-        if (o.all.left > $(this).offset().left && o.all.left < $(this).offset().left + $(this).width()) {
+        o.bar = $(this).offset();
+
+        if (o.all.left > o.bar.left && o.all.left < o.bar.left + $(this).width()) {
           $(this).addClass('all');
         }
       });
@@ -304,7 +307,9 @@
           var o = offset.get();
 
           $.each($graph.find('li'), function(index){
-            if (o.user.left > $(this).offset().left && o.user.left < $(this).offset().left + $(this).width()) {
+            o.bar = $(this).offset();
+
+            if (o.user.left > o.bar.left && o.user.left < o.bar.left + $(this).width()) {
               $(this).addClass('user').siblings().removeClass('user');
             }
           });
