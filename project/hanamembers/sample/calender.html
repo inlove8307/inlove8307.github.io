@@ -295,7 +295,7 @@
 
           if (!date || $(this).is(':disabled')) return;
 
-          if (data < selected[0] || date > Number(moment(selected[0], format).add(30, 'd').foramt(format))) {
+          if (date < selected[0] || date > Number(moment(selected[0], format).add(30, 'd').foramt(format))) {
             calender.disable(this);
           }
 
