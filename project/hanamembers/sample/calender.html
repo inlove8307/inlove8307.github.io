@@ -148,23 +148,22 @@
     (function(){
       'use strict';
 
-      var $input = $('.calender-input input[type=text]')
-        , calender;
-
-      calender = (function(){
+      // CALENDER
+      var calender = function(){
         var $container = $('.calender-container')
           , $buttons
           , swiper
-          , format = 'YYYY.MM.DD'
-          , range = ['2019.09', '2020.10']
+          , format = 'YYYYMMDD'
+          , range = [moment().format('YYYYMM'), '202010']
           , selected = []
-          , disabled = [];
+          , disabled
+          , callback = ['select', 'clear', 'slide'];
 
         function getData(date, format){
           var result = []
-            , object = {}
+            , object
             , date = moment(date, format)
-            , endof = date.endOf('month').format('DD');
+            , endof = date.endOf('month').format('D');
 
           while (result.length < endof) {
             date = date.date(result.length + 1);
@@ -197,9 +196,10 @@
 
             $button = $('<button>');
             $button.data('date', object.date);
+            $button.data('text', moment(object.date, format).format('YYYY.MM.DD'));
             $button.text(date.format('D'));
 
-            if (date.isBefore(moment(), 'date')) $button.prop('disabled', true);
+            if (date.isBefore(moment(), 'date')) $button.attr('disabled', true);
             if (date.isSame(moment(), 'date')) $button.addClass('today');
             if (object.weekend) $button.addClass('weekend');
 
@@ -217,7 +217,6 @@
 
         function getSlide(range, format){
           var result = []
-            , format = 'YYYY.MM.DD'
             , date = moment(range[0], format)
             , diff = Math.abs(date.diff(moment(range[1], format), 'months'))
             , buttons = []
@@ -225,7 +224,7 @@
 
           while (result.length <= diff) {
             $slide = $('<li>', { class: 'swiper-slide' });
-            $slide.append($('<strong>', { html: date.format('YYYY[년] M[월]') }));
+            $slide.append($('<strong>', { html: date.format('YYYY[년] MM[월]') }));
             $slide.append($('<div>', { html: getButton(getData(date, format), format) }));
             result.push($slide);
             date = moment(date, format).add(1, 'M');
@@ -234,93 +233,97 @@
           return result;
         }
 
-        $container.find('.swiper-wrapper').html(getSlide(range));
-        $buttons = $container.find('button');
+        callback = function(array){
+          var result = {};
 
-        new Swiper($container.find('.swiper-container'), {
-          direction: 'vertical'
+          while (array.length) {
+            result[array.shift()] = function(){};
+          }
+
+          return result;
+        }(callback);
+
+        $container.find('.swiper-wrapper').html(getSlide(range, format));
+
+        swiper = new Swiper($container.find('.swiper-container'), {
+          direction: 'vertical',
+          on: {
+            slideChange: function(){
+              callback.slide.call(this, this.activeIndex);
+            }
+          }
+        });
+
+        $buttons = $container.find('button').filter(function(index){
+          if ($(this).data('date') && $(this).is(':not(:disabled)')) return this;
+        });
+
+        $buttons.on('click', function(event){
+          var limit;
+
+          if (selected[1]) {
+            $buttons.removeClass('selected');
+            selected = [];
+            callback.clear.call(this, selected);
+          }
+
+          $(this).addClass('selected');
+          selected.push($(this).data('date'));
+
+          limit = moment(selected[0], format).add(30, 'd').format(format);
+
+          disabled = $buttons.filter(function(index){
+            if ($(this).data('date') < selected[0] || $(this).data('date') > limit) return this;
+          }).attr('disabled', true);
+
+          if (selected[1]) {
+            $buttons.filter(function(index){
+              if ($(this).data('date') > selected[0] && $(this).data('date') < selected[1]) return this;
+            }).addClass('selected');
+
+            disabled.attr('disabled', false);
+          }
+
+          callback.select.call(this, selected);
         });
 
         return {
           get: function(property){
             switch (property) {
-              case 'buttons': return $buttons;
-              case 'selected': return selected;
-              case 'disabled': return disabled;
+              case 'swiper': return swiper;
             }
           },
-          select: function(button){
-            $(button).addClass('selected');
-            selected.push(Number($(button).data('date').replace(/\./g, '')));
-          },
-          disable: function(button){
-            $(button).prop('disabled', true);
-            disabled.push(button);
-          },
-          clear: function(property){
-            var object = {
-              selected: function(){
-                $buttons.removeClass('selected');
-                selected = [];
-              },
-              disabled: function(){
-                $(disabled).prop('disabled', false);
-                disabled = [];
-              },
-              both: function(){
-                this.selected();
-                this.disabled();
-              }
-            };
-
-            object[property || 'both']();
+          on: function(property, fn){
+            callback[property] = fn;
           }
         }
-      }());
+      }();
 
-      calender.get('buttons').on('click', function(event){
-        var format = 'YYYYMMDD'
-          , selected = calender.get('selected');
+      calender.on('select', function(selected){
+        console.log('select', this);
+        $('calender-input input[type=text]').eq(selected.length-1).val($(this).data('text'));
+      });
 
-        if (selected[1]) {
-          $input.val('');
-          calender.clear();
-        }
+      calender.on('clear', function(selected){
+        console.log('clear', this);
+        $('calender-input input[type=text]').val('');
+      });
 
-        $input.eq(calender.get('selected').length).val($(this).data('date'));
-        calender.select(this);
-
-        selected = calender.get('selected');
-
-        $.each(calender.get('buttons'), function(index){
-          var date = $(this).data('date') ? Number($(this).data('date').replace(/\./g, '')) : null;
-
-          if (!date || $(this).is(':disabled')) return;
-
-          if (date < selected[0] || date > Number(moment(selected[0], format).add(30, 'd').format(format))) {
-            calender.disable(this);
-          }
-
-          if (!selected[1]) return;
-
-          if (date > selected[0] && date < selected[1]) {
-            $(this).addClass('selected');
-          }
-        });
-
-        if (selected[1]) calender.clear('disabled');
+      calender.on('slide', function(index){
+        console.log('slide', this);
       });
     }());
 
     (function(){
       'use strict';
 
+      // SELECTER
       var $input = $('.selecter-input input[type=text]')
         , $button = $('.selecter-button button')
         , $target
         , selecter;
 
-      selecter = (function(){
+      selecter = function(){
         var $container = $('.selecter-container')
           , $selecter = $('.selecter')
           , $option = $('selecter-option')
@@ -366,7 +369,7 @@
             return object[property]();
           }
         }
-      }());
+      }();
 
       $input.on('focus', function(event){
         $target = $(this).blur();
