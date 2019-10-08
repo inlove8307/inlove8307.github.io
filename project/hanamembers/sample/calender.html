@@ -301,12 +301,12 @@
 
       calender.on('select', function(selected){
         console.log('select', this);
-        $('calender-input input[type=text]').eq(selected.length-1).val($(this).data('text'));
+        $('.calender-input input[type=text]').eq(selected.length-1).val($(this).data('text'));
       });
 
       calender.on('clear', function(selected){
         console.log('clear', this);
-        $('calender-input input[type=text]').val('');
+        $('.calender-input input[type=text]').val('');
       });
 
       calender.on('slide', function(index){
