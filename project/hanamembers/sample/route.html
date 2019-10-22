@@ -125,8 +125,6 @@
               $('[data-route]').each(function(index){
                 object[$(this).data('route')] = this;
               });
-
-              console.log(object);
             },
             get: function(href){
               return object[href];
@@ -230,10 +228,6 @@
         }();
 
         $(function(){
-          map.set();
-        });
-
-        $(document).on('ready', function(event){
           map.set();
         });
 
