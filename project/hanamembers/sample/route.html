@@ -125,6 +125,8 @@
               $('[data-route]').each(function(index){
                 object[$(this).data('route')] = this;
               });
+
+              console.log(object);
             },
             get: function(href){
               return object[href];
@@ -158,6 +160,7 @@
             var elements = [map.get(history.get()), map.get(href)];
 
             if (layer.get()) layer.hide();
+
             if (href == history.get()) return;
 
             callback.before.call(elements[1]);
