@@ -38,45 +38,45 @@
   </header>
 
   <section data-route="/">
-    <artice>
+    <article>
       <iframe src="calender.html"></iframe>
-    </artice>
+    </article>
   </section>
 
   <section data-route="/page1">
-    <artice>
+    <article>
       <iframe src="mosaic.html"></iframe>
-    </artice>
+    </article>
   </section>
 
   <section data-route="/page2">
-    <artice>
+    <article>
       <iframe src="trickle.html"></iframe>
-    </artice>
+    </article>
   </section>
 
   <section data-route="/page3">
-    <artice>
+    <article>
       <iframe src="blind.html"></iframe>
-    </artice>
+    </article>
   </section>
 
   <section data-route="@popup1">
-    <artice>
+    <article>
       <p><a href="@popup1">close</a></p>
-    </artice>
+    </article>
   </section>
 
   <section data-route="@popup2">
-    <artice>
+    <article>
       <p><a href="@popup3">close</a></p>
-    </artice>
+    </article>
   </section>
 
   <section data-route="@popup3">
-    <artice>
+    <article>
       <p><a href="/">close</a></p>
-    </artice>
+    </article>
   </section>
 
   <style>
@@ -89,7 +89,7 @@
     section {overflow-x:hidden;overflow-y:auto;position:fixed;top:13.33vw;left:0;z-index:0;width:100%;height:calc(100% - 13.33vw);background-color:rgba(255, 255, 255, 1);}
     section[data-route='/'] {z-index:2;}
     section[data-route^='@'] {display:none;justify-content:center;align-items:center;top:0;height:100%;background-color:rgba(0, 0, 0, 0);}
-    section[data-route^='@'] article {overflow:auto;width:auto;min-width:50vw;min-height:50vw;max-width:100%;max-height:100%;border-radius:1.33vw;background-color:rgba(255, 255, 255, 1);box-shadow:rgba(0, 0, 0, 0.25);}
+    section[data-route^='@'] artice {overflow:auto;width:auto;min-width:50vw;min-height:50vw;max-width:100%;max-height:100%;border-radius:1.33vw;background-color:rgba(255, 255, 255, 1);box-shadow:rgba(0, 0, 0, 0.25);}
     h2 {margin:0;padding:4.00vw 2.67vw;font-size:3.20vw;}
     p {margin:0;padding:0 2.67vw;}
     iframe {position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
