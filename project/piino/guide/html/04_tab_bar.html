@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>텍스트</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+
+	<link rel="stylesheet" href="../lib/shCore.css">
+	<link rel="stylesheet" href="../lib/shCoreDefault.css">
+
+	<link rel="stylesheet" href="../css/guide.css">
+	<link rel="stylesheet" href="../css/style.css">
+
+	<script src="../lib/jquery-2.2.4.min.js"></script>
+	<script src="../lib/jquery-ui.min.js"></script>
+	<script src="../lib/shCore.js"></script>
+	<script src="../lib/shBrushCss.js"></script>
+	<script src="../lib/shBrushJScript.js"></script>
+	<script src="../lib/shBrushXml.js"></script>
+
+	<script src="../js/common.js"></script>
+</head>
+<body>
+	<h1>tab</h1>
+
+	<h2>Large</h2>
+	<div class="view">
+		<div class="tab">
+			<button class="tab-button active" style="width:50%">메뉴1</button>
+			<button class="tab-button" style="width:50%">메뉴2</button>
+		</div>
+	</div>
+	<pre class="brush:css">
+		<div class="tab">
+			<button class="tab-button active" style="width:50%">메뉴1</button>
+			<button class="tab-button" style="width:50%">메뉴2</button>
+		</div>
+	</pre>
+
+	<h2>Small</h2>
+	<div class="view">
+		<div class="tab tab-small">
+			<button class="tab-button active" style="width:10.6rem">메뉴1</button>
+			<button class="tab-button" style="width:10.6rem">메뉴2</button>
+			<button class="tab-button" style="width:10.6rem">메뉴3</button>
+		</div>
+	</div>
+	<pre class="brush:css">
+		<div class="tab tab-small">
+			<button class="tab-button active" style="width:10.6rem">메뉴1</button>
+			<button class="tab-button" style="width:10.6rem">메뉴2</button>
+			<button class="tab-button" style="width:10.6rem">메뉴3</button>
+		</div>
+	</pre>
+
+	<script>
+		(function(){
+			'use strict';
+
+			$(document).on('click', '.tab-button', function(event){
+				$(this).addClass('active').siblings().removeClass('active');
+			});
+		}());
+	</script>
+</body>
+</html>

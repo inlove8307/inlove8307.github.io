@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<title>텍스트</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+
+	<link rel="stylesheet" href="../lib/shCore.css">
+	<link rel="stylesheet" href="../lib/shCoreDefault.css">
+
+	<link rel="stylesheet" href="../css/guide.css">
+	<link rel="stylesheet" href="../css/style.css">
+
+	<script src="../lib/jquery-2.2.4.min.js"></script>
+	<script src="../lib/jquery-ui.min.js"></script>
+	<script src="../lib/shCore.js"></script>
+	<script src="../lib/shBrushCss.js"></script>
+	<script src="../lib/shBrushJScript.js"></script>
+	<script src="../lib/shBrushXml.js"></script>
+
+	<script src="../js/common.js"></script>
+</head>
+<body>
+	<h1>button</h1>
+
+	<h2>Large</h2>
+	<div class="view">
+		<div class="button">
+			<button class="button-01" style="width:100%" disabled="disabled">버튼명</button>
+		</div>
+		<hr>
+		<div class="button">
+			<button class="button-01" style="width:100%">버튼명</button>
+		</div>
+		<hr>
+		<div class="button">
+			<button class="button-02" style="width:50%" disabled="disabled">버튼명</button>
+			<button class="button-01" style="width:50%" disabled="disabled">버튼명</button>
+		</div>
+		<hr>
+		<div class="button">
+			<button class="button-02" style="width:50%">버튼명</button>
+			<button class="button-01" style="width:50%">버튼명</button>
+		</div>
+	</div>
+	<pre class="brush:css">
+		<div class="button">
+			<button class="button-01" style="width:100%" disabled="disabled">버튼명</button>
+		</div>
+		<div class="button">
+			<button class="button-01" style="width:100%">버튼명</button>
+		</div>
+		<div class="button">
+			<button class="button-02" style="width:50%" disabled="disabled">버튼명</button>
+			<button class="button-01" style="width:50%" disabled="disabled">버튼명</button>
+		</div>
+		<div class="button">
+			<button class="button-02" style="width:50%">버튼명</button>
+			<button class="button-01" style="width:50%">버튼명</button>
+		</div>
+	</pre>
+
+	<h2>medium</h2>
+	<div class="view">
+		<button class="button-03" style="width:29rem" disabled="disabled">버튼명</button>
+		<hr>
+		<button class="button-03" style="width:29rem">버튼명</button>
+		<hr>
+		<button class="button-04" style="width:15.5rem" disabled="disabled">버튼명</button>
+		<hr>
+		<button class="button-04" style="width:15.5rem">버튼명</button>
+	</div>
+	<pre class="brush:css">
+		<button class="button-03" style="width:29rem" disabled="disabled">버튼명</button>
+		<button class="button-03" style="width:29rem">버튼명</button>
+		<button class="button-04" style="width:15.5rem" disabled="disabled">버튼명</button>
+		<button class="button-04" style="width:15.5rem">버튼명</button>
+	</pre>
+
+	<h2>option</h2>
+	<div class="view">
+		<button class="button-05" style="width:18rem" disabled="disabled">버튼명</button>
+		<hr>
+		<button class="button-05" style="width:18rem">버튼명</button>
+		<hr>
+		<button class="button-06" style="width:10rem" disabled="disabled">버튼명</button>
+		<hr>
+		<button class="button-06" style="width:10rem">버튼명</button>
+		<hr>
+		<button class="button-07" style="width:7.5rem" disabled="disabled">버튼명</button>
+		<hr>
+		<button class="button-07" style="width:7.5rem">버튼명</button>
+	</div>
+	<pre class="brush:css">
+		<button class="button-05" style="width:18rem" disabled="disabled">버튼명</button>
+		<button class="button-05" style="width:18rem">버튼명</button>
+		<button class="button-06" style="width:10rem" disabled="disabled">버튼명</button>
+		<button class="button-06" style="width:10rem">버튼명</button>
+		<button class="button-07" style="width:7.5rem" disabled="disabled">버튼명</button>
+		<button class="button-07" style="width:7.5rem">버튼명</button>
+	</pre>
+
+	<h2>toggle</h2>
+	<div class="view">
+		<span class="toggle">
+			<label for="TOGGLE_01"><span>미사용</span></label>
+			<input type="checkbox" id="TOGGLE_01">
+		</span>
+	</div>
+	<pre class="brush:css">
+		<span class="toggle">
+			<label for="TOGGLE_01"><span>미사용</span></label>
+			<input type="checkbox" id="TOGGLE_01">
+		</span>
+	</pre>
+
+	<script>
+		$('.toggle input').on('change', function(event){
+			var $label = $(this).siblings('label')
+				, $span = $label.children();
+
+			if ($(this).prop('checked')) {
+				$span.animate({ left: $label.width() - $span.width() }, 200).text('사용');
+				$label.animate({ backgroundColor: 'rgb(80, 122, 255)', borderColor: 'rgb(80, 122, 255)' }, 200);
+			}
+			else {
+				$span.animate({ left: 0 }, 200).text('미사용');
+				$label.animate({ backgroundColor: 'rgb(178, 178, 178)', borderColor: 'rgb(178, 178, 178)' }, 200);
+			}
+		});
+	</script>
+</body>
+</html>

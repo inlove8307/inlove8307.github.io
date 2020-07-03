@@ -1,0 +1,32 @@
+/* BUTTON */
+.button {}
+.button::after {content:'';display:block;clear:both;}
+.button button,
+.button a {float:left;height:5.5rem;font-size:1.6rem;text-align:center;line-height:5.5rem;}
+.button-01 {background-color:rgb(80, 122, 255);color:rgb(255, 255, 255);}
+.button-01:disabled {background-color:rgb(232, 232, 232);color:rgb(136, 136, 136);}
+.button-01:active {background-color:rgb(47, 89, 224);color:rgb(255, 255, 255);}
+.button-02 {background-color:rgb(221, 221, 221);color:rgb(102, 102, 102);}
+.button-02:disabled {background-color:rgb(221, 221, 221);color:rgb(102, 102, 102);}
+.button-02:active {background-color:rgb(187, 187, 187);color:rgb(68, 68, 68);}
+.button-03 {height:4rem;border-radius:0.4rem;background-color:rgb(133, 157, 185);font-size:1.5rem;line-height:4rem;color:rgb(255, 255, 255);}
+.button-03:disabled {background-color:rgb(194, 206, 220);}
+.button-03:active {background-color:rgb(83, 114, 151);}
+.button-04 {height:4rem;border-radius:0.2rem;background-color:rgb(102, 102, 102);font-size:1.5rem;line-height:4rem;color:rgb(255, 255, 255);}
+.button-04:disabled {background-color:rgb(178, 178, 178);}
+.button-04:active {background-color:rgb(68, 68, 68);}
+.button-05 {height:4.5rem;background-color:rgb(80, 122, 255);font-size:1.5rem;line-height:4.5rem;color:rgb(255, 255, 255);}
+.button-05:disabled {background-color:rgb(167, 188, 255);}
+.button-05:active {background-color:rgb(47, 89, 224);}
+.button-06 {height:4rem;border-radius:0.4rem;background-color:rgb(80, 122, 255);font-size:1.5rem;line-height:4rem;color:rgb(255, 255, 255);}
+.button-06:disabled {background-color:rgb(167, 188, 255);}
+.button-06:active {background-color:rgb(47, 89, 224);}
+.button-07 {height:3.4rem;border:1px solid rgb(204, 204, 204);border-radius:0.2rem;background-color:rgb(255, 255, 255);font-size:1.3rem;line-height:3.4rem;color:rgb(102, 102, 102);}
+.button-07:disabled {color:rgb(188, 188, 188);}
+.button-07:active {background-color:rgb(204, 204, 204);}
+
+/* TOGGLE */
+.toggle {position:relative;display:block;}
+.toggle label {display:inline-block;position:relative;width:3.3rem;height:2.2rem;border:0.1rem solid rgb(178, 178, 178);border-radius:1.1rem;background-color:rgb(178, 178, 178);}
+.toggle span {position:absolute;top:0;left:0;width:2rem;height:2rem;border-radius:1rem;background-color:rgb(255, 255, 255);color:transparent;}
+.toggle input[type=checkbox] {position:absolute;top:0;left:0;z-index:0;width:0;height:0;}
