@@ -8,158 +8,181 @@
   <link rel="stylesheet" href="../lib/swiper.js/swiper-bundle.min.css">
 </head>
 <body>
-  <div class="swiper-container">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <div class="block-round">
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
+  <section class="container">
+    <header class="header">
+      <h1 class="header__title">TITLE</h1>
+    </header>
+    <div class="contents">
+      <div class="message">
+        <div class="message__inner">
+          <p class="message__text">
+            MESSAGE<br>
+            MESSAGE<br>
+            MESSAGE
+          </p>
         </div>
       </div>
-      <div class="swiper-slide">
-        <div class="block-round">
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="block-round">
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="block-round">
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
-          block<br>
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="block-round">
+              CONTENTS
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="block-round">
+              CONTENTS
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="block-round">
+              CONTENTS
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="block-round">
+              CONTENTS
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <style>
     html {
       height: 100%;
+      font-family: 'Noto Sans KR';
     }
     body {
       margin: 0;
       box-sizing: border-box;
-      padding: 15px;
       height: 100%;
       background-color: rgba(245, 245, 245, 1);
     }
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 55px;
+      background-color: rgba(255, 255, 255, 0);
+      color: rgba(255, 255, 255, 1);
+    }
+    .header__title {
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .contents {
+      margin-top: 55px;
+      height: calc(100% - 55px);
+    }
+    .message {
+      overflow: hidden;
+      margin-top: -55px;
+      padding: 55px 15px 0;
+      background-color: rgba(50, 100, 200, 1);
+    }
+    .message__inner {
+      margin-bottom: 55px;
+      padding: 20px 0;
+    }
+    .message__text {
+      margin: 0;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 1);
+    }
     .swiper-container {
-      margin-top: 100px;
+      margin-top: -55px;
+      padding: 0 15px;
       height: calc(100% - 100px);
     }
+    .swiper-slide {
+      transform-origin: 50% 0%;
+    }
     .block-round {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       box-sizing: border-box;
+      margin-bottom: 15px;
+      height: 50vh;
       padding: 15px;
       border-radius: 8px;
       background-color: rgba(255, 255, 255, 1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      font-size: 14px;
     }
   </style>
 
   <script src="../lib/jquery/jquery-3.5.1.min.js"></script>
+  <script src="../lib/gsap/gsap.min.js"></script>
   <script src="../lib/swiper.js/swiper-bundle.min.js"></script>
 
   <script>
     ;(function(){
       'use strict';
 
-      var interleaveOffset = 0.5;
+      var $header = $('.header');
+      var $title = $header.find('.header__title');
+      var $message = $('.message');
+      var $swiper = $('.swiper-container');
+      var $slides = $('.swiper-slide');
+      var messageHeight = $message.height();
+      var swiperHeight = $(window).height() - $message.outerHeight() + Math.abs(parseInt($swiper.css('margin-top')));
+
+      $swiper.height(swiperHeight);
+      $slides.last().height($swiper.height());
 
       new Swiper('.swiper-container', {
         direction: 'vertical',
-        slidesPerView: 'auto',
-        spaceBetween: 10,
         autoHeight: true,
-        parallax: true,
-        virtualTranslate: true,
+        slidesPerView: 'auto',
+        resistance: true,
+        resistanceRatio: 0,
         watchSlidesProgress: true,
+        virtualTranslate: true,
         on: {
-          progress: function(swiper, progress){
+          activeIndexChange: function(){
+            var swiper = this;
+            var margin = 15;
+
+            if (swiper.activeIndex) {
+              gsap.to($header, { 'background-color': 'rgba(255, 255, 255, 1)', 'box-shadow': '0px 4px 8px rgba(0, 0, 0, 0.05)' });
+              gsap.to($title, { 'color': 'rgba(0, 0, 0, 1)' });
+              gsap.to($message, { height: 0 });
+              gsap.to($swiper, { marginTop: `${ margin }px`, height: function(){
+                return $(window).height() - $header.height() - margin;
+              }});
+            }
+            else {
+              gsap.to($header, { 'background-color': 'rgba(255, 255, 255, 0)', 'box-shadow': '0px 4px 8px rgba(0, 0, 0, 0)' });
+              gsap.to($title, { 'color': 'rgba(255, 255, 255, 1)' });
+              gsap.to($message, { height: messageHeight });
+              gsap.to($swiper, { marginTop: '-55px', height: swiperHeight });
+            }
+          },
+          setTranslate: function(swiper, translate){
             var swiper = this;
             var slides = swiper.slides;
-            var isNext = swiper.swipeDirection === 'next';
+            var $slide;
+            var progress;
+            var scale;
 
-            for (var i = 0; i < slides.length; i += 1) {
-              var $slideEl = slides.eq(i);
-              var progress = $slideEl[0].progress;
-
-              progress = Math.max(Math.min($slideEl[0].progress, 1), -1);
+            for (var i = 0; i < slides.length; i++) {
+              $slide = slides.eq(i);
+              progress = Math.max(Math.min($slide[0].progress, 1), -1);
+              scale = Math.max(1 - Math.abs($slide[0].progress), 0.75);
 
               if (progress > 0) {
-                $slideEl.transform("translate3d(0px, " + -swiper.slidesGrid[i] + "px, 0px) scale(0.75)");
+                gsap.to($slide[0], { transform: `translateY(${ -swiper.slidesGrid[i] }px) scale(${ scale })` });
               }
               else {
-                $slideEl.transform("translate3d(0px, " + (isNext ? -swiper.slidesGrid[swiper.activeIndex+1] : -swiper.slidesGrid[swiper.activeIndex-1]) + "px, 0px) scale(1)");
+                gsap.to($slide[0], { transform: `translateY(${ translate }px) scale(${ 1 })` });
               }
-            }
-
-            console.log(swiper.activeIndex);
-          },
-          setTransition: function(swiper, transition) {
-            for (var i = 0; i < swiper.slides.length; i += 1) {
-              swiper.slides.eq(i).transition(300);
             }
           }
         }
