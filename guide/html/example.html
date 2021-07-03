@@ -147,7 +147,6 @@
       z-index: 1;
       margin: 0;
       padding: 16px;
-      box-sizing: border-box;
       width: 100%;
       border-radius: 8px;
       background-color: rgba(255, 255, 255, 1);
@@ -253,20 +252,23 @@
       // swiper.disable();
       // swiper.enable();
 
-      var containerHammer = new Hammer($container.get(0));
-      var listHammer = new Hammer($list.get(0));
+      var hammer = {
+        container: new Hammer($container.get(0)),
+        list: new Hammer($list.get(0))
+      }
 
-      containerHammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-      containerHammer.on('swipeup', function(){});
-      containerHammer.on('swipedown', function(){
+      hammer.container.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+      hammer.list.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+
+      hammer.container.on('swipedown', function(){
         gsap.to($list, { transform: `translate(0, ${ $list.outerHeight() }px)`, 'box-shadow': '0px -4px 8px rgba(0, 0, 0, 0)' });
       });
 
-      listHammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-      listHammer.on('swipeup', function(){
+      hammer.list.on('swipeup', function(){
         gsap.to($list, { transform: `translate(0, -${ $list.outerHeight() }px)`, 'box-shadow': '0px -4px 8px rgba(0, 0, 0, 0.05)' });
       });
-      listHammer.on('swipedown', function(){
+
+      hammer.list.on('swipedown', function(){
         gsap.to($list, { transform: `translate(0, -${ $header.height() }px)`, 'box-shadow': '0px -4px 8px rgba(0, 0, 0, 0.05)' });
       });
     }());
