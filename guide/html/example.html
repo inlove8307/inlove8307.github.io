@@ -135,7 +135,7 @@
       align-items: center;
       box-sizing: border-box;
       margin-bottom: 15px;
-      height: 65vh;
+      height: 60vh;
       padding: 15px;
       border-radius: 8px;
       background-color: rgba(255, 255, 255, 1);
@@ -236,14 +236,15 @@
               gsap.to($message, { height: messageHeight });
               gsap.to($swiper, { marginTop: '-55px', height: swiperHeight });
             }
-
-            if (swiper.activeIndex + 1 === swiper.slides.length) {
-              gsap.to($list, { transform: 'translate(0, -55px)', 'box-shadow': '0px -4px 8px rgba(0, 0, 0, 0.05)' });
-            }
           },
           slideChangeTransitionEnd: function(swiper){
             if (swiper.activeIndex + 1 === swiper.slides.length) {
               gsap.to($list, { transform: 'translate(0, -55px)', 'box-shadow': '0px -4px 8px rgba(0, 0, 0, 0.05)' });
+            }
+          },
+          beforeTransitionStart: function(){
+            if (swiper.activeIndex + 1 !== swiper.slides.length) {
+              gsap.to($list, { transform: `translate(0, ${ $list.outerHeight() }px)`, 'box-shadow': '0px -4px 8px rgba(0, 0, 0, 0.05)' });
             }
           }
         }
@@ -252,23 +253,15 @@
       // swiper.disable();
       // swiper.enable();
 
-      var hammer = {
-        container: new Hammer($container.get(0)),
-        list: new Hammer($list.get(0))
-      }
+      var hammer = new Hammer($list.get(0));
 
-      hammer.container.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-      hammer.list.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+      hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 
-      hammer.container.on('swipedown', function(){
-        gsap.to($list, { transform: `translate(0, ${ $list.outerHeight() }px)`, 'box-shadow': '0px -4px 8px rgba(0, 0, 0, 0)' });
-      });
-
-      hammer.list.on('swipeup', function(){
+      hammer.on('swipeup', function(){
         gsap.to($list, { transform: `translate(0, -${ $list.outerHeight() }px)`, 'box-shadow': '0px -4px 8px rgba(0, 0, 0, 0.05)' });
       });
 
-      hammer.list.on('swipedown', function(){
+      hammer.on('swipedown', function(){
         gsap.to($list, { transform: `translate(0, -${ $header.height() }px)`, 'box-shadow': '0px -4px 8px rgba(0, 0, 0, 0.05)' });
       });
     }());
