@@ -239,11 +239,15 @@
             }
           },
           slideChangeTransitionEnd: function(swiper){
+            var swiper = this;
+
             if (swiper.activeIndex + 1 === swiper.slides.length) {
               gsap.to($list, { transform: 'translate(0, -55px)', 'box-shadow': '0px -4px 8px rgba(0, 0, 0, 0.05)' });
             }
           },
           beforeTransitionStart: function(){
+            var swiper = this;
+
             if (swiper.activeIndex + 1 !== swiper.slides.length) {
               gsap.to($list, { transform: `translate(0, ${ $list.outerHeight() }px)`, 'box-shadow': '0px -4px 8px rgba(0, 0, 0, 0.05)' });
             }
