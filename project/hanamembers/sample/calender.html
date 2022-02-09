@@ -1,0 +1,397 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Expires" content="-1">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calender</title>
+
+  <link rel="stylesheet" href="/lib/normalize.css">
+  <link rel="stylesheet" href="/lib/animate.css">
+  <link rel="stylesheet" href="/lib/swiper.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/mediaquery.css">
+  <link rel="stylesheet" href="/css/font.css">
+
+  <script src="/lib/lodash.js"></script>
+  <script src="/lib/jquery-3.4.1.min.js"></script>
+  <script src="/lib/TweenMax.min.js"></script>
+  <script src="/lib/moment.min.js"></script>
+  <script src="/lib/swiper.js"></script>
+  <script src="/js/global.js?v=201908071726"></script>
+</head>
+<body>
+
+  <section class="container">
+    <artice class="wrapper">
+      <div class="calender-input">
+        <label for="DATE_START">
+          <span>시작일</span>
+          <input type="text" id="DATE_START" disabled>
+        </label>
+        <label for="DATE_END">
+          <span>종료일</span>
+          <input type="text" id="DATE_END" disabled>
+        </label>
+      </div>
+      <div class="calender-weeks">
+        <span>일</span>
+        <span>월</span>
+        <span>화</span>
+        <span>수</span>
+        <span>목</span>
+        <span>금</span>
+        <span>토</span>
+      </div>
+      <div class="calender-container">
+        <div class="calender swiper-container">
+          <ul class="swiper-wrapper">&nbsp;</ul>
+        </div>
+      </div>
+      <div class="selecter-input">
+        <label for="TIME_START">
+          <span>시작시간</span>
+          <input type="text" id="TIME_START">
+        </label>
+        <label for="TIME_END">
+          <span>종료시간</span>
+          <input type="text" id="TIME_END">
+        </label>
+      </div>
+    </artice>
+  </section>
+
+  <section class="selecter-container">
+    <article class="selecter">
+      <strong class="selecter-title">시간 선택</strong>
+      <div class="selecter-option">
+        <div class="swiper-container">
+          <ul class="swiper-wrapper">
+            <li class="swiper-slide" data-value="0"><button>오전</button></li>
+            <li class="swiper-slide" data-value="12"><button>오후</button></li>
+          </ul>
+        </div>
+        <div class="swiper-container">
+          <ul class="swiper-wrapper">
+            <li class="swiper-slide" data-value="1"><button>1시</button></li>
+            <li class="swiper-slide" data-value="2"><button>2시</button></li>
+            <li class="swiper-slide" data-value="3"><button>3시</button></li>
+            <li class="swiper-slide" data-value="4"><button>4시</button></li>
+            <li class="swiper-slide" data-value="5"><button>5시</button></li>
+            <li class="swiper-slide" data-value="6"><button>6시</button></li>
+            <li class="swiper-slide" data-value="7"><button>7시</button></li>
+            <li class="swiper-slide" data-value="8"><button>8시</button></li>
+            <li class="swiper-slide" data-value="9"><button>9시</button></li>
+            <li class="swiper-slide" data-value="10"><button>10시</button></li>
+            <li class="swiper-slide" data-value="11"><button>11시</button></li>
+            <li class="swiper-slide" data-value="12"><button>12시</button></li>
+          </ul>
+        </div>
+      </div>
+      <div class="selecter-button">
+        <button>취소</button>
+        <button>확인</button>
+      </div>
+    </article>
+  </section>
+
+  <style>
+    body {}
+    .container {}
+    .wrapper {}
+
+    /* CALENDER */
+    .calender-input {display:flex;padding:2vw 0;}
+    .calender-input label {flex:1;display:flex;flex-flow:column;padding-left:2vw;}
+    .calender-input label:last-child {padding-right:2vw;}
+    .calender-input span {padding-bottom:2vw;font-family:'NotoSans KR';font-weight:400;font-size:3.33vw;}
+    .calender-input input[type=text] {box-sizing:border-box;padding:1vw;width:100%;font-family:'NotoSans KR';font-weight:400;font-size:4.16vw;}
+    .calender-weeks {display:flex;border-top:1px solid rgba(235, 235, 235, 1);border-bottom:1px solid rgba(235, 235, 235, 1);}
+    .calender-weeks span {flex:1;display:flex;justify-content:center;align-items:center;height:10vw;font-family:'NotoSans KR';font-weight:400;font-size:3.33vw;}
+    .calender-container {overflow:hidden;height:105.68vw;border-bottom:1px solid rgba(235, 235, 235, 1);}
+    .calender {overflow:initial;height:95.68vw;}
+    .calender ul {margin:0;padding:0;}
+    .calender li {list-style:none;box-sizing:border-box;}
+    .calender strong {display:flex;justify-content:center;align-items:center;height:10vw;background-color:rgba(250, 250, 250, 1);font-family:'NotoSans KR';font-weight:400;font-size:4.16vw;}
+    .calender div {height:85.68vw;box-sizing:border-box;}
+    .calender div::after {content:'';display:block;clear:both;}
+    .calender button {position:relative;margin:0;padding:0;float:left;width:14.28vw;height:14.28vw;border:0;background-color:rgba(255, 255, 255, 1);font-family:'NotoSans KR';font-weight:400;font-size:3.33vw;color:rgba(0, 0, 0, 1);}
+    .calender button:disabled {color:rgba(0, 0, 0, 0.25);}
+    .calender button.weekend {color:rgba(255, 0, 0, 1);}
+    .calender button.weekend:disabled {color:rgba(255, 0, 0, 0.25);}
+    .calender button.today::after {content:'';position:absolute;top:3vw;left:50%;margin-left:-0.5vw;width:1vw;height:1vw;border-radius:100%;background-color:rgba(150, 150, 150, 1);}
+    .calender button.selected {background-color:rgba(245, 245, 245, 1);}
+    .calender button:focus {outline:none;}
+    /* SELECTER */
+    .selecter-input {display:flex;padding:2vw 0;}
+    .selecter-input label {flex:1;display:flex;flex-flow:column;padding-left:2vw;}
+    .selecter-input label:last-child {padding-right:2vw;}
+    .selecter-input span {padding-bottom:2vw;font-family:'NotoSans KR';font-weight:400;font-size:3.33vw;}
+    .selecter-input input[type=text] {box-sizing:border-box;padding:1vw;width:100%;font-family:'NotoSans KR';font-weight:400;font-size:4.16vw;}
+    .selecter-container {display:none;position:fixed;top:0;left:0;z-index:100;width:100%;height:100%;background-color:rgba(0, 0, 0, 0);}
+    .selecter {position:absolute;bottom:0;left:0;width:100%;background-color:rgba(255, 255, 255, 1);}
+    .selecter-title {display:flex;justify-content:center;align-items:center;box-sizing:border-box;height:10vw;border-bottom:0.28vw solid rgba(0, 0, 0, 0.15);background-color:rgba(0, 0, 0, 0.05);box-shadow:0 0 1.5vw rgba(0, 0, 0, 0.15);font-family:'NotoSans KR';font-weight:400;font-size:4.16vw;color:rgba(0, 0, 0, 1);}
+    .selecter-option {display:flex;position:relative;}
+    .selecter-option::after {content:'';position:absolute;top:50%;left:0;box-sizing:border-box;margin-top:-5vw;width:100%;height:10vw;border-top:0.28vw solid rgba(0, 0, 0, 0.025);border-bottom:0.28vw solid rgba(0, 0, 0, 0.025);background-color:rgba(0, 0, 0, 0.025);}
+    .selecter-option .swiper-container {flex:1;height:50vw;}
+    .selecter-option .swiper-wrapper {margin:0;padding:0;}
+    .selecter-option .swiper-slide {display:flex;justify-content:flex-start;align-items:center;box-sizing:border-box;padding:0 5vw;list-style:none;}
+    .selecter-option .swiper-container:nth-child(1) .swiper-slide {justify-content:flex-end;}
+    .selecter-option button {display:block;box-sizing:border-box;margin:0;padding:0;width:100%;height:100%;border:0;background-color:transparent;font-family:'NotoSans KR';font-weight:400;font-size:4.16vw;}
+    .selecter-option button:focus {outline:none;}
+    .selecter-button {display:flex;justify-content:flex-start;align-items:stretch;box-sizing:border-box;height:10vw;border-top:0.28vw solid rgba(0, 0, 0, 0.15);box-shadow:0 0 1.5vw rgba(0, 0, 0, 0.15);}
+    .selecter-button button {flex:1;position:relative;border:0;background-color:rgba(0, 0, 0, 0.05);font-family:'NotoSans KR';font-weight:400;font-size:4.16vw;color:rgba(0, 0, 0, 1);}
+    .selecter-button button::before {content:'';position:absolute;top:1.5vw;left:0;height:7vw;border-left:0.27vw solid rgba(0, 0, 0, 0.1);border-right:0.27vw solid rgba(255, 255, 255, 0.75);}
+    .selecter-button button:first-child::before {display:none;}
+  </style>
+
+  <script>
+    (function(){
+      'use strict';
+
+      // CALENDER
+      var calender = function(){
+        var $container = $('.calender-container')
+          , $buttons
+          , swiper
+          , format = 'YYYYMMDD'
+          , range = [moment().format('YYYYMM'), '202010']
+          , selected = []
+          , disabled
+          , callback = ['select', 'clear', 'slide'];
+
+        function getData(date, format){
+          var result = []
+            , object
+            , date = moment(date, format)
+            , endof = date.endOf('month').format('D');
+
+          while (result.length < endof) {
+            date = date.date(result.length + 1);
+
+            object = {};
+            object.date = date.format(format);
+            object.week = date.days();
+            object.weekend = [0, 6].indexOf(object.week) < 0 ? false : true;
+
+            result.push(object);
+          }
+
+          return result;
+        }
+
+        function getButton(data, format){
+          var result = []
+            , object
+            , date
+            , length
+            , $button;
+
+          while (result.length < data[0].week) {
+            result.push($('<button>', { disabled: true }));
+          }
+
+          while (data.length) {
+            object = data.shift();
+            date = moment(object.date, format);
+
+            $button = $('<button>');
+            $button.data('date', object.date);
+            $button.data('text', moment(object.date, format).format('YYYY.MM.DD'));
+            $button.text(date.format('D'));
+
+            if (date.isBefore(moment(), 'date')) $button.attr('disabled', true);
+            if (date.isSame(moment(), 'date')) $button.addClass('today');
+            if (object.weekend) $button.addClass('weekend');
+
+            result.push($button);
+          }
+
+          length = Math.ceil(result.length / 7) * 7;
+
+          while (length - result.length) {
+            result.push($('<button>', { disabled: true }));
+          }
+
+          return result;
+        }
+
+        function getSlide(range, format){
+          var result = []
+            , date = moment(range[0], format)
+            , diff = Math.abs(date.diff(moment(range[1], format), 'months'))
+            , buttons = []
+            , $slide;
+
+          while (result.length <= diff) {
+            $slide = $('<li>', { class: 'swiper-slide' });
+            $slide.append($('<strong>', { html: date.format('YYYY[년] MM[월]') }));
+            $slide.append($('<div>', { html: getButton(getData(date, format), format) }));
+            result.push($slide);
+            date = moment(date, format).add(1, 'M');
+          }
+
+          return result;
+        }
+
+        callback = function(array){
+          var result = {};
+
+          while (array.length) {
+            result[array.shift()] = function(){};
+          }
+
+          return result;
+        }(callback);
+
+        $container.find('.swiper-wrapper').html(getSlide(range, format));
+
+        swiper = new Swiper($container.find('.swiper-container'), {
+          direction: 'vertical',
+          on: {
+            slideChange: function(){
+              callback.slide.call(this, this.activeIndex);
+            }
+          }
+        });
+
+        $buttons = $container.find('button').filter(function(index){
+          if ($(this).data('date') && $(this).is(':not(:disabled)')) return this;
+        });
+
+        $buttons.on('click', function(event){
+          var limit;
+
+          if (selected[1]) {
+            $buttons.removeClass('selected');
+            selected = [];
+            callback.clear.call(this, selected);
+          }
+
+          $(this).addClass('selected');
+          selected.push($(this).data('date'));
+
+          limit = moment(selected[0], format).add(30, 'd').format(format);
+
+          disabled = $buttons.filter(function(index){
+            if ($(this).data('date') < selected[0] || $(this).data('date') > limit) return this;
+          }).attr('disabled', true);
+
+          if (selected[1]) {
+            $buttons.filter(function(index){
+              if ($(this).data('date') > selected[0] && $(this).data('date') < selected[1]) return this;
+            }).addClass('selected');
+
+            disabled.attr('disabled', false);
+          }
+
+          callback.select.call(this, selected);
+        });
+
+        return {
+          get: function(property){
+            switch (property) {
+              case 'swiper': return swiper;
+            }
+          },
+          on: function(property, fn){
+            callback[property] = fn;
+          }
+        }
+      }();
+
+      calender.on('select', function(selected){
+        console.log('select', this);
+        $('.calender-input input[type=text]').eq(selected.length-1).val($(this).data('text'));
+      });
+
+      calender.on('clear', function(selected){
+        console.log('clear', this);
+        $('.calender-input input[type=text]').val('');
+      });
+
+      calender.on('slide', function(index){
+        console.log('slide', this);
+      });
+    }());
+
+    (function(){
+      'use strict';
+
+      // SELECTER
+      var $input = $('.selecter-input input[type=text]')
+        , $button = $('.selecter-button button')
+        , $target
+        , selecter;
+
+      selecter = function(){
+        var $container = $('.selecter-container')
+          , $selecter = $('.selecter')
+          , $button = $('.selecter-option button')
+          , swiper;
+
+        $button.on('click', function(event){
+          swiper[$(this).closest('.swiper-container').index()].slideTo($(this).closest('.swiper-slide').index());
+        });
+
+        return {
+          show: function(speed){
+            function callback(){
+              if (swiper) return;
+
+              swiper = new Swiper($container.find('.swiper-container'), {
+                direction: 'vertical',
+                slidesPerView: 5,
+                centeredSlides: true
+              });
+            }
+
+            TweenMax.fromTo($container, speed || 0.5, { display: 'block', 'background-color': 'rgba(0, 0, 0, 0)', onComplete: callback }, { 'background-color': 'rgba(0, 0, 0, 0.5)', ease: Power4.easeIn });
+            TweenMax.fromTo($selecter, speed || 0.5, { bottom: $selecter.height() * -1 }, { bottom: 0, ease: Power4.easeIn });
+          },
+          hide: function(speed){
+            function callback(){
+              $(this.target).hide();
+            }
+
+            TweenMax.to($container, speed || 0.5, { 'background-color': 'rgba(0, 0, 0, 0)', ease: Power4.easeOut, onComplete: callback });
+            TweenMax.to($selecter, speed || 0.5, { bottom: $selecter.height() * -1, ease: Power4.easeOut });
+          },
+          get: function(property){
+            var object = {
+              selected: function(){
+                var result = [];
+
+                while (result.length < swiper.length) {
+                  result.push(swiper[result.length].slides[swiper[result.length].activeIndex]);
+                  swiper[result.length - 1].slideTo(0);
+                }
+
+                return result;
+              }
+            };
+
+            return object[property]();
+          }
+        }
+      }();
+
+      $input.on('focus', function(event){
+        $target = $(this).blur();
+        selecter.show(0.25);
+      });
+
+      $button.on('click', function(event){
+        var selected = selecter.get('selected');
+
+        if ($(this).index()) {
+          $target.val([$(selected[0]).text(), $(selected[1]).text()].join(' '));
+        }
+
+        selecter.hide(0.25);
+      });
+    }());
+  </script>
+</body>
+</html>

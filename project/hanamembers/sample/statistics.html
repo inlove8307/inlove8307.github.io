@@ -1,0 +1,335 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Expires" content="-1">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statistics</title>
+
+  <link rel="stylesheet" href="/lib/normalize.css">
+  <link rel="stylesheet" href="/lib/animate.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/mediaquery.css">
+  <link rel="stylesheet" href="/css/font.css">
+
+  <script src="/lib/lodash.js"></script>
+  <script src="/lib/jquery-3.4.1.min.js"></script>
+  <script src="/lib/TweenMax.min.js"></script>
+  <script src="/js/global.js?v=201908071726"></script>
+</head>
+<body>
+
+  <section class="container">
+    <artice class="wrapper">
+      <div class="steps">
+        <span class="all" data-steps="5000">
+          <span class="text">동일연령/성별 평균<br><em>0 걸음</em></span>
+        </span>
+        <span class="user" data-steps="6000">
+          <span class="text">나의 일평균<br><em>0 걸음</em></span>
+        </span>
+      </div>
+      <div class="graph">
+        <ul>&nbsp;</ul>
+        <del>&nbsp;</del>
+      </div>
+    </artice>
+    <div class="buttons">
+      <button class="play">PLAY</button>
+    </div>
+  </section>
+
+  <style>
+    body {
+      background-color: rgba(240, 241, 245, 1);
+    }
+    .container {}
+    .wrapper {
+      display: block;
+      position: relative;
+      margin: 0 auto;
+      width: 83.33vw;
+      height: 55.18vw;
+    }
+    .steps {
+      position: absolute;
+      bottom: 1.66vw;
+      right: 0;
+      z-index: 1;
+      transform-origin: 100% 100%;
+    }
+    .steps .all {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 30.55vw;
+      height: 12.96vw;
+      transform-origin: 0 100%;
+    }
+    .steps .all .text {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      font-family: 'Noto Sans KR';
+      font-size: 3.61vw;
+      line-height: 1.2;
+      letter-spacing: -0.18vw;
+      color: rgba(0, 0, 0, 1);
+    }
+    .steps .all .text em {
+      font-style: normal;
+    }
+    .steps .all::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      border: 0.37vw solid rgba(0, 146, 143, 1);
+      border-radius: 0.55vw;
+      background-color: rgba(255, 255, 255, 1);
+    }
+    .steps .user {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 23.14vw;
+      height: 12.96vw;
+      transform-origin: 0 100%;
+    }
+    .steps .user .text {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      font-family: 'Noto Sans KR';
+      font-size: 3.61vw;
+      line-height: 1.2;
+      letter-spacing: -0.18vw;
+      color: rgba(0, 0, 0, 1);
+    }
+    .steps .user .text em {
+      font-style: normal;
+    }
+    .steps .user::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      border: 0.37vw solid rgba(237, 15, 102, 1);
+      border-radius: 0.55vw;
+      background-color: rgba(255, 255, 255, 1);
+    }
+    .steps .reverse::before {
+      left: -100%;
+      transform: rotateY(180deg);
+    }
+    .steps .reverse .text {
+      left: -100%;
+    }
+    .graph {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 20.37vw;
+    }
+    .graph::before {
+      content: '0';
+      position: absolute;
+      bottom: -3.51vw;
+      left: -0.55vw;
+      z-index: 1;
+      font-family: 'Noto Sans KR';
+      font-size: 2.68vw;
+      color: rgba(0, 0, 0, 1);
+    }
+    .graph::after {
+      content: '10,000';
+      position: absolute;
+      bottom: -3.51vw;
+      right: -3.88vw;
+      z-index: 1;
+      font-family: 'Noto Sans KR';
+      font-size: 2.68vw;
+      color: rgba(0, 0, 0, 1);
+    }
+    .graph ul {
+      display: flex;
+      align-items: flex-end;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .graph li {
+      position: relative;
+      height: 100%;
+      background-color: rgba(212, 214, 223, 1);
+      list-style: none;
+    }
+    .graph li::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 1px;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 1);
+    }
+    .graph li:last-child::after {
+      width: 0;
+    }
+    .graph li.all {
+      background-color: rgba(106, 151, 153, 1);
+    }
+    .graph li.user {
+      background-color: rgba(225, 114, 162, 1);
+    }
+    .graph del {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      height: 100%;
+      background-color: rgba(240, 241, 245, 1);
+      transform-origin: 100% 100%;
+      text-decoration: none;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 5vw;
+    }
+    .buttons .play {
+      width: 20vw;
+      height: 20vw;
+      border: 0;
+      border-radius: 100%;
+      background-color: rgba(0, 0, 0, 1);
+      font-family: 'Noto Sans KR';
+      font-weight: 400;
+      font-size: 3.12vw;
+      color: rgba(255, 255, 255, 1);
+    }
+    .buttons .play:disabled {
+      background-color: rgba(0, 0, 0, 0.25);
+    }
+  </style>
+
+  <script>
+    (function(){
+      'use strict';
+
+      var $steps = $('.steps')
+        , $all = $steps.find('.all')
+        , $user = $steps.find('.user')
+        , $graph = $('.graph ul')
+        , angle = Math.atan2($graph.height(), $graph.width()) * 180 / Math.PI
+        , diagonal = [Math.sqrt(Math.pow($graph.width(), 2) + Math.pow($graph.height(), 2)) / $graph.width() * 100, '%'].join('')
+        , slice = 20
+        , speed = 5
+        , array = []
+        , count = [{ value: 0 }, { value: 0 }]
+        , offset;
+
+      offset = (function($all, $user){
+        var object = { all: {}, user: {} };
+
+        return {
+          get: function(){
+            object.all.left = Math.ceil($all.offset().left);
+            object.all.right = object.all.left + Math.ceil($all.width());
+            object.user.left = Math.ceil($user.offset().left);
+            object.user.right = object.user.left + Math.ceil($user.width());
+
+            return object;
+          }
+        }
+      }($all, $user));
+
+      while (array.length < slice) {
+        array.push($('<li>', { css: { width: [100 / slice, '%'].join('') }}));
+      }
+
+      $steps.css({ width: diagonal, transform: ['rotate(', angle, 'deg)'].join('') });
+      $all.css({ left: [$all.data('steps') / 10000 * 100, '%'].join(''), transform: ['rotate(', -angle ,'deg)'].join('') });
+      $user.css({ transform: ['rotate(', -angle ,'deg)'].join('') });
+      $graph.html(array).next('del').css({ width: diagonal, transform: ['rotate(', angle, 'deg)'].join('') });
+
+      $.each($graph.find('li'), function(index){
+        var o = offset.get();
+
+        o.bar = $(this).offset();
+
+        if (o.all.left > o.bar.left && o.all.left < o.bar.left + $(this).width()) {
+          $(this).addClass('all');
+        }
+      });
+
+      $('.play').on('click', function(event){
+        var t = this;
+
+        count = [{ value: 0 }, { value: 0 }];
+        $all.removeClass('reverse');
+        $user.removeClass('reverse').css('left', 0).data('steps', Math.ceil(Math.random() * 10000));
+
+        $(t).prop('disabled', true);
+
+        TweenMax.to(count[0], speed, { value: $all.data('steps'), onUpdate: function(){
+          $all.find('.text em').text([ROOT.string.price(Math.ceil(count[0].value)), '걸음'].join(' '));
+        }});
+
+        TweenMax.to(count[1], speed, { value: $user.data('steps'), onUpdate: function(){
+          $user.find('.text em').text([ROOT.string.price(Math.ceil(count[1].value)), '걸음'].join(' '));
+        }});
+
+        TweenMax.to($user, speed, { left: [$user.data('steps') / 10000 * 100, '%'].join(''), ease: Power2.easeOut, onUpdate: function(){
+          var o = offset.get();
+
+          $.each($graph.find('li'), function(index){
+            o.bar = $(this).offset();
+
+            if (o.user.left > o.bar.left && o.user.left < o.bar.left + $(this).width()) {
+              $(this).addClass('user').siblings().removeClass('user');
+            }
+          });
+
+          if (o.user.right >= o.all.left) {
+            $user.addClass('reverse');
+          }
+
+          if (o.user.left >= o.all.left) {
+            $user.removeClass('reverse');
+            $all.addClass('reverse');
+          }
+
+          if (o.user.right >= $(window).width()) {
+            $user.addClass('reverse');
+          }
+        }, onComplete: function(){
+          $(t).prop('disabled', false);
+        }});
+      });
+    }());
+  </script>
+</body>
+</html>

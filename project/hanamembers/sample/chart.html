@@ -1,0 +1,169 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chart</title>
+
+  <link rel="stylesheet" href="/lib/normalize.css">
+  <link rel="stylesheet" href="/lib/animate.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/mediaquery.css">
+  <link rel="stylesheet" href="/css/font.css">
+
+  <script src="/lib/lodash.js"></script>
+  <script src="/lib/jquery-3.4.1.min.js"></script>
+  <script src="/lib/TweenMax.min.js"></script>
+</head>
+<body>
+
+  <div class="container"></div>
+
+  <style>
+    .container {
+      overflow: hidden;
+      display: flex;
+      flex-flow: column wrap;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100%;
+    }
+    .chart::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      border: 0.46vw solid rgb(0, 0, 0);
+      border-radius: 100%;
+      box-shadow: 0 0 1.56vw rgb(102, 102, 102);
+    }
+    .chart::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 9999;
+      box-sizing: border-box;
+      margin: -25% 0 0 -25%;
+      width: 50%;
+      height: 50%;
+      border: 0.46vw solid rgb(0, 0, 0);
+      border-radius: 100%;
+      background-color: rgb(255, 255, 255);
+      box-shadow: inset 0 0 1.56vw rgb(102, 102, 102);
+    }
+  </style>
+
+  <script>
+    (function(){
+      'use strict';
+
+      var Chart = function(options){
+        var config, angle, circle, rotate,
+          ease = [['Power0', 'Power1', 'Power2', 'Power3', 'Power4', 'Back', 'Bounce', 'Elastic', 'SlowMo', 'Circ', 'Expo', 'Sine'], ['easeOut', 'easeIn', 'easeNone']];
+
+        config = {
+          target: options.target,
+          id: options.id || '',
+          class: options.class || '',
+          count: options.count && options.count >= 3 ? options.count : 3,
+          width: options.width || 50,
+          interval: options.interval || 1,
+          ease: options.ease && ease[0].indexOf(options.ease.split('.')[0]) > -1 && ease[1].indexOf(options.ease.split('.')[1]) > -1 ? options.ease : [ease[0][0], ease[1][0]].join('.')
+        };
+
+        function getRandom(number){
+          return Math.floor(Math.random()*number);
+        }
+
+        function getColor(){
+          return' rgb('+getRandom(256)+', '+getRandom(256)+', '+getRandom(256)+')';
+        }
+
+        function createCircle(width, id, klass){
+          return $('<div>', {
+            id: id,
+            class: klass,
+            css: {
+              position: 'relative',
+              width: width+'vw',
+              height: width+'vw',
+              'border-radius': '100%'
+            }
+          });
+        }
+
+        function createSlice(count, width, angle){
+          var result = [], index = 0;
+
+          while(index<count){
+            result.push($('<div>', { css: {
+              position: 'absolute',
+              'z-index': count-index,
+              width: '100%',
+              height: '100%',
+              clip: 'rect(0, '+width+'vw, '+width+'vw, '+width/2+'vw)',
+              transform: 'rotate('+angle*index+'deg)'
+            }}));
+
+            result[index].append(createFill(width, angle));
+
+            index++;
+          }
+
+          return result;
+        }
+
+        function createFill(width, angle){
+          var random = getRandom(angle)+angle;
+
+          return $('<div>', { css: {
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            'border-radius': '100%',
+            'background-color': getColor(),
+            clip: 'rect(0, '+width/2+'vw, '+width+'vw, 0)',
+            transform: 'rotate('+(random<180 ? random : angle)+'deg)'
+          }});
+        }
+
+        function rotateFill(circle, count, angle, interval, ease){
+          return setInterval(function(){
+            var $target = circle.children().eq(getRandom(count)).children(),
+              random = getRandom(angle)+angle,
+              color = $target.css('background-color');
+
+            new TweenMax.to($target, interval, { transform: 'rotate('+(random<180 ? random : angle)+'deg)', ease: ease });
+          }, interval*1000);
+        }
+
+        circle = createCircle(config.width, config.id, config.class);
+        angle = 360/config.count;
+
+        $(options.target).append(circle.append(createSlice(config.count, config.width, angle)));
+        rotateFill(circle, config.count, angle, config.interval, config.ease);
+      }
+
+      var chart = new Chart({
+        target: '.container',
+        id: 'chart',
+        class: 'chart',
+        count: 5,
+        width: 50,
+        interval: 1,
+        ease: 'Power4.easeOut'
+      });
+    }())
+  </script>
+
+</body>
+</html>

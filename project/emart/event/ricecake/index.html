@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>EVENT</title>
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/howler.min.js"></script>
+</head>
+<body>
+    <div class="game-wrap">
+        <div class="game-inner">
+            <img src="assets/image/img_game.png" alt="">
+            <div class="score-wrap">
+                <span class="score-inner">
+                    <span class="score-text">&nbsp;</span>
+                </span>
+            </div>
+            <div class="time-wrap">
+                <span class="time-inner">
+                    <span class="time-line">
+                        <span class="time-line-inner">&nbsp;</span>
+                    </span>
+                    <span class="time-text">&nbsp;</span>
+                </span>
+            </div>
+            <div class="list-wrap">
+                <span class="list-inner">
+                    <span class="list-item C01" data-code="C01"><img src="assets/image/img_list_item_01.png" alt=""></span>
+                    <span class="list-item C02" data-code="C02"><img src="assets/image/img_list_item_02.png" alt=""></span>
+                    <span class="list-item C03" data-code="C03"><img src="assets/image/img_list_item_03.png" alt=""></span>
+                    <span class="list-item C04" data-code="C04"><img src="assets/image/img_list_item_04.png" alt=""></span>
+                    <span class="list-item C05" data-code="C05"><img src="assets/image/img_list_item_05.png" alt=""></span>
+                    <span class="list-item C06" data-code="C06"><img src="assets/image/img_list_item_06.png" alt=""></span>
+                </span>
+            </div>
+            <div class="view-wrap">
+                <span class="view-inner">
+                    <span class="view-item C00"><img src="assets/image/img_view_item_00.png" alt=""></span>
+                    <span class="view-item C01"><img src="assets/image/img_view_item_01.png" alt=""></span>
+                    <span class="view-item C02"><img src="assets/image/img_view_item_02.png" alt=""></span>
+                    <span class="view-item C03"><img src="assets/image/img_view_item_03.png" alt=""></span>
+                    <span class="view-item C04"><img src="assets/image/img_view_item_04.png" alt=""></span>
+                    <span class="view-item C05"><img src="assets/image/img_view_item_05.png" alt=""></span>
+                    <span class="view-item C06"><img src="assets/image/img_view_item_06.png" alt=""></span>
+                    <span class="view-item C07"><img src="assets/image/img_view_item_07.png" alt=""></span>
+                </span>
+            </div>
+        </div>
+        <div class="ctlr-wrap">
+            <span class="ctlr-inner">
+                <button type="button" class="ctlr-item C01" data-code="C01">
+                    <img src="assets/image/img_ctlr_item_01_off.png" alt="">
+                    <img src="assets/image/img_ctlr_item_01_on.png" alt="">
+                </button>
+                <button type="button" class="ctlr-item C02" data-code="C02">
+                    <img src="assets/image/img_ctlr_item_02_off.png" alt="">
+                    <img src="assets/image/img_ctlr_item_02_on.png" alt="">
+                </button>
+                <button type="button" class="ctlr-item C03" data-code="C03">
+                    <img src="assets/image/img_ctlr_item_03_off.png" alt="">
+                    <img src="assets/image/img_ctlr_item_03_on.png" alt="">
+                </button>
+                <button type="button" class="ctlr-item C04" data-code="C04">
+                    <img src="assets/image/img_ctlr_item_04_off.png" alt="">
+                    <img src="assets/image/img_ctlr_item_04_on.png" alt="">
+                </button>
+                <button type="button" class="ctlr-item C05" data-code="C05">
+                    <img src="assets/image/img_ctlr_item_05_off.png" alt="">
+                    <img src="assets/image/img_ctlr_item_05_on.png" alt="">
+                </button>
+                <button type="button" class="ctlr-item C06" data-code="C06">
+                    <img src="assets/image/img_ctlr_item_06_off.png" alt="">
+                    <img src="assets/image/img_ctlr_item_06_on.png" alt="">
+                </button>
+            </span>
+        </div>
+        <div class="layer-wrap" data-item="load">
+            <div class="layer-modal">&nbsp;</div>
+            <div class="layer-item load">
+                <img src="assets/image/img_logo.gif" alt="">
+            </div>
+            <div class="layer-item init">TOUCH</div>
+            <div class="layer-item count">
+                <img src="assets/image/img_count_item_00.png" alt="">
+                <img src="assets/image/img_count_item_01.png" alt="">
+                <img src="assets/image/img_count_item_02.png" alt="">
+                <img src="assets/image/img_count_item_03.png" alt="">
+            </div>
+            <div class="layer-item delay">DELAY</div>
+            <div class="layer-item close">CONFIRM</div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Expires" content="-1">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Counter</title>
+
+  <link rel="stylesheet" href="/lib/normalize.css">
+  <link rel="stylesheet" href="/lib/animate.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/mediaquery.css">
+  <link rel="stylesheet" href="/css/font.css">
+
+  <script src="/lib/lodash.js"></script>
+  <script src="/lib/jquery-3.4.1.min.js"></script>
+  <script src="/lib/TweenMax.min.js"></script>
+  <script src="/js/global.js?v=201908051429"></script>
+</head>
+<body>
+
+  <section class="container">
+    <button class="counter">$ <span class="price">0</span></button>
+  </section>
+
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+    }
+    .counter {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      width: 35vw;
+      height: 35vw;
+      border: 0;
+      border-radius: 100%;
+      background-color: rgba(0, 0, 0, 1);
+      box-shadow: 0 0 2.77vw rgba(0, 0, 0, 1);
+      font-family: 'Noto Sans KR';
+      font-weight: 400;
+      font-size: 3.47vw;
+      letter-spacing: -0.13vw;
+      color: rgba(255, 255, 255, 1);
+    }
+    .counter::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      box-sizing: border-box;
+      margin: -47% 0 0 -47%;
+      width: 94%;
+      height: 94%;
+      border: 0.27vw solid rgba(255, 255, 255, 0.5);
+      border-radius: 100%;
+      background-color: transparent;
+    }
+    .counter:focus {
+      outline: none;
+    }
+  </style>
+
+  <script>
+    (function(){
+      'use strict';
+
+      ROOT.console.log(['log', 'counter', 'init'].join(' | '));
+
+      $('.counter').on('click', function(){
+        var t = this
+          , price = Math.floor(Math.random() * ROOT.string.pad(1, 0, Math.floor(Math.random() * 10), true));
+
+        if (!price) return $(t).trigger('click');
+
+        ROOT.console.log(['log', 'counter', 'price', ROOT.string.price(price)].join(' | '));
+
+        $(t).prop('disabled', true);
+
+        ROOT.counter(price, 0.05, function(args){
+          $('.price').text(ROOT.string.price(args.count));
+
+          if (args.complete) {
+            TweenMax.to($('.counter'), args.speed, { width: '35vw', height: '35vw' });
+            $(t).prop('disabled', false);
+          }
+          else TweenMax.fromTo($('.counter'), (Math.random() * (args.speed * 10)).toFixed(3), { width: '35vw', height: '35vw' }, { width: '40vw', height: '40vw' });
+        }).play();
+      });
+
+      /*
+      ROOT.console.log(['log', 'location.parameters', ROOT.json.set(ROOT.location.parameters)].join(' | '));
+
+      ROOT.observer.set('counter', function(observer){
+        var index = -1;
+
+        while (++index < observer.length) {
+          ROOT.console.log(['log', 'observer', index, observer[index].target.textContent].join(' | '));
+        }
+      });
+
+      ROOT.observer.add('counter', $('.price').get());
+      */
+
+      ROOT.console.add();
+    }());
+  </script>
+</body>
+</html>

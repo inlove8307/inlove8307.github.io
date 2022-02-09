@@ -1,0 +1,271 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Expires" content="-1">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Route</title>
+
+  <link rel="stylesheet" href="/lib/normalize.css">
+  <link rel="stylesheet" href="/lib/animate.css">
+  <link rel="stylesheet" href="/lib/swiper.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/mediaquery.css">
+  <link rel="stylesheet" href="/css/font.css">
+
+  <script src="/lib/lodash.js"></script>
+  <script src="/lib/jquery-3.4.1.min.js"></script>
+  <script src="/lib/TweenMax.min.js"></script>
+  <script src="/lib/moment.min.js"></script>
+  <script src="/lib/swiper.js"></script>
+  <script src="/js/global.js?v=201908071726"></script>
+</head>
+<body>
+
+  <header>
+    <h1>
+      <a href="/">TITLE</a>
+    </h1>
+    <menu>
+      <a href="/page1">PAGE1</a>
+      <a href="/page2">PAGE2</a>
+      <a href="/page3">PAGE3</a>
+      <a href="@popup1">POPUP1</a>
+      <button id="prev">PREV</button>
+      <button id="next">NEXT</button>
+    </menu>
+  </header>
+
+  <section data-route="/">
+    <article>
+      <iframe src="calender.html"></iframe>
+    </article>
+  </section>
+
+  <section data-route="/page1">
+    <article>
+      <iframe src="mosaic.html"></iframe>
+    </article>
+  </section>
+
+  <section data-route="/page2">
+    <article>
+      <iframe src="trickle.html"></iframe>
+    </article>
+  </section>
+
+  <section data-route="/page3">
+    <article>
+      <iframe src="blind.html"></iframe>
+    </article>
+  </section>
+
+  <section data-route="@popup1">
+    <article>
+      <p><a href="@popup1">close</a></p>
+    </article>
+  </section>
+
+  <section data-route="@popup2">
+    <article>
+      <p><a href="@popup3">close</a></p>
+    </article>
+  </section>
+
+  <section data-route="@popup3">
+    <article>
+      <p><a href="/">close</a></p>
+    </article>
+  </section>
+
+  <style>
+    html {font-family:'Noto Sans KR';font-size:3.20vw;}
+    header {display:flex;align-items:stretch;position:fixed;top:0;left:0;z-index:3;width:100%;height:13.33vw;border-bottom:0.27vw solid rgba(50, 50, 50, 0.25);background-color:rgba(255, 255, 255, 1);box-shadow:0 0 1.33vw rgba(50, 50, 50, 0.25);}
+    h1 {margin:0;padding:0 2.67vw;font-size:3.20vw;}
+    h1 a {display:flex;align-items:center;margin:0;padding:0;width:100%;height:100%;}
+    menu {flex:1;display:flex;justify-content:flex-end;margin:0;padding:0 2.67vw;}
+    menu a,
+    menu button {display:flex;justify-content:center;align-items:center;margin:0 0 0 1.33vw;padding:0;border:0;background-color:transparent;color:rgba(0, 0, 0, 1);text-decoration:none;}
+    section {overflow-x:hidden;overflow-y:auto;position:fixed;top:13.33vw;left:0;z-index:0;width:100%;height:calc(100% - 13.33vw);background-color:rgba(255, 255, 255, 1);}
+    section[data-route='/'] {z-index:2;}
+    section[data-route^='@'] {display:none;justify-content:center;align-items:center;top:0;height:100%;background-color:rgba(0, 0, 0, 0);}
+    section[data-route^='@'] article {overflow:auto;width:auto;min-width:50vw;min-height:50vw;max-width:100%;max-height:100%;border-radius:1.33vw;background-color:rgba(255, 255, 255, 1);box-shadow:rgba(0, 0, 0, 0.25);}
+    h2 {margin:0;padding:4.00vw 2.67vw;font-size:3.20vw;}
+    p {margin:0;padding:0 2.67vw;}
+    iframe {position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+  </style>
+
+  <script>
+    (function(){
+      'use strict';
+
+      var route;
+
+      route = function(){
+        var prefix = { root: '/', layer: '@' }
+          , callback = ['before', 'after']
+          , map, history, view, layer;
+
+        callback = function(array){
+          var result = {};
+
+          while (array.length) {
+            result[array.shift()] = function(){};
+          }
+
+          return result;
+        }(callback);
+
+        map = function(){
+          var object = {};
+
+          $(function(){
+            $('[data-route]').each(function(index){
+              object[$(this).data('route')] = this;
+            });
+          });
+
+          return {
+            get: function(href){
+              return object[href];
+            }
+          }
+        }();
+
+        history = function(){
+          var array = [prefix.root]
+            , index = 0;
+
+          return {
+            get: function(number){
+              return array[index + (number ? number : 0)];
+            },
+            set: function(number){
+              index = index + number;
+            },
+            add: function(href){
+              array.splice(index + 1);
+              array.push(href);
+              index++;
+            }
+          }
+        }();
+
+        view = function(){
+          var speed = 0.25;
+
+          function move(href, number){
+            var elements = [map.get(history.get()), map.get(href)];
+
+            if (layer.get()) layer.hide();
+
+            if (href == history.get()) return;
+
+            callback.before.call(elements[1]);
+
+            TweenMax.fromTo(elements[0], speed, { 'z-index': 1, y: 0 }, { y: -$(window).height(), ease: Power4.easeOut, onComplete: function(){
+              $(this.target).css('z-index', 0);
+            }});
+
+            TweenMax.fromTo(elements[1], speed, { 'z-index': 2, y: $(window).height() }, { y: 0, ease: Power4.easeOut, onComplete: function(){
+              callback.after.call(this.target);
+            }});
+
+            isNaN(number) ? history.add(href) : history.set(number);
+          }
+
+          return {
+            move: move,
+            prev: function(){
+              var href = history.get(-1);
+
+              if (href) move(href, -1);
+            },
+            next: function(){
+              var href = history.get(1);
+
+              if (href) move(href, 1);
+            }
+          }
+        }();
+
+        layer = function(){
+          var speed = 0.25
+            , element;
+
+          function show(href){
+            if (element) return $(element).data('route') == href ? this.hide() : this.hide(href);
+
+            element = map.get(href);
+            callback.before.call(element);
+
+            TweenMax.fromTo(element, speed, { display: 'flex', 'z-index': 100, 'background-color': 'rgba(0, 0, 0, 0)' }, { 'background-color': 'rgba(0, 0, 0, 0.5)', ease: Power4.easeOut });
+            TweenMax.fromTo($(element).children(), speed, { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, ease: Power4.easeOut, onComplete: function(){
+              callback.after.call(element);
+            }});
+          }
+
+          function hide(href){
+            callback.before.call(element);
+
+            TweenMax.to($(element).children(), speed, { opacity: 0, ease: Power4.easeOut });
+            TweenMax.to(element, speed, { 'background-color': 'rgba(0, 0, 0, 0)', onComplete: function(){
+              $(element).css({ display: 'none', 'z-index': 0 });
+              callback.after.call(element);
+              element = null;
+
+              if (href) show(href);
+            }});
+          }
+
+          return {
+            show: show,
+            hide: hide,
+            get: function(){
+              return element;
+            }
+          }
+        }();
+
+        $(document).on('click', 'a', function(event){
+          var href = $(this).attr('href');
+
+          if (!map.get(href)) return;
+
+          switch (href[0]) {
+            case prefix.root: view.move(href); break;
+            case prefix.layer: layer.show(href); break;
+          }
+
+          event.preventDefault();
+        });
+
+        return {
+          view: view,
+          layer: layer,
+          on: function(property, fn){
+            callback[property] = fn;
+          }
+        }
+      }();
+
+      route.on('before', function(){
+        console.log('callback.before', this);
+      });
+
+      route.on('after', function(){
+        console.log('callback.after', this);
+      });
+
+      $('#prev').on('click', function(){
+        route.view.prev();
+      });
+
+      $('#next').on('click', function(){
+        route.view.next();
+      });
+    }());
+  </script>
+</body>
+</html>

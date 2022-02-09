@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <!-- infomation -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, user-scalable=no">
+        <title>이벤트</title>
+
+        <!-- import stylesheet -->
+        <link rel="stylesheet" href="css/styles.css" type="text/css">
+
+        <!-- import library -->
+        <script type="text/javascript" src="lib/jquery.min.js"></script>
+    </head>
+    <body>
+
+         <div class="game-wrap">
+            <div class="game-inner">
+                <div class="game-score">
+                    SCORE : 0
+                </div>
+                <div class="game-list-wrap">
+                    <div class="game-pick"></div>
+                    <div class="game-list"></div>
+                </div>
+                <div class="game-button">
+                    <button type="button" class="game-start" data-action="start">시작</button>
+                    <button type="button" class="game-pickup" data-action="pickup">뽑기</button>
+                </div>
+                <div class="game-console">
+                    <div class="game-console-button-wrap">
+                        <button class="game-console-button" data-type="console">CONSOLE</button>
+                        <button class="game-console-button" data-type="element">ELEMENT</button>
+                        <button class="game-console-button" data-type="hide">SHOW</button>
+                    </div>
+                    <dia class="game-console-output">
+                        <div class="game-console-message"></div>
+                        <div class="game-console-element"></div>
+                    </dia>
+                </div>
+            </div>
+        </div>
+
+        <!-- import script -->
+        <script type="text/javascript" src="js/script.js"></script>
+    </body>
+</html>

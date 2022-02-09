@@ -1,0 +1,140 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Expires" content="-1">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blind</title>
+
+  <link rel="stylesheet" href="/lib/normalize.css">
+  <link rel="stylesheet" href="/lib/animate.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/mediaquery.css">
+  <link rel="stylesheet" href="/css/font.css">
+
+  <script src="/lib/lodash.js"></script>
+  <script src="/lib/jquery-3.4.1.min.js"></script>
+  <script src="/lib/TweenMax.min.js"></script>
+  <script src="/js/global.js?v=201908071726"></script>
+</head>
+<body>
+
+  <section class="container">
+    <ul class="mosaic-list">
+      <li class="mosaic"><img src="/assets/images/img_mosaic_01.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_02.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_03.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_04.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_05.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_06.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_07.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_08.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_09.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_10.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_11.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_12.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_13.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_14.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_15.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_16.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_17.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_18.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_19.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_20.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_21.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_22.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_23.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_24.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_25.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_26.jpg" alt="img"></li>
+      <li class="mosaic"><img src="/assets/images/img_mosaic_27.jpg" alt="img"></li>
+    </ul>
+    <div class="button">
+      <button class="play">PLAY</button>
+    </div>
+  </section>
+
+  <style>
+    .mosaic-list {
+      overflow: hidden;
+      position: relative;
+      margin: 0;
+      padding: 0;
+    }
+    .mosaic {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+    }
+    .mosaic:nth-child(1) {
+      position: relative;
+      z-index: 1;
+    }
+    .mosaic:nth-child(2) {
+      z-index: 0;
+    }
+    .mosaic img {
+      width: 100%;
+      vertical-align: top;
+    }
+    .button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 5vw;
+    }
+    .play {
+      width: 20vw;
+      height: 20vw;
+      border: 0;
+      border-radius: 100%;
+      background-color: rgba(0, 0, 0, 1);
+      font-family: 'Noto Sans KR';
+      font-weight: 400;
+      font-size: 3.12vw;
+      color: rgba(255, 255, 255, 1);
+    }
+  </style>
+
+  <script>
+    (function(){
+      'use strict';
+
+      ROOT.console.log(['log', 'mosaic', 'init'].join(' | '));
+
+      $('.play').on('click', function(event){
+        var t = this
+          , $mosaic = $('.mosaic').eq(0);
+
+        $(t).prop('disabled', true).css('opacity', 0.3);
+
+        ROOT.console.log(['log', 'mosaic', 'play'].join(' | '));
+
+        $mosaic.find('img').css('visibility', 'hidden');
+
+        ROOT.image.split($mosaic.find('img'), { row: 1, column: 15 })
+        .effect(function(target, length){
+          var percent = length % 2 ? 100 : -100;
+
+          TweenMax.to(target, 1, { y: percent + '%', opacity: 0, ease: Power4.easeIn, onComplete: function(){
+            $(this.target).remove();
+
+            if (length == 1) {
+              $(t).prop('disabled', false).css('opacity', 1);
+              $mosaic.parent().append($mosaic);
+              $mosaic.find('img').css('visibility', 'visible');
+              ROOT.console.log(['log', 'mosaic', 'complete'].join(' | '));
+            }
+          }});
+        })
+        .play(null, 0.05);
+      });
+
+      ROOT.console.add();
+    }());
+  </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+@charset "utf-8";
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+#root.container {
+  overflow: hidden;
+  display: flex;
+  flex-flow: column;
+  /* position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; */
+  font-family: 'Noto Sans KR';
+  font-size: 3.12vw;
+  font-weight: 400;
+  color: rgb(68, 68, 68);
+}
+#root h1 {
+  margin: 0;
+  padding: 3.12vw;
+  font-weight: 700;
+  font-size: inherit;
+}
+#root h2 {
+  margin: 0;
+  padding: 1.56vw 3.12vw 1.56vw 0;
+  border-bottom: 0.15vw solid rgb(239, 239, 239);
+  font-weight: 700;
+  font-size: inherit;
+}
+#root h3 {
+  margin: 0;
+  padding: 1.56vw 3.12vw 1.56vw 0;
+  border-bottom: 0.15vw solid rgb(239, 239, 239);
+  font-weight: inherit;
+  font-size: inherit;
+}
+#root header {
+  display: flex;
+  flex-flow: wrap;
+  position: relative;
+  z-index: 1;
+  border-bottom: 0.15vw solid rgb(239, 239, 239);
+  box-shadow: 0 0.15vw 0.78vw rgb(68, 68, 68);
+}
+#root header menu {
+  flex: 1;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+#root header menu a {
+  padding: 3.12vw;
+  color: inherit;
+}
+#root main {
+  /* overflow-x: hidden;
+  overflow-y: scroll; */
+  flex: 1;
+  display: flex;
+  flex-flow: wrap;
+}
+#root aside {
+  padding-top: 1.56vw;
+  border-right: 0.15vw solid rgb(239, 239, 239);
+}
+#root aside menu {
+  display: flex;
+  flex-flow: column;
+  margin: 0;
+  padding: 0;
+}
+#root aside menu a {
+  flex: 1;
+  padding: 1.56vw 3.12vw;
+  border-bottom: 0.15vw solid rgb(239, 239, 239);
+  color: inherit;
+}
+#root section {
+  flex: 1;
+  padding: 1.56vw 3.12vw 3.12vw;
+}
+#root article {
+  padding-bottom: 3.12vw;
+  border-bottom: 0.15vw solid rgb(239, 239, 239);
+}
+#root table {
+  margin-top: 3.12vw;
+  width: 100%;
+  border-collapse: collapse;
+  font-weight: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+#root caption {
+  padding: 1.56vw 3.12vw;
+  background-color: rgb(68, 68, 68);
+  font-family: inherit;
+  font-weight: inherit;
+  color: rgb(255, 255, 255);
+}
+#root thead th {
+  padding: 1.56vw 3.12vw;
+  border: 0.15vw solid rgb(68, 68, 68);
+  background-color: rgb(239, 239, 239);
+  font-weight: inherit;
+}
+#root thead th:nth-child(1) {
+  width: 9.37vw;
+}
+#root tbody th {
+  padding: 1.56vw 3.12vw;
+  border: 0.15vw solid rgb(68, 68, 68);
+  background-color: rgb(239, 239, 239);
+  font-weight: inherit;
+  text-align: left;
+}
+#root tbody td {
+  padding: 1.56vw 3.12vw;
+  border: 0.15vw solid rgb(68, 68, 68);
+}
+#root tbody td a {
+  color: inherit;
+}
+#root .link-right {
+  padding: 1.56vw 0;
+  text-align: right;
+}
+#root .link-right a {
+  color: inherit;
+}

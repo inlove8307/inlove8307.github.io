@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Roulette</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+  <style>
+  html, body{margin:0;padding:0;}
+  .img-wrap{padding:5%;}
+  .img-wrap img{width:100%;height:auto;}
+  .btn-wrap{overflow:hidden;padding:10% 5% 0;}
+  .btn-wrap button{box-sizing:border-box;float:left;margin-right:5%;padding:1%;width:30%;background:#eee;border:1px solid #777;}
+  .btn-wrap button:last-child{margin-right:0;}
+  </style>
+</head>
+<body>
+  <div class="img-wrap">
+    <img src="http://stimg.emart.com/app/images/eventapp/1602/roul_luck_rotate.png" alt="">
+  </div>
+  <div class="btn-wrap">
+    <button class="play">PLAY</button>
+    <button class="plus">SPEED UP</button>
+    <button class="minus">SPEED DOWN</button>
+  </div>
+  <script>
+  (function(window, document, undefined){
+    var target = document.querySelector('img');
+
+    var codes = ['A00', 'A01', 'A02', 'A03', 'A04', 'A05', 'A06', 'A07']
+    var keymap = createKeymap(codes);
+
+    var timeout = timeline = code = null;
+
+    var speed = 2;
+
+    function createKeymap(array){
+      var result = {}, i, length;
+
+      for (i = 0, length = array.length; i < length; i++) {
+        result[array[i]] = 360 / length * i;
+      }
+
+      return result;
+    }
+
+    function doAjax(event){
+      // ajax success
+      code = getRandom(codes);
+      timeline.fromTo(target, 1, { rotation: keymap[code] }, { rotation: 360 * speed + keymap[code], ease: Power1.easeOut });
+    }
+
+    function getRandom(array){
+      return 'A0' + Math.floor(Math.random() * array.length);
+    }
+
+    function actionRoulette(event){
+      code = null;
+
+      // action start
+      timeline = new TimelineLite();
+      timeline
+      .fromTo(target, 1, { rotation: 0 }, { rotation: 360 * speed * 2, ease: Power0.easeNone })
+      .eventCallback('onUpdate', function(){
+        console.log(this.progress());
+      })
+      .call(function(){
+        if (!code) timeline.restart();
+      });
+
+      timeout = setTimeout(doAjax, 1000);
+    }
+
+    function setRotateSpeedUp(){
+      speed++
+      console.log(speed);
+    }
+
+    function setRotateSpeedDown(){
+      speed--
+      console.log(speed);
+    }
+
+    document.querySelector('.play').addEventListener('click', actionRoulette);
+    document.querySelector('.plus').addEventListener('click', setRotateSpeedUp);
+    document.querySelector('.minus').addEventListener('click', setRotateSpeedDown);
+  }(window, document))
+</script>
+</body>
+</html>

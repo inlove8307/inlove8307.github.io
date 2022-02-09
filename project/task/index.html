@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>일정관리</title>
+
+  <link rel="stylesheet" href="./css/font.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <section id="app">
+    <task-menu inline-template :menu="menu" :current="current" @change-menu="changeMenu">
+      <nav class="clear">
+        <button @click="open = !open" title="메뉴열기">
+          <i class="material-icons">apps</i>
+        </button>
+        <span class="menu clear" v-show="open">
+          <button v-for="(item, index) in menu" @click="changeMenu(index); show = index;" v-if="item.show" :class="{ 'show': show == index }" :title="item.title">
+            <i class="material-icons md-light">{{ item.icon }}</i>
+          </button>
+        </span>
+      </nav>
+    </task-menu>
+
+    <task-days inline-template :menu="menu[0]" :date="date" :items="items" @change-date="changeDate" @change-menu="changeMenu" @update-data="updateData" @change-popup="changePopup">
+      <section id="view" class="page" v-show="menu.page">
+        <header>
+          <h1>
+            <button @click="changeDate(-1)" title="이전달"><i class="material-icons md-light">keyboard_arrow_left</i></button>
+            <span>{{ date.year }}.{{ date.month }}</span>
+            <button @click="changeDate(+1)" title="다음달"><i class="material-icons md-light">keyboard_arrow_right</i></button>
+          </h1>
+          <span class="menu clear">
+            <button @click="changeMenu()" title="일정등록"><i class="material-icons md-light">create</i></button>
+            <button @click="open = !open" title="전체보기"><i class="material-icons md-light">{{ open ? icon[0] : icon[1] }}</i></button>
+          </span>
+        </header>
+        <article>
+          <ul class="date-list">
+            <li class="date-item" v-for="item in items" :class="{ 'today': item.date === today }">
+              <button :class="{ weekend: item.weekend }" @click="changeMenu(item)" :title="item.datetext + ' ' + item.weektext + ' 일정등록'">{{ item.datetext }} {{ item.weektext }}</button>
+              <ul class="data-list">
+
+                <task-days-item inline-template v-for="(task, index) in item.list" :key="task.id" :item="item" :task="task" :index="index" :open-all="open" @change-menu="changeMenu" @update-data="updateData" @change-popup="changePopup">
+                  <li class="data-item">
+                    <div class="data-title clear">
+                      <span class="title">
+                        <button @click="open = !open" :title="task.title + ' 내용보기'">{{ task.title }}</button>
+                        <span class="work" v-show="task.work">[작업]</span>
+                        <span class="deploy" v-show="task.deploy">[반영]</span>
+                        <span class="complete" v-show="task.complete">[완료]</span>
+                        <span class="hold" v-show="task.hold">[보류]</span>
+                        <button class="copy" title="복사">COPY</button>
+                      </span>
+                      <span class="menu clear" v-show="open">
+                        <button @click="changeMenu(item, index)" title="수정">EDIT</button>
+                        <button @click="deleteData(item, index)" title="삭제">DEL</button>
+                      </span>
+                    </div>
+                    <div class="data-view">
+                      <pre v-show="open">{{ task.text }}</pre>
+                    </div>
+                  </li>
+                </task-days-item>
+
+              </ul>
+            </li>
+          </ul>
+        </article>
+      </section>
+    </task-days>
+
+    <task-week inline-template :menu="menu[1]" :date="date" :items="group" @change-date="changeDate">
+      <section id="list" class="page" v-show="menu.page">
+        <header>
+          <h1>
+            <button @click="changeDate(-1)" title="이전달"><i class="material-icons md-light">keyboard_arrow_left</i></button>
+            <span>{{ date.year }}.{{ date.month }}</span>
+            <button @click="changeDate(+1)" title="다음달"><i class="material-icons md-light">keyboard_arrow_right</i></button>
+          </h1>
+        </header>
+        <article>
+          <ul class="week-list">
+            <li class="week-item" v-for="week in items">
+              <div class="date-wrap">
+                <dl class="date-list">
+                  <template v-for="date in week">
+                    <dt :class="{ weekend: date.weekend }">{{ date.datetext }} {{ date.weektext }}</dt>
+                    <dd v-if="date.list.length">
+                      <ul class="data-list">
+                        <li class="data-item" v-for="(task, index) in date.list">
+                          - {{ task.title }}
+                          <span class="work" v-show="task.work">[작업]</span>
+                          <span class="deploy" v-show="task.deploy">[반영]</span>
+                          <span class="complete" v-show="task.complete">[완료]</span>
+                          <span class="hold" v-show="task.hold">[보류]</span>
+                        </li>
+                      </ul>
+                    </dd>
+                  </template>
+                </dl>
+              </div>
+            </li>
+          </ul>
+        </article>
+      </section>
+    </task-week>
+
+    <task-write inline-template :menu="menu[2]" :dexie="dexie" :item="write" @update-data="updateData" @change-menu="changeMenu">
+      <section id="write" class="page" v-show="menu.page">
+        <header>
+          <h1><span>{{ date }} {{ week }}</span></h1>
+          <span class="menu clear">
+            <button @click="updateData" title="저장"><i class="material-icons md-light">save</i></button>
+          </span>
+        </header>
+        <article>
+          <ul class="data-list">
+            <li class="data-item">
+              <span class="data-item-row">
+                <label for="task-title" class="full">제목</label>
+                <label for="task-work" :class="{ 'work' : work }">작업</label>
+                <input type="checkbox" id="task-work" v-model="work">
+                <label for="task-deploy" :class="{ 'deploy' : deploy }">반영</label>
+                <input type="checkbox" id="task-deploy" v-model="deploy">
+                <label for="task-complete" :class="{ 'complete' : complete }">완료</label>
+                <input type="checkbox" id="task-complete" v-model="complete">
+                <label for="task-hold" :class="{ 'hold' : hold }">보류</label>
+                <input type="checkbox" id="task-hold" v-model="hold">
+              </span>
+              <input type="text" id="task-title" v-model="title" placeholder="제목을 입력하세요.">
+            </li>
+            <li class="data-item full">
+              <label for="task-text">내용</label>
+              <textarea id="task-text" v-model="text" placeholder="내용을 입력하세요."></textarea>
+            </li>
+          </ul>
+        </article>
+      </section>
+    </task-write>
+
+    <memo-view inline-template :menu="menu[3]" :dexie="dexie" :items="memos" @change-menu="changeMenu" @select-data="selectData" @change-popup="changePopup">
+      <section id="memo" class="page" v-show="menu.page">
+        <header>
+          <h1><span>메모</span></h1>
+          <span class="menu clear">
+            <button @click="changeMenu(4)" title="메모등록"><i class="material-icons md-light">create</i></button>
+            <button @click="open = !open" title="전체보기"><i class="material-icons md-light">{{ open ? icon[0] : icon[1] }}</i></button>
+          </span>
+        </header>
+        <article>
+          <div class="toolbar">
+            <label for="category">범주</label>
+            <select id="category" v-model="category">
+              <option value="all">전체</option>
+              <option v-for="key in keys" :value="key">{{ key }}</option>
+            </select>
+          </div>
+          <ul class="memo-list">
+
+            <memo-view-item inline-template v-for="item in data" :item="item" :key="item.id" :open-all="open" @delete-data="deleteData" @change-menu="changeMenu">
+              <li class="memo-item">
+                <div class="memo-title clear">
+                  <button class="button-memo-show" @click="open = !open" :title="'[' + item.category + '] ' + item.title + ' 내용보기'">[{{ item.category }}] {{ item.title }}</button>
+                  <span class="menu clear" v-show="open">
+                    <button @click="changeMenu(4, item)" title="수정">EDIT</button>
+                    <button @click="deleteData(item)" title="삭제">DEL</button>
+                  </span>
+                </div>
+                <div class="memo-text" v-show="open">
+                  <pre>{{ item.text }}</pre>
+                </div>
+              </li>
+            </memo-view-item>
+
+          </ul>
+        </article>
+      </section>
+    </memo-view>
+
+    <memo-write inline-template :menu="menu[4]" :item="write" @update-data="updateData" @change-menu="changeMenu">
+      <section id="write" class="page" v-show="menu.page">
+        <header>
+          <h1><span>메모</span></h1>
+          <span class="menu clear">
+            <button @click="updateData" title="저장"><i class="material-icons md-light">save</i></button>
+          </span>
+        </header>
+        <article>
+          <ul class="data-list">
+            <li class="data-item">
+              <label for="memo-title">제목</label>
+              <input type="text" id="memo-title" v-model="title" placeholder="제목을 입력하세요.">
+            </li>
+            <li class="data-item full">
+              <label for="memo-text">내용</label>
+              <textarea id="memo-text" v-model="text" placeholder="내용을 입력하세요."></textarea>
+            </li>
+            <li class="data-item">
+              <label for="memo-category">범주</label>
+              <input type="text" id="memo-category" v-model="category" placeholder="범주를 입력하세요.">
+            </li>
+          </ul>
+        </article>
+      </section>
+    </memo-write>
+
+    <task-data inline-template :menu="menu[5]" :dexie="dexie" @change-menu="changeMenu" @select-data="selectData">
+      <section id="data" class="page" v-show="menu.page">
+        <header>
+          <h1><span>데이터</span></h1>
+          <span class="menu clear">
+            <a :href="file" download="data.json" v-show="file" title="다운로드"><i class="material-icons md-light">save_alt</i></a>
+            <button @click="backupData" title="백업"><i class="material-icons md-light">archive</i></button>
+            <button @click="uploadData" title="업로드"><i class="material-icons md-light">unarchive</i></button>
+          </span>
+        </header>
+        <article>
+          <div class="wrap">
+            <label for="data">데이터 (JSON)</label>
+            <textarea id="data" v-model="data" placeholder="데이터(JSON)를 입력하세요."></textarea>
+          </div>
+        </article>
+      </section>
+    </task-data>
+
+    <task-popup inline-template :options="popup">
+      <div class="popup" v-show="isPopup">
+        <div class="inner">
+          <p class="title">{{ title }}</p>
+          <p class="message" v-html="message"></p>
+          <div class="button" v-show="buttons">
+            <button v-show="buttons.confirm" @click="confirm">확인</button>
+            <button v-show="buttons.cancle" @click="cancle">취소</button>
+          </div>
+        </div>
+        <div class="modal" v-show="isModal">&nbsp;</div>
+      </div>
+    </task-popup>
+
+    <div class="logo">
+      <span><i class="material-icons">book</i></span>
+    </div>
+  </section>
+
+  <script src="./lib/vue.js"></script>
+  <script src="./lib/dexie.js"></script>
+  <script src="./lib/underscore.js"></script>
+  <script src="./lib/moment.js"></script>
+  <script src="./lib/TweenMax.js"></script>
+  <script src="./lib/clipboard.js"></script>
+
+  <script src="./js/script.js"></script>
+</body>
+</html>

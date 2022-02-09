@@ -1,0 +1,63 @@
+html,body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+/*
+#contents {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
+#footer{display:none;}
+form {position:absolute;top:0;left:0;margin:0;padding:0;width:100%;height:100%;}
+.new_gnb_navi{display:none;}
+*/
+.game-wrap{
+    overflow: hidden;
+    position: relative;
+    height: 100%
+}
+.game-wrap *{
+    box-sizing: border-box;
+}
+.game-wrap img{
+    width: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+.game-inner{
+    height: 100%;
+}
+/* TIMER */
+/* SCORE */
+/* GRID */
+.game-grid {
+    width: 100%;
+    height: 100%;
+}
+.game-grid-inner {
+    width: 100%;
+    height: 100%;
+}
+.game-grid-row {
+    overflow: hidden;
+    border-bottom: 1px solid #000;
+}
+.game-grid-row:first-child {
+    border-top: 1px solid #000;
+}
+.game-grid-col {
+    float: left;
+    height: 100%;
+    border-right: 1px solid #000;
+}
+.game-grid-col:first-child {
+    border-left: 1px solid #000;
+}
+.game-grid-col button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background-color: #ccc;
+    font-weight: 700;
+    font-size: 18px;
+}
