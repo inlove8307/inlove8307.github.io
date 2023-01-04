@@ -1,20 +1,15 @@
 @charset "utf-8";
 
 /* DEFAULT */
-@import './base.css';
-@import './font.css';
-@import './icon.css';
-@import './guide.css';
+@import 'base.css';
+@import 'icon.css';
+@import 'guide.css';
 
 /* LIBRARY */
 @import '../lib/fontawesome/css/all.min.css';
+@import '../lib/prism/prism.okaidia.css';
+@import '../lib/swiper.js/swiper-bundle.min.css';
+@import '../lib/perfect-scrollbar/perfect-scrollbar.css';
 
 /* COMPONENTS */
-@import './components/button.css';
-@import './components/collapse.css';
-@import './components/tabs.css';
-@import './components/form.css';
-@import './components/popover.css';
-@import './components/modal.css';
-@import './components/list.css';
-@import './components/dropdown.css';
+@import 'components.css';
