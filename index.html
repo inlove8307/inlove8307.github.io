@@ -6,169 +6,112 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PROJECT</title>
 
-  <link rel="stylesheet" href="/lib/normalize.css">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/mediaquery.css">
-  <link rel="stylesheet" href="/css/font.css">
+  <link rel="stylesheet" href="lib/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mediaquery.css">
+  <link rel="stylesheet" href="css/font.css">
 
-  <script src="/lib/jquery-3.4.1.min.js"></script>
-  <script src="/lib/lodash.js"></script>
-  <script src="/lib/TweenMax.min.js"></script>
-  <script src="/lib/moment.min.js"></script>
+  <script src="lib/jquery-3.4.1.min.js"></script>
+  <script src="lib/lodash.js"></script>
+  <script src="lib/TweenMax.min.js"></script>
+  <script src="lib/moment.min.js"></script>
 </head>
 <body>
-  <div id="root" class="container">
-    <header>
-      <h1>PROJECT</h1>
-      <!-- <menu>
-        <a href="">LINK</a>
-        <a href="">LINK</a>
-        <a href="">LINK</a>
-      </menu> -->
+  <div class="container">
+    <header class="header">
+      <!-- <h1 class="title h1">PORTFOLIO</h1> -->
     </header>
-    <main>
-      <!-- <aside>
-        <menu>
-          <a href="">LINK</a>
-          <a href="">LINK</a>
-          <a href="">LINK</a>
-        </menu>
-      </aside> -->
-      <section>
-        <h2>EMART</h2>
-        <article>
-          <h3>EVENT</h3>
-          <table>
-            <caption>EVENT LIST</caption>
-            <colgroup>
-              <col style="width:auto">
-              <col style="width:auto">
-            </colgroup>
-            <thead>
-              <tr>
-                <th scope="col">NAME</th>
-                <th scope="col">PATH</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">sandwich</th>
-                <td><a href="/project/emart/event/sandwich/index.html" target="_blank">/project/emart/event/sandwich/index.html</a></td>
-              </tr>
-              <tr>
-                <th scope="row">takephoto</th>
-                <td><a href="/project/emart/event/takephoto/index.html" target="_blank">/project/emart/event/takephoto/index.html</a></td>
-              </tr>
-              <tr>
-                <th scope="row">ricecake</th>
-                <td><a href="/project/emart/event/ricecake/index.html" target="_blank">/project/emart/event/ricecake/index.html</a></td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="link-right">
-            <a href="https://github.com/inlove8307/inlove8307.github.io/tree/master/project/emart/event" target="_blank">github repo</a>
+    <main class="contents">
+      <section class="section">
+        <!-- [S] EVENT -->
+        <article class="article">
+          <h2 class="title h2">EVENT</h2>
+          <div class="list-wrap">
+            <ul class="list">
+              <li class="list-item">
+                <p class="list-title">SANDWICH (MOBILE)</p>
+                <span class="list-image">
+                  <img src="assets/images/img_event_01.png" aria-hidden="true">
+                </span>
+                <p class="list-text">이벤트 게임</p>
+                <a href="project/emart/event/sandwich/index.html" class="list-link" target="_blank">VIEW</a>
+                <a href="https://github.com/inlove8307/inlove8307.github.io/tree/main/project/emart/event/sandwich" class="list-link" target="_blank">REPO</a>
+              </li>
+              <li class="list-item">
+                <p class="list-title">TAKEPHOTO (MOBILE)</p>
+                <span class="list-image">
+                  <img src="assets/images/img_event_02.png" aria-hidden="true">
+                </span>
+                <p class="list-text">이벤트 게임</p>
+                <a href="project/emart/event/takephoto/index.html" class="list-link" target="_blank">VIEW</a>
+                <a href="https://github.com/inlove8307/inlove8307.github.io/tree/main/project/emart/event/takephoto" class="list-link" target="_blank">REPO</a>
+              </li>
+              <li class="list-item">
+                <p class="list-title">RICECAKE (MOBILE)</p>
+                <span class="list-image">
+                  <img src="assets/images/img_event_03.png" aria-hidden="true">
+                </span>
+                <p class="list-text">이벤트 게임</p>
+                <a href="project/emart/event/ricecake/index.html" class="list-link" target="_blank">VIEW</a>
+                <a href="https://github.com/inlove8307/inlove8307.github.io/tree/main/project/emart/event/ricecake" class="list-link" target="_blank">REPO</a>
+              </li>
+            </ul>
           </div>
         </article>
-        <h2>HANAMEMBERS</h2>
-        <article>
-          <h3>SAMPLE</h3>
-          <table>
-            <caption>SAMPLE LIST</caption>
-            <colgroup>
-              <col style="width:auto">
-              <col style="width:auto">
-            </colgroup>
-            <thead>
-              <tr>
-                <th scope="col">NAME</th>
-                <th scope="col">PATH</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Flip</th>
-                <td><a href="/project/hanamembers/sample/flip.html" target="_blank">/project/hanamembers/sample/flip.html</a></td>
-              </tr>
-              <tr>
-                <th scope="row">Chart</th>
-                <td><a href="/project/hanamembers/sample/chart.html" target="_blank">/project/hanamembers/sample/chart.html</a></td>
-              </tr>
-              <tr>
-                <th scope="row">Parallax</th>
-                <td><a href="/project/hanamembers/sample/parallax.html" target="_blank">/project/hanamembers/sample/parallax.html</a></td>
-              </tr>
-              <tr>
-                <th scope="row">Counter</th>
-                <td><a href="/project/hanamembers/sample/counter.html" target="_blank">/project/hanamembers/sample/counter.html</a></td>
-              </tr>
-              <tr>
-                <th scope="row">Mosaic</th>
-                <td><a href="/project/hanamembers/sample/mosaic.html" target="_blank">/project/hanamembers/sample/mosaic.html</a></td>
-              </tr>
-              <tr>
-                <th scope="row">Trickle</th>
-                <td><a href="/project/hanamembers/sample/trickle.html" target="_blank">/project/hanamembers/sample/trickle.html</a></td>
-              </tr>
-              <tr>
-                <th scope="row">Blind</th>
-                <td><a href="/project/hanamembers/sample/blind.html" target="_blank">/project/hanamembers/sample/blind.html</a></td>
-              </tr>
-              <tr>
-                <th scope="row">Statistics</th>
-                <td><a href="/project/hanamembers/sample/statistics.html" target="_blank">/project/hanamembers/sample/statistics.html</a></td>
-              </tr>
-              <tr>
-                <th scope="row">Calender</th>
-                <td><a href="/project/hanamembers/sample/calender.html" target="_blank">/project/hanamembers/sample/calender.html</a></td>
-              </tr>
-              <tr>
-                <th scope="row">Route</th>
-                <td><a href="/project/hanamembers/sample/route.html" target="_blank">/project/hanamembers/sample/route.html</a></td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="link-right">
-            <a href="https://github.com/inlove8307/inlove8307.github.io/tree/master/project/hanamembers/sample" target="_blank">github repo</a>
+        <!-- [E] EVENT -->
+        <!-- [S] APP -->
+        <article class="article">
+          <h2 class="title h2">APP</h2>
+          <div class="list-wrap">
+            <ul class="list">
+              <li class="list-item">
+                <p class="list-title">TASK (VUE - INLINE)</p>
+                <span class="list-image">
+                  <img src="assets/images/img_app_task.png" aria-hidden="true">
+                </span>
+                <p class="list-text">일정관리</p>
+                <a href="project/task" class="list-link" target="_blank">VIEW</a>
+                <a href="https://github.com/inlove8307/inlove8307.github.io/tree/main/project/task" class="list-link" target="_blank">REPO</a>
+              </li>
+              <li class="list-item">
+                <p class="list-title">TASK (VUE - BUILD)</p>
+                <span class="list-image">
+                  <img src="assets/images/img_app_task.png" aria-hidden="true">
+                </span>
+                <p class="list-text">일정관리</p>
+                <a href="https://inlove8307-task.github.io/" class="list-link" target="_blank">VIEW</a>
+                <a href="https://github.com/inlove8307-task/inlove8307-task.github.io" class="list-link" target="_blank">REPO</a>
+              </li>
+            </ul>
           </div>
         </article>
-        <h2>ETC</h2>
-        <article>
-          <h3>APP</h3>
-          <table>
-            <caption>APP LIST</caption>
-            <colgroup>
-              <col style="width:auto">
-              <col style="width:auto">
-            </colgroup>
-            <thead>
-              <tr>
-                <th scope="col">NAME</th>
-                <th scope="col">PATH</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">TASK (vue - inline)</th>
-                <td><a href="/project/task/" target="_blank">/project/task/</a></td>
-              </tr>
-              <tr>
-                <th scope="row">TASK (vue - build)</th>
-                <td><a href="https://inlove8307-task.github.io/" target="_blank">https://inlove8307-task.github.io/</a></td>
-              </tr>
-              <tr>
-                <th scope="row">GUIDE</th>
-                <td><a href="/guide/" target="_blank">/guide/</a></td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="link-right">
-            <a href="https://github.com/inlove8307-task/inlove8307-task.github.io" target="_blank">github repo</a>
+        <!-- [E] APP -->
+        <!-- [S] GUIDE -->
+        <article class="article">
+          <h2 class="title h2">GUIDE</h2>
+          <div class="list-wrap">
+            <ul class="list">
+              <li class="list-item">
+                <p class="list-title">SAMPLE</p>
+                <p class="list-text">가이드 샘플</p>
+                <span class="list-image">
+                  <img src="assets/images/img_guide_sample.png" aria-hidden="true">
+                </span>
+                <a href="guide" class="list-link" target="_blank">VIEW</a>
+                <a href="https://github.com/inlove8307/inlove8307.github.io/tree/main/guide" class="list-link" target="_blank">REPO</a>
+              </li>
+              <!-- <li class="list-item">
+                <p class="list-title">WORKLIST</p>
+                <p class="list-text">워크리스트</p>
+                <a href="guide/worklist/worklist.html" class="list-link" target="_blank">VIEW</a>
+                <a href="https://github.com/inlove8307/inlove8307.github.io/tree/main/guide/worklist" class="list-link" target="_blank">REPO</a>
+              </li> -->
+            </ul>
           </div>
         </article>
+        <!-- [E] GUIDE -->
       </section>
     </main>
   </div>
-
-  <script src="/js/script.js"></script>
 </body>
 </html>
