@@ -672,6 +672,7 @@ window[namespace] = window[namespace] || {};
       center: '_center',
       full: '_full',
       active: '_active',
+      identifier: '_modal-shown',
       duration: '250ms',
       easing: 'cubic-bezier(.86, 0, .07, 1)'
     });
@@ -720,6 +721,7 @@ window[namespace] = window[namespace] || {};
 
       global.lock.lockup();
       global.anchor.disable(true);
+      global.$html.addClass(this.prop('identifier'));
 
       if (options.on) {
         this.on('confirm', options.on.confirm);
@@ -735,6 +737,7 @@ window[namespace] = window[namespace] || {};
 
       global.lock.unlock();
       global.anchor.disable(false);
+      global.$html.removeClass(this.prop('identifier'));
 
       $selector.removeClass(this.prop('active'));
       callback && callback($selector);
@@ -1260,6 +1263,8 @@ window[namespace] = window[namespace] || {};
     component.unlock = function(){
       $(this.prop('html')).removeClass(this.prop('active'));
       $(this.prop('html')).scrollTop(this.prop('scroll'));
+      $(this.class('fixed')).removeAttr('style');
+      this.prop('scroll', null);
 
       this.prop('on').unlock && this.prop('on').unlock();
     };
