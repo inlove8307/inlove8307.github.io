@@ -38,11 +38,11 @@ window[namespace] = window[namespace] || {};
     global.isAOS = global.ua.getOS().name === 'Android';
     global.isDesktop = !global.isMobile && !global.isTablet && true;
 
-    global.isMobile && global.$html.addClass('_mobile');
-    global.isTablet && global.$html.addClass('_tablet');
-    global.isIOS && global.$html.addClass('_ios');
-    global.isAOS && global.$html.addClass('_aos');
-    global.isDesktop && global.$html.addClass('_desktop');
+    global.isMobile && global.$html.addClass(':mobile');
+    global.isTablet && global.$html.addClass(':tablet');
+    global.isIOS && global.$html.addClass(':ios');
+    global.isAOS && global.$html.addClass(':aos');
+    global.isDesktop && global.$html.addClass(':desktop');
   }
 }(window[namespace]));
 /* [E] USER AGENT */
@@ -490,7 +490,7 @@ window[namespace] = window[namespace] || {};
       item: '_collapse-item',
       button: '_collapse-button',
       target: '_collapse-target',
-      active: '_active',
+      active: ':active',
       group: '_group',
       duration: '250ms',
       easing: 'cubic-bezier(.65,.05,.36,1)'
@@ -588,7 +588,7 @@ window[namespace] = window[namespace] || {};
       button: '_tabs-button',
       target: '_tabs-target',
       scroll: '_tabs-scroll',
-      active: '_active',
+      active: ':active',
       duration: '250ms',
       easing: 'cubic-bezier(.65,.05,.36,1)'
     });
@@ -671,8 +671,8 @@ window[namespace] = window[namespace] || {};
       left: '_left',
       center: '_center',
       full: '_full',
-      active: '_active',
-      identifier: '_modal-shown',
+      active: ':active',
+      branch: ':modal',
       duration: '250ms',
       easing: 'cubic-bezier(.86, 0, .07, 1)'
     });
@@ -719,9 +719,9 @@ window[namespace] = window[namespace] || {};
       $(this.class('selector')).removeClass(this.prop('active'));
       this.prop('target').addClass(this.prop('active'));
 
+      global.$html.addClass(this.prop('branch'));
       global.lock.lockup();
       global.anchor.disable(true);
-      global.$html.addClass(this.prop('identifier'));
 
       if (options.on) {
         this.on('confirm', options.on.confirm);
@@ -735,9 +735,9 @@ window[namespace] = window[namespace] || {};
     component.hide = function(callback){
       var $selector = this.prop('target') || $(this.class('selector'));
 
+      global.$html.removeClass(this.prop('branch'));
       global.lock.unlock();
       global.anchor.disable(false);
-      global.$html.removeClass(this.prop('identifier'));
 
       $selector.removeClass(this.prop('active'));
       callback && callback($selector);
@@ -1008,7 +1008,7 @@ window[namespace] = window[namespace] || {};
       label: '_select-label',
       cancel: '_select-cancel',
       confirm: '_select-confirm',
-      active: '_active',
+      active: ':active',
       duration: '250ms',
       easing: 'cubic-bezier(.86, 0, .07, 1)'
     });
@@ -1042,7 +1042,9 @@ window[namespace] = window[namespace] || {};
     component.show = function(options){
       var options = $.extend({ target: null, field: null , on: {}}, options)
         , $scroll = $(this.class('scroll'), this.class('selector'))
-        , $active = $(this.class('option'), this.class('selector')).filter(this.class('active'));
+        , $active = $(this.class('option'), this.class('selector')).filter(function(index, option){
+          return $(option).hasClass(this.class('active'));
+        }.call(this));
 
       global.modal.show(options);
 
@@ -1249,19 +1251,19 @@ window[namespace] = window[namespace] || {};
       html: 'html',
       body: 'body',
       fixed: 'guide-container',
-      active: '_lockup'
+      branch: ':lockup'
     });
 
     component.lockup = function(){
       this.prop('scroll', $(this.prop('html')).scrollTop());
-      $(this.prop('html')).addClass(this.prop('active'));
+      $(this.prop('html')).addClass(this.prop('branch'));
       $(this.class('fixed')).css('margin-top', `-${this.prop('scroll')}px`);
 
       this.prop('on').lockup && this.prop('on').lockup();
     };
 
     component.unlock = function(){
-      $(this.prop('html')).removeClass(this.prop('active'));
+      $(this.prop('html')).removeClass(this.prop('branch'));
       $(this.prop('html')).scrollTop(this.prop('scroll'));
       $(this.class('fixed')).removeAttr('style');
       this.prop('scroll', null);
@@ -1292,7 +1294,7 @@ window[namespace] = window[namespace] || {};
       right: '_right',
       bottom: '_bottom',
       left: '_left',
-      active: '_active',
+      active: ':active',
       duration: '250ms',
       easing: 'cubic-bezier(.86, 0, .07, 1)',
       direction: 'top',
@@ -1418,7 +1420,7 @@ window[namespace] = window[namespace] || {};
       container: 'body',
       selector: '_toast',
       message: '_toast-message',
-      active: '_active',
+      active: ':active',
       duration: '250ms',
       easing: 'cubic-bezier(.86, 0, .07, 1)',
       delay: 3000
@@ -1499,7 +1501,7 @@ window[namespace] = window[namespace] || {};
       option: '_dropdown-option',
       label: '_dropdown-label',
       replace: '_dropdown-replace',
-      active: '_active',
+      active: ':active',
       revert: '_revert',
       hidden: '_hidden',
       duration: '250ms',
@@ -1628,7 +1630,7 @@ window[namespace] = window[namespace] || {};
       container: 'body',
       selector: '_input',
       clear: '_input-clear',
-      active: '_active'
+      active: ':active'
     });
 
     function initial(){
@@ -1817,7 +1819,7 @@ window[namespace] = window[namespace] || {};
       base: '_graph-base',
       value: '_graph-value',
       line: '_graph-line',
-      active: '_active',
+      active: ':active',
       duration: '1000ms',
       easing: 'cubic-bezier(.65,.05,.36,1)',
       angle: 315,
@@ -1932,7 +1934,7 @@ window[namespace] = window[namespace] || {};
       base: '_progress-base',
       value: '_progress-value',
       text: '_progress-text',
-      active: '_active',
+      active: ':active',
       revert: '_revert',
       duration: '1000ms',
       easing: 'cubic-bezier(.65,.05,.36,1)',
@@ -2038,7 +2040,7 @@ window[namespace] = window[namespace] || {};
       top: '_anchor-top',
       before: '_before',
       after: '_after',
-      active: '_active',
+      active: ':active',
       scroll: '_scroll',
       margin: 0,
       buffer: 20,
@@ -2079,7 +2081,9 @@ window[namespace] = window[namespace] || {};
 
     function handlerTransform(event){
       var $selector = $(this.class('selector'))
-        , $button = $(this.class('button')).filter(this.class('active'))
+        , $button = $(this.class('button')).filter(function(index, button){
+          return $(button).hasClass(this.class('active'));
+        }.call(this))
         , index = $button.length ? $button.index() : 0;
 
       $selector.hasClass(this.prop('scroll'))
