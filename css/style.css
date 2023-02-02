@@ -262,6 +262,7 @@ body {font-family: 'Noto Sans KR'; font-size: 1.6rem;}
 .list-image.line {border: .1rem solid rgb(239, 239, 239);}
 .list-image img {width: 100%;}
 .list-text {margin: 0 0 1rem 0; font-size: 1.6rem; color: rgb(102, 102, 102);}
+.list-text.bold {font-weight: 700;}
 .list-link {display: inline-flex; align-items: center; position: relative; font-size: 1.4rem; color: rgb(68, 68, 68); text-decoration: none;}
 .list-link::after {content: ''; margin-left: .5rem; width: .6rem; height: .6rem; border: .1rem solid rgb(34, 34, 34); border-width: .1rem .1rem 0 0; transform: rotate(45deg);}
 .list-link + .list-link {margin-left: 1.6rem;}
