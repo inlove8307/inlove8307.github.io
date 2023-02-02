@@ -250,7 +250,7 @@ body {font-family: 'Noto Sans KR'; font-size: 1.6rem;}
 
 /* LINEAR */
 .linear:not(.title):not(.text) {display: block; margin: 0; height: .1rem; border: none; background-color: var(--dark0);}
-.linear:not(.title):not(.text).dashed {background-color: var(--light0); background-image: repeating-linear-gradient(to right, var(--dark0), var(--dark0) .1rem, var(--light0) .1rem, var(--light0) .4rem);}
+.linear:not(.title):not(.text).dashed {background-color: var(--light0); background-image: repeating-linear-gradient(to right, var(--light3), var(--light3) .1rem, var(--light0) .1rem, var(--light0) .4rem);}
 .linear:not(.title):not(.text).hidden {overflow: hidden; height: 0; background: none;}
 
 /* LIST */
