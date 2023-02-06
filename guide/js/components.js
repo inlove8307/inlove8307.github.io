@@ -1251,22 +1251,34 @@ window[namespace] = window[namespace] || {};
       html: 'html',
       body: 'body',
       fixed: 'guide-container',
-      branch: ':lockup'
+      active: ':lockup'
     });
 
     component.lockup = function(){
-      this.prop('scroll', $(this.prop('html')).scrollTop());
-      $(this.prop('html')).addClass(this.prop('branch'));
-      $(this.class('fixed')).css('margin-top', `-${this.prop('scroll')}px`);
+      if (global.isDesktop) {
+        $(this.prop('html')).addClass(this.prop('active'));
+      }
+      else {
+        this.prop('scroll', $(this.prop('html')).scrollTop());
+        $(this.prop('html')).addClass(this.prop('active'));
+        $(this.class('fixed')).css('margin-top', `-${this.prop('scroll')}px`);
+      }
 
       this.prop('on').lockup && this.prop('on').lockup();
     };
 
     component.unlock = function(){
-      $(this.prop('html')).removeClass(this.prop('branch'));
-      $(this.prop('html')).scrollTop(this.prop('scroll'));
-      $(this.class('fixed')).removeAttr('style');
-      this.prop('scroll', null);
+      $(this.prop('html')).removeClass(this.prop('active'));
+
+      if (global.isDesktop) {
+        $(this.prop('html')).removeClass(this.prop('active'));
+      }
+      else {
+        $(this.prop('html')).removeClass(this.prop('active'));
+        $(this.prop('html')).scrollTop(this.prop('scroll'));
+        $(this.class('fixed')).removeAttr('style');
+        this.prop('scroll', null);
+      }
 
       this.prop('on').unlock && this.prop('on').unlock();
     };
@@ -1286,7 +1298,7 @@ window[namespace] = window[namespace] || {};
 
   global.popover = function(){
     var component = new global.component({
-      container: 'body',
+      container: 'guide-container',
       selector: '_popover',
       content: '_popover-content',
       message: '_popover-message',
@@ -1303,7 +1315,7 @@ window[namespace] = window[namespace] || {};
     });
 
     function initial(){
-      this.style(this.prop('container'), style.call(this));
+      this.style(global.$body, style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
 
@@ -1327,23 +1339,25 @@ window[namespace] = window[namespace] || {};
       var $html = $(markup)
         , $target = $(options.selector)
         , width = function(){
-          var deviceWidth = global.$window.width();
+          var width = $(this.class('container')).width();
 
           switch(options.direction){
             case 'top':
-            case 'bottom': return deviceWidth - options.padding * 2;
-            case 'left': return deviceWidth - options.padding - options.space - (deviceWidth - $target.offset().left);
-            case 'right': return deviceWidth - options.padding - options.space - $target.offset().left - $target.outerWidth();
+            case 'bottom': return width - options.padding * 2;
+            case 'left': return width - (options.padding * 2) - options.space - $target.outerWidth();
+            case 'right': return width - (options.padding * 2) - options.space - $target.outerWidth();
           }
-        }()
+        }.call(this)
         , left = function(){
+          var offset = $(this.class('container')).offset().left;
+
           switch(options.direction){
             case 'top':
-            case 'bottom': return - ($target.offset().left + $target.outerWidth() / 2) + (width / 2) + options.padding;
+            case 'bottom': return - ($target.offset().left - offset) - ($target.outerWidth() / 2) + options.padding;
             case 'left':
             case 'right': return 0;
           }
-        }()
+        }.call(this)
         , translate = function(){
           switch(options.direction){
             case 'top': return `translateY(calc(-100% - ${this.prop('space')}px))`;
@@ -1397,11 +1411,11 @@ window[namespace] = window[namespace] || {};
     };
 
     component.bind = function(options){
-      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('content')}`);
+      $(global.$body).off('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('content')}`);
 
       $.extend(this.options, options);
 
-      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('content')}`, handlerEnd.bind(this));
+      $(global.$body).on('TransitionEnd webkitTransitionEnd', `${this.class('selector')} ${this.class('content')}`, handlerEnd.bind(this));
 
       initial.call(this);
     };
@@ -1417,17 +1431,18 @@ window[namespace] = window[namespace] || {};
 
   global.toast = function(){
     var component = new global.component({
-      container: 'body',
+      container: 'guide-container',
       selector: '_toast',
       message: '_toast-message',
       active: ':active',
       duration: '250ms',
       easing: 'cubic-bezier(.86, 0, .07, 1)',
+      padding: 16,
       delay: 3000
     });
 
     function initial(){
-      this.style(this.prop('container'), style.call(this));
+      this.style(global.$body, style.call(this));
       this.prop('on').init && this.prop('on').init($(this.class('selector')));
     }
 
@@ -1444,7 +1459,18 @@ window[namespace] = window[namespace] || {};
           <p class="${this.prop('message')}">${options.message}</p>
         </div>`;
 
-      return html;
+      return css.call(this, options, html);
+    }
+
+    function css(options, markup){
+      var $container = $(this.class('container'))
+        , $html = $(markup)
+        , width = $container.width() - options.padding * 2
+        , left = $container.offset().left + options.padding;
+
+      $html.css({ width: width, left: left });
+
+      return $html;
     }
 
     function handlerEnd(event){
@@ -1454,10 +1480,10 @@ window[namespace] = window[namespace] || {};
     }
 
     component.show = function(options){
-      var options = $.extend({ message: 'message', delay: this.prop('delay') }, options);
+      var options = $.extend({ message: 'message', delay: this.prop('delay'), padding: this.prop('padding') }, options);
 
       $(this.class('selector')).remove();
-      $(this.prop('container')).append(html.call(this, options));
+      $(global.$body).append(html.call(this, options));
 
       setTimeout(function(){
         $(this.class('selector')).addClass(this.prop('active'));
@@ -1473,11 +1499,11 @@ window[namespace] = window[namespace] || {};
     };
 
     component.bind = function(options){
-      $(this.prop('container')).off('TransitionEnd webkitTransitionEnd', this.class('selector'));
+      $(global.$body).off('TransitionEnd webkitTransitionEnd', this.class('selector'));
 
       $.extend(this.options, options);
 
-      $(this.prop('container')).on('TransitionEnd webkitTransitionEnd', this.class('selector'), handlerEnd.bind(this));
+      $(global.$body).on('TransitionEnd webkitTransitionEnd', this.class('selector'), handlerEnd.bind(this));
 
       initial.call(this);
     };
