@@ -1268,8 +1268,6 @@ window[namespace] = window[namespace] || {};
     };
 
     component.unlock = function(){
-      $(this.prop('html')).removeClass(this.prop('active'));
-
       if (global.isDesktop) {
         $(this.prop('html')).removeClass(this.prop('active'));
       }
