@@ -1341,17 +1341,17 @@ window[namespace] = window[namespace] || {};
 
           switch(options.direction){
             case 'top':
-            case 'bottom': return width - options.padding * 2;
-            case 'left': return width - (options.padding * 2) - options.space - $target.outerWidth();
-            case 'right': return width - (options.padding * 2) - options.space - $target.outerWidth();
+            case 'bottom': return width - options.padding;
+            case 'left':
+            case 'right': return width - options.padding - options.space - $target.outerWidth();
           }
         }.call(this)
         , left = function(){
-          var offset = $(this.class('container')).offset().left;
+          var left = $(this.class('container')).offset().left;
 
           switch(options.direction){
             case 'top':
-            case 'bottom': return - ($target.offset().left - offset) - ($target.outerWidth() / 2) + options.padding;
+            case 'bottom': return - ($target.offset().left - left) - $target.outerWidth() / 2 + options.padding;
             case 'left':
             case 'right': return 0;
           }
@@ -1463,7 +1463,7 @@ window[namespace] = window[namespace] || {};
     function css(options, markup){
       var $container = $(this.class('container'))
         , $html = $(markup)
-        , width = $container.width() - options.padding * 2
+        , width = $container.width()
         , left = $container.offset().left + options.padding;
 
       $html.css({ width: width, left: left });
