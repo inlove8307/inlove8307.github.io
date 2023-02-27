@@ -17,111 +17,79 @@
   <!-- [E] LIBRARY - SCRIPT -->
 </head>
 <body>
-  <h1>Bingo</h1>
-  <button type="button" class="start-btn">Start</button>
-  <div class="bingo-wrap"></div>
+  <div class="container">
+    <h1 class="bingo-title">BINGO</h1>
+    <button type="button" class="bingo-start">START</button>
+    <div class="bingo-wrap"></div>
+  </div>
 
   <!-- [S] STYLE -->
   <style>
-    .bingo-btn {
-      cursor: pointer;
-      width: 20%;
-      display: inline-flex;
-      justify-content: center;
-      padding: 20px 0;
-      background: #fff;
-      font-size: 20px;
-      font-weight: bold;
-      border: 1px solid #eee;
-    }
-    .bingo-btn + .bingo-btn {
-      border-right: 0;
-    }
-    .bingo-btn:nth-child(5n) {
-      border-right: 1px solid #eee;
-    }
-    .bingo-btn.active {
-      background: #111;
-      color: #fff;
-    }
-    .bingo-btn.complete {
-      pointer-events: none;
-      background: #666;
-      color: #fff;
-    }
+    .container {display: flex; flex-direction: column; align-items: center;}
+    .bingo-title {padding: 1rem 0; font-size: 2.4rem;}
+    .bingo-start {margin-bottom: 2rem; width: 7rem; height: 7rem; border-radius: 50%; box-shadow: inset 0 0 0 .1rem #666;}
+    .bingo-wrap {display: flex; flex-flow: wrap; margin: -.5rem 0 0 -.5rem; width: 100%; max-width: 400px;}
+    .bingo-button {margin: .5rem 0 0 .5rem; border-radius: .5rem; box-shadow: inset 0 0 0 .1rem #666; background: #fff; cursor: pointer;}
+    .bingo-button.active {background: #222; color: #fff;}
+    .bingo-button.complete {background: #666; color: #fff; pointer-events: none;}
   </style>
   <!-- [E] STYLE -->
 
   <!-- [S] SCRIPT -->
   <script>
-    const startButton = document.querySelector(".start-btn");
-    let bingoWrap = document.querySelector(".bingo-wrap");
-    startButton.addEventListener("click", buttonCreate);
+    const start = document.querySelector(".bingo-start");
+    let wrapper = document.querySelector(".bingo-wrap");
+    const styles = document.defaultView.getComputedStyle(wrapper);
+
+    const options = {
+      number: 50,
+      count: 5,
+      maximum: 3
+    };
     let count = 0;
 
+    wrapper.style.height = styles.getPropertyValue('width');
+    start.addEventListener("click", buttonCreate);
+
     function buttonCreate() {
-      // 클릭할때 buttonwrap 초기화
-      const options = {
-        number: 50,
-        count: 5,
-        maximum: 3
-      };
       let array = [];
-      bingoWrap.innerHTML = "";
+      count = 0;
+      wrapper.innerHTML = "";
 
-      // array length 가 25가 될때까지 반복
       while (array.length < Math.pow(options.count, 2)) {
-        let num = Math.ceil(Math.random() * options.number); // 0~ 50 까지 숫자 생성
-        // 배열에 중복값 없으면 push
-        if (array.indexOf(num) == -1) {
-          array.push(num);
-        }
+        let num = Math.ceil(Math.random() * options.number);
+        array.indexOf(num) === -1 && array.push(num);
       }
 
-      // 배열 길이만큼 버튼 생성(25개)
       for (let i = 0; i < array.length; i++) {
-        let col = parseInt(i / options.count);
-        let row = i % options.count;
-        let btn = `<button type="button" class="bingo-btn" data-col=${col} data-row=${row} style="width:${100/options.count}%">${array[i]}</button>`;
-        bingoWrap.innerHTML += btn;
+        wrapper.innerHTML += `<button type="button" class="bingo-button" data-col=${Math.floor(i / options.count)} data-row=${i % options.count} style="width:calc(${100 / options.count}% - 0.5rem)">${array[i]}</button>`;
       }
 
-      const BingoBtn = document.querySelectorAll(".bingo-btn");
+      const buttons = document.querySelectorAll(".bingo-button");
 
-      BingoBtn.forEach((button) => {
+      buttons.forEach((button) => {
         button.addEventListener("click", (e) => {
           if (count >= options.maximum) return;
 
-          const buttonArray = Array.from(BingoBtn);
+          const buttonArray = Array.from(buttons);
+          let cols, rows, diagonalA, diagonalB;
 
           e.target.dataset.active = true;
           e.target.classList.add("active");
 
-          // 가로 필터
-          const cols = buttonArray.filter(item => {
-            return item.dataset.col == e.target.dataset.col && item.dataset.active;
-          });
-          // 가로 완성
+          cols = buttonArray.filter(item => item.dataset.col === e.target.dataset.col && item.dataset.active);
           if (cols.length === options.count) {
             cols.forEach(item => item.classList.add("complete"));
             count++;
           }
 
-          // 세로 필터
-          const rows = buttonArray.filter(item => {
-            return item.dataset.row == e.target.dataset.row && item.dataset.active;
-          });
-          // 세로 완성
+          rows = buttonArray.filter(item => item.dataset.row === e.target.dataset.row && item.dataset.active);
           if (rows.length === options.count) {
             rows.forEach(item => item.classList.add("complete"));
             count++;
           }
 
-          // 대각선A 필터
-          const diagonalA = buttonArray.filter(item => {
-            return item.dataset.col === item.dataset.row && item.dataset.active;
-          });
-          // 대각선A 완성
+          diagonalA = buttonArray.filter(item => item.dataset.col === item.dataset.row && item.dataset.active);
           if (e.target.dataset.col === e.target.dataset.row) {
             if (diagonalA.length === options.count) {
               diagonalA.forEach(item => item.classList.add("complete"));
@@ -129,11 +97,7 @@
             }
           }
 
-          // 대각선B 필터
-          const diagonalB = buttonArray.filter(item => {
-            return Number(item.dataset.col) + Number(item.dataset.row) === options.count - 1 && item.dataset.active;
-          });
-          // 대각선B 완성
+          diagonalB = buttonArray.filter(item => Number(item.dataset.col) + Number(item.dataset.row) === options.count - 1 && item.dataset.active);
           if (Number(e.target.dataset.col) + Number(e.target.dataset.row) === options.count - 1) {
             if (diagonalB.length === options.count) {
               diagonalB.forEach(item => item.classList.add("complete"));
