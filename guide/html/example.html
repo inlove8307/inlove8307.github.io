@@ -11,25 +11,35 @@
   <link rel="stylesheet" href="../css/style.css">
   <!-- [E] PUBLISH STYLE -->
 
+  <!-- [S] LIBRARY - STYLE -->
+  <link rel="stylesheet" href="../lib/swiper.js/swiper-bundle.min.css">
+  <!-- [E] LIBRARY - STYLE -->
+
   <!-- [S] LIBRARY - SCRIPT -->
   <script src="../lib/jquery/jquery-3.5.1.min.js"></script>
   <script src="../lib/jquery/jquery-ui-1.12.1.min.js"></script>
+  <script src="../lib/ua-parser-js/dist/ua-parser.min.js"></script>
+  <script src="../lib/cleave.js/cleave.min.js"></script>
+  <script src="../lib/moment/moment.min.js"></script>
+  <script src="../lib/swiper.js/swiper-bundle.min.js"></script>
   <!-- [E] LIBRARY - SCRIPT -->
 </head>
 <body>
   <div class="container">
-    <button type="button" class="bingo-start">BINGO START</button>
+    <button type="button" class="bingo-start">REFRESH!</button>
     <div class="bingo-wrap"></div>
   </div>
 
   <!-- [S] STYLE -->
   <style>
-    .container {display: flex; flex-direction: column; align-items: center; margin: 0 auto; padding: 0 1.6rem; width: 100%; max-width: 375px;}
-    .bingo-start {margin: 2rem 0; width: 100%; height: 4rem; border-radius: 2rem; background-color: #222; box-shadow: 0 0 1rem -.5rem #222; font-size: 1.6rem; color: #fff;}
+    .container {display: flex; flex-direction: column; align-items: center; margin: 0 auto; padding: 2rem 1.6rem; width: 100%; max-width: 375px;}
+    .bingo-start {margin-bottom: 2rem; width: 100%; height: 4rem; border-radius: 2rem; background-color: #222; box-shadow: 0 0 1rem -.5rem #222; font-size: 1.6rem; color: #fff;}
     .bingo-wrap {display: flex; flex-flow: wrap; margin: -.5rem 0 0 -.5rem; width: 100%;}
     .bingo-button {margin: .5rem 0 0 .5rem; border-radius: 1rem; border: 1px solid #ccc; background: #fff; box-shadow: 0 0 .4rem -.2rem #888; font-size: 1.8rem; cursor: pointer;}
     .bingo-button.active {background: #222; border-color: #222; color: #fff;}
     .bingo-button.complete {background: #888; border-color: #888; color: #fff; pointer-events: none;}
+
+    ._modal._alert ._modal-content {min-width: initial; max-width: 375px; width: calc(100% - 3.2rem);}
   </style>
   <!-- [E] STYLE -->
 
@@ -44,8 +54,9 @@
     wrapper.style.height = styles.getPropertyValue('width');
     window.addEventListener('resize', event => wrapper.style.height = styles.getPropertyValue('width'));
     start.addEventListener("click", create);
+    create();
 
-    function create() {
+    function create(){
       let array = [], html = '';
 
       count = 0;
@@ -61,7 +72,7 @@
 
       wrapper.innerHTML = html;
       document.querySelectorAll(".bingo-button").forEach(button => button.addEventListener("click", handler));
-    }
+    };
 
     function handler(event){
       if (count >= options.maximum) return;
@@ -74,12 +85,14 @@
       target.classList.add("active");
 
       cols = buttons.filter(item => item.dataset.col === target.dataset.col && item.dataset.active);
+
       if (cols.length === options.count) {
         cols.forEach(item => item.classList.add("complete"));
         count++;
       }
 
       rows = buttons.filter(item => item.dataset.row === target.dataset.row && item.dataset.active);
+
       if (rows.length === options.count) {
         rows.forEach(item => item.classList.add("complete"));
         count++;
@@ -87,6 +100,7 @@
 
       if (target.dataset.col === target.dataset.row) {
         diagonalA = buttons.filter(item => item.dataset.col === item.dataset.row && item.dataset.active);
+
         if (diagonalA.length === options.count) {
           diagonalA.forEach(item => item.classList.add("complete"));
           count++;
@@ -95,13 +109,26 @@
 
       if (Number(target.dataset.col) + Number(target.dataset.row) === options.count - 1) {
         diagonalB = buttons.filter(item => Number(item.dataset.col) + Number(item.dataset.row) === options.count - 1 && item.dataset.active);
+
         if (diagonalB.length === options.count) {
           diagonalB.forEach(item => item.classList.add("complete"));
           count++;
         }
       }
+
+      if (count >= options.maximum) {
+        UI.alert.show({
+          message: 'CLEAR!',
+          confirm: 'RESTART!',
+          on: { confirm: () => create() }
+        });
+      }
     }
   </script>
   <!-- [E] SCRIPT -->
+
+  <!-- [S] PUBLISH SCRIPT -->
+  <script src="../js/components.js"></script>
+  <!-- [E] PUBLISH SCRIPT -->
 </body>
 </html>
