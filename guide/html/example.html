@@ -18,20 +18,18 @@
 </head>
 <body>
   <div class="container">
-    <h1 class="bingo-title">BINGO</h1>
-    <button type="button" class="bingo-start">START</button>
+    <button type="button" class="bingo-start">BINGO START</button>
     <div class="bingo-wrap"></div>
   </div>
 
   <!-- [S] STYLE -->
   <style>
     .container {display: flex; flex-direction: column; align-items: center;}
-    .bingo-title {padding: 1rem 0; font-size: 2.4rem;}
-    .bingo-start {margin-bottom: 2rem; width: 7rem; height: 7rem; border-radius: 50%; box-shadow: inset 0 0 0 .1rem #666;}
-    .bingo-wrap {display: flex; flex-flow: wrap; margin: -.5rem 0 0 -.5rem; width: 100%; max-width: 400px;}
-    .bingo-button {margin: .5rem 0 0 .5rem; border-radius: .5rem; box-shadow: inset 0 0 0 .1rem #666; background: #fff; cursor: pointer;}
-    .bingo-button.active {background: #222; color: #fff;}
-    .bingo-button.complete {background: #666; color: #fff; pointer-events: none;}
+    .bingo-start {margin: 2rem 0; width: 100%; max-width: 375px; height: 4rem; border-radius: 2rem; background-color: #222; box-shadow: 0 0 1rem -.5rem #222; font-size: 1.6rem; color: #fff;}
+    .bingo-wrap {display: flex; flex-flow: wrap; margin: -.5rem 0 0 -.5rem; width: 100%; max-width: 375px;}
+    .bingo-button {margin: .5rem 0 0 .5rem; border-radius: 1rem; border: 1px solid #ccc; background: #fff; box-shadow: 0 0 .4rem -.2rem #888; font-size: 1.8rem; cursor: pointer;}
+    .bingo-button.active {background: #222; border-color: #222; color: #fff;}
+    .bingo-button.complete {background: #888; border-color: #888; color: #fff; pointer-events: none;}
   </style>
   <!-- [E] STYLE -->
 
@@ -40,21 +38,16 @@
     const start = document.querySelector(".bingo-start");
     const wrapper = document.querySelector(".bingo-wrap");
     const styles = document.defaultView.getComputedStyle(wrapper);
-
-    const options = {
-      number: 50,
-      count: 5,
-      maximum: 3
-    };
+    const options = { number: 50, count: 5, maximum: 3 };
     let count = 0;
 
     wrapper.style.height = styles.getPropertyValue('width');
-    start.addEventListener("click", buttonCreate);
+    start.addEventListener("click", create);
 
-    function buttonCreate() {
-      let array = [];
+    function create() {
+      let array = [], html = '';
+
       count = 0;
-      wrapper.innerHTML = "";
 
       while (array.length < Math.pow(options.count, 2)) {
         let num = Math.ceil(Math.random() * options.number);
@@ -62,50 +55,50 @@
       }
 
       for (let i = 0; i < array.length; i++) {
-        wrapper.innerHTML += `<button type="button" class="bingo-button" data-col=${Math.floor(i / options.count)} data-row=${i % options.count} style="width:calc(${100 / options.count}% - 0.5rem)">${array[i]}</button>`;
+        html += `<button type="button" class="bingo-button" data-col=${Math.floor(i / options.count)} data-row=${i % options.count} style="width:calc(${100 / options.count}% - 0.5rem)">${array[i]}</button>`;
       }
 
-      const buttons = document.querySelectorAll(".bingo-button");
+      wrapper.innerHTML = html;
+      document.querySelectorAll(".bingo-button").forEach(button => button.addEventListener("click", handler));
+    }
 
-      buttons.forEach((button) => {
-        button.addEventListener("click", (e) => {
-          if (count >= options.maximum) return;
+    function handler(event){
+      if (count >= options.maximum) return;
 
-          const buttonArray = Array.from(buttons);
-          let cols, rows, diagonalA, diagonalB;
+      const buttons = Array.from(document.querySelectorAll(".bingo-button"));
+      const target = event.target;
+      let cols, rows, diagonalA, diagonalB;
 
-          e.target.dataset.active = true;
-          e.target.classList.add("active");
+      target.dataset.active = true;
+      target.classList.add("active");
 
-          cols = buttonArray.filter(item => item.dataset.col === e.target.dataset.col && item.dataset.active);
-          if (cols.length === options.count) {
-            cols.forEach(item => item.classList.add("complete"));
-            count++;
-          }
+      cols = buttons.filter(item => item.dataset.col === target.dataset.col && item.dataset.active);
+      if (cols.length === options.count) {
+        cols.forEach(item => item.classList.add("complete"));
+        count++;
+      }
 
-          rows = buttonArray.filter(item => item.dataset.row === e.target.dataset.row && item.dataset.active);
-          if (rows.length === options.count) {
-            rows.forEach(item => item.classList.add("complete"));
-            count++;
-          }
+      rows = buttons.filter(item => item.dataset.row === target.dataset.row && item.dataset.active);
+      if (rows.length === options.count) {
+        rows.forEach(item => item.classList.add("complete"));
+        count++;
+      }
 
-          diagonalA = buttonArray.filter(item => item.dataset.col === item.dataset.row && item.dataset.active);
-          if (e.target.dataset.col === e.target.dataset.row) {
-            if (diagonalA.length === options.count) {
-              diagonalA.forEach(item => item.classList.add("complete"));
-              count++;
-            }
-          }
+      if (target.dataset.col === target.dataset.row) {
+        diagonalA = buttons.filter(item => item.dataset.col === item.dataset.row && item.dataset.active);
+        if (diagonalA.length === options.count) {
+          diagonalA.forEach(item => item.classList.add("complete"));
+          count++;
+        }
+      }
 
-          diagonalB = buttonArray.filter(item => Number(item.dataset.col) + Number(item.dataset.row) === options.count - 1 && item.dataset.active);
-          if (Number(e.target.dataset.col) + Number(e.target.dataset.row) === options.count - 1) {
-            if (diagonalB.length === options.count) {
-              diagonalB.forEach(item => item.classList.add("complete"));
-              count++;
-            }
-          }
-        });
-      });
+      if (Number(target.dataset.col) + Number(target.dataset.row) === options.count - 1) {
+        diagonalB = buttons.filter(item => Number(item.dataset.col) + Number(item.dataset.row) === options.count - 1 && item.dataset.active);
+        if (diagonalB.length === options.count) {
+          diagonalB.forEach(item => item.classList.add("complete"));
+          count++;
+        }
+      }
     }
   </script>
   <!-- [E] SCRIPT -->
