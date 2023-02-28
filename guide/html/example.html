@@ -24,9 +24,9 @@
 
   <!-- [S] STYLE -->
   <style>
-    .container {display: flex; flex-direction: column; align-items: center;}
-    .bingo-start {margin: 2rem 0; width: 100%; max-width: 375px; height: 4rem; border-radius: 2rem; background-color: #222; box-shadow: 0 0 1rem -.5rem #222; font-size: 1.6rem; color: #fff;}
-    .bingo-wrap {display: flex; flex-flow: wrap; margin: -.5rem 0 0 -.5rem; width: 100%; max-width: 375px;}
+    .container {display: flex; flex-direction: column; align-items: center; margin: 0 auto; padding: 0 1.6rem; width: 100%; max-width: 375px;}
+    .bingo-start {margin: 2rem 0; width: 100%; height: 4rem; border-radius: 2rem; background-color: #222; box-shadow: 0 0 1rem -.5rem #222; font-size: 1.6rem; color: #fff;}
+    .bingo-wrap {display: flex; flex-flow: wrap; margin: -.5rem 0 0 -.5rem; width: 100%;}
     .bingo-button {margin: .5rem 0 0 .5rem; border-radius: 1rem; border: 1px solid #ccc; background: #fff; box-shadow: 0 0 .4rem -.2rem #888; font-size: 1.8rem; cursor: pointer;}
     .bingo-button.active {background: #222; border-color: #222; color: #fff;}
     .bingo-button.complete {background: #888; border-color: #888; color: #fff; pointer-events: none;}
@@ -42,6 +42,7 @@
     let count = 0;
 
     wrapper.style.height = styles.getPropertyValue('width');
+    window.addEventListener('resize', event => wrapper.style.height = styles.getPropertyValue('width'));
     start.addEventListener("click", create);
 
     function create() {
@@ -55,7 +56,7 @@
       }
 
       for (let i = 0; i < array.length; i++) {
-        html += `<button type="button" class="bingo-button" data-col=${Math.floor(i / options.count)} data-row=${i % options.count} style="width:calc(${100 / options.count}% - 0.5rem)">${array[i]}</button>`;
+        html += `<button type="button" class="bingo-button" data-col=${Math.floor(i / options.count)} data-row=${i % options.count} style="width:calc(${100 / options.count}% - .5rem)">${array[i]}</button>`;
       }
 
       wrapper.innerHTML = html;
